@@ -15,6 +15,7 @@ const server = new ApolloServer({
 	resolvers,
 	context,
 	plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+	introspection: true, // disable for production application
 });
 
 server.start().then(() => {
