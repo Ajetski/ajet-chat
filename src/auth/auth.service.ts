@@ -1,7 +1,7 @@
 import { User } from '../users/users.schema';
 import { createUser, getUserByUsername } from '../users/users.service';
 
-export const login = (_parent, { username, password }): User => {
+export const login = (username: string, password: string): User => {
 	const user = getUserByUsername(username);
 	if (user?.password === password) {
 		return user;
@@ -10,4 +10,8 @@ export const login = (_parent, { username, password }): User => {
 	}
 };
 
-export const register = (_, user) => createUser(user);
+export const register = (user: User): User => {
+	const val = createUser(user);
+	console.log('debug: ', val);
+	return val;
+};

@@ -16,11 +16,6 @@ export const userSchema = gql`
 		lengthOfUsername: Int!
 	}
 
-	type RegisterResponse {
-		errors: [Error!]!
-		user: User
-	}
-
 	input UserInfo {
 		username: String!
 		password: String!

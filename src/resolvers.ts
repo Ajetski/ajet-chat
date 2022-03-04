@@ -2,7 +2,7 @@ import { getPosts as posts } from './posts/posts.service';
 import { getUsers as users } from './users/users.service';
 import { userResolver as User } from './users/users.resolver';
 import { postResolver as Post } from './posts/posts.resolver';
-import { login } from './auth/auth.service';
+import { login, register } from './auth/auth.service';
 
 export const resolvers = {
 	User,
@@ -11,22 +11,8 @@ export const resolvers = {
 		users,
 		posts,
 	},
-	// Mutation: {
-	// 	login,
-	// 	register: () => ({
-	// 		errors: [
-	// 			{
-	// 				field: 'username',
-	// 				message: 'bad',
-	// 			},
-	// 			{
-	// 				field: 'username2',
-	// 				message: 'bad2',
-	// 			},
-	// 		],
-	// 		user: {
-	// 			id: 1,
-	// 		},
-	// 	}),
-	// },
+	Mutation: {
+		login: (_, { username, password }) => login(username, password),
+		register: (_, { userInfo }) => register(userInfo),
+	},
 };

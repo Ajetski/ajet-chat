@@ -32,10 +32,20 @@ export const getUserByUsername = (username: string): User => {
 	return null;
 };
 
-export const createUser = (user: User) => {
-	if (getUserByUsername(user.username)) {
+export const createUser = (userInfo: User) => {
+	if (getUserByUsername(userInfo.username)) {
 		throw new Error('username already exists');
 	}
+
+	const user = {
+		...userInfo,
+		id: serial,
+	};
+
 	users.set(serial, user);
 	serial += 1;
+
+	console.log(user);
+
+	return user;
 };

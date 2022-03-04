@@ -10,7 +10,7 @@ export const typeDefs = [
 		}
 
 		type Mutation {
-			register(userInfo: UserInfo!): RegisterResponse!
+			register(userInfo: UserInfo!): User!
 			login(username: String, password: String): User!
 		}
 
