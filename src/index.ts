@@ -18,6 +18,8 @@ const server = new ApolloServer({
 	introspection: true, // disable for production application
 });
 
+app.get('/', (_req, res) => res.redirect('/graphql'));
+
 server.start().then(() => {
 	server.applyMiddleware({ app });
 	httpServer.listen({ port }, () => {
