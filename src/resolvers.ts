@@ -1,5 +1,5 @@
 import { getPosts as posts } from './posts/posts.service';
-import { getUserByToken, getUsers as users } from './users/users.service';
+import { getUsers as users } from './users/users.service';
 import { userResolver as User } from './users/users.resolver';
 import { postResolver as Post } from './posts/posts.resolver';
 import { login, register } from './auth/auth.service';
@@ -8,7 +8,7 @@ export const resolvers = {
 	User,
 	Post,
 	Query: {
-		user: (_parent, _params, ctx) => ctx.user,
+		currentUser: (_parent, _params, ctx) => ctx.user,
 		users,
 		posts,
 	},

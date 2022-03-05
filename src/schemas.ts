@@ -6,7 +6,7 @@ import { userSchema } from './users/users.schema';
 export const typeDefs = [
 	gql`
 		type Query {
-			user: User
+			currentUser: User
 			users: [User!]!
 			posts: [Post!]!
 		}
