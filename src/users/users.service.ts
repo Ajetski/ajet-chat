@@ -1,51 +1,42 @@
-import sampleData from './users.data';
+import { db } from '../db';
 import { User } from './users.schema';
 
-const users = new Map<number, User>();
+export const getUsers = (): Promise<User[]> =>
+	db.all(`
+		SELECT *
+		FROM USERS;
+	`);
 
-let serial = 0;
-sampleData.forEach((data) => {
-	users.set(serial, {
-		...data,
-		id: serial,
-		posts: [],
-	});
-	serial += 1;
-});
+export const getUserById = (id: number): Promise<User> =>
+	db.get(
+		`
+		SELECT *
+		FROM USERS
+		WHERE id = ?;
+	`,
+		id,
+	);
 
-export const getUsers = () => {
-	let temp: User[] = [];
-	for (let [_, value] of users) {
-		temp.push(value);
-	}
-	return temp;
-};
+export const getUserByToken = getUserById;
 
-export const getUserById = (id: number): User => users.get(id)!;
+export const getUserByUsername = (username: string): Promise<User> =>
+	db.get(
+		`
+		SELECT *
+		FROM USERS
+		WHERE username = ?;
+	`,
+		username,
+	);
 
-export const getUserByUsername = (username: string): User => {
-	for (let [_, value] of users) {
-		if (value.username === username) {
-			return value;
-		}
-	}
-	return null;
-};
+export const createUser = async (userInfo: User): Promise<User> => {
+	await db.run(
+		`
+		INSERT INTO USERS(username, password, age)
+		VALUES (?, ?, ?);
+	`,
+		[userInfo.username, userInfo.password, userInfo.age],
+	);
 
-export const createUser = (userInfo: User) => {
-	if (getUserByUsername(userInfo.username)) {
-		throw new Error('username already exists');
-	}
-
-	const user = {
-		...userInfo,
-		id: serial,
-	};
-
-	users.set(serial, user);
-	serial += 1;
-
-	console.log(user);
-
-	return user;
+	return getUserByUsername(userInfo.username);
 };

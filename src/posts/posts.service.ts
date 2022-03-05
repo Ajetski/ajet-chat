@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import sampleData from './posts.data';
+import { db } from '../db';
 
 type Post = {
 	id: number;
@@ -7,33 +7,22 @@ type Post = {
 	poster: number;
 };
 
-const posts = new Map<number, Post>();
-
-let serial = 0;
-sampleData.forEach((data) => {
-	posts.set(serial, {
-		...data,
-		id: serial,
-	});
-	serial += 1;
-});
-
-export const getPosts = () => {
-	let temp = [];
-	for (let [_, value] of posts) {
-		temp.push(value);
-	}
-	return temp;
+export const getPosts = (): Promise<Post[]> => {
+	return db.all(`
+		SELECT * FROM POSTS;
+	`);
 };
 
 export const postsLoader = new DataLoader(async (userIds) => {
-	let userPosts = [];
-	for (let [_, post] of posts) {
-		if (post.poster in userIds) userPosts.push(post);
-	}
+	let posts: Post[] = await db.all(
+		`
+		SELECT * FROM POSTS WHERE poster in (${userIds.map((_) => '?').join(',')})
+	`,
+		userIds,
+	);
 
 	let postsGroupedByUser = userIds.map((userId) => {
-		return userPosts.filter((post) => post.poster === userId);
+		return posts.filter((post) => post.poster === userId);
 	});
 
 	return postsGroupedByUser;

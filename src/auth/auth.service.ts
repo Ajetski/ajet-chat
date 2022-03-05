@@ -1,8 +1,11 @@
 import { User } from '../users/users.schema';
 import { createUser, getUserByUsername } from '../users/users.service';
 
-export const login = (username: string, password: string): User => {
-	const user = getUserByUsername(username);
+export const login = async (
+	username: string,
+	password: string,
+): Promise<User> => {
+	const user = await getUserByUsername(username);
 	if (user?.password === password) {
 		return user;
 	} else {
@@ -10,8 +13,4 @@ export const login = (username: string, password: string): User => {
 	}
 };
 
-export const register = (user: User): User => {
-	const val = createUser(user);
-	console.log('debug: ', val);
-	return val;
-};
+export const register = (user: User): Promise<User> => createUser(user);

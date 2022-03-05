@@ -6,10 +6,19 @@ import http from 'http';
 import { typeDefs } from './schemas';
 import { resolvers } from './resolvers';
 import { context } from './context';
+import './db';
+import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT ?? 4000;
 const httpServer = http.createServer(app);
+app.use(
+	cors({
+		origin: 'https://studio.apollographql.com',
+		allowedHeaders: ['authorization', 'content-type'],
+	}),
+);
+
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
