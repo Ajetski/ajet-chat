@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express';
+import { authSchema } from './auth/auth.schema';
 import { postsSchema } from './posts/posts.schema';
 import { userSchema } from './users/users.schema';
 
@@ -11,15 +12,11 @@ export const typeDefs = [
 		}
 
 		type Mutation {
-			register(userInfo: UserInfo!): User!
-			login(username: String, password: String): User!
-		}
-
-		type Error {
-			field: String!
-			message: String!
+			register(userInfo: UserInfo!): Login!
+			login(username: String, password: String): Login!
 		}
 	`,
 	userSchema,
 	postsSchema,
+	authSchema,
 ];

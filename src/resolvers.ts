@@ -13,13 +13,7 @@ export const resolvers = {
 		posts,
 	},
 	Mutation: {
-		login: async (_parent, { username, password }) => {
-			const user = await login(username, password);
-			return user;
-		},
-		register: async (_parent, { userInfo }) => {
-			const user = await register(userInfo);
-			return user;
-		},
+		login: (_parent, { username, password }) => login(username, password),
+		register: (_parent, { userInfo }) => register(userInfo),
 	},
 };
