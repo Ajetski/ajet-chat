@@ -1,11 +1,6 @@
 import DataLoader from 'dataloader';
 import { db } from '../db';
-
-type Post = {
-	id: number;
-	text: string;
-	poster: number;
-};
+import { Post } from './posts.schema';
 
 export const getPosts = (): Promise<Post[]> => {
 	return db.all(`

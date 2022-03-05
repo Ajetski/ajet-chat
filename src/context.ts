@@ -1,4 +1,5 @@
 import { postsLoader } from './posts/posts.service';
+import { posterLoader } from './users/users.service';
 import { getUserByToken } from './users/users.service';
 
 export const context = async ({ req }) => {
@@ -10,6 +11,7 @@ export const context = async ({ req }) => {
 
 	return {
 		postsLoader,
+		posterLoader,
 		user,
 	};
 };
