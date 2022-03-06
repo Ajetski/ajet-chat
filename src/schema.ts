@@ -13,7 +13,7 @@ export default gql`
 	}
 
 	type User {
-		id: ID!
+		id: Int!
 		username: String!
 		posts: [Post!]!
 		lengthOfUsername: Int!
@@ -27,7 +27,7 @@ export default gql`
 	}
 
 	type Post {
-		id: ID!
+		id: Int!
 		text: String!
 		poster: User!
 	}

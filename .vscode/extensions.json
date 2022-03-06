@@ -2,6 +2,7 @@
 	"recommendations": [
 		"esbenp.prettier-vscode",
 		"graphql.vscode-graphql",
-		"Prisma.prisma"
+		"prisma.prisma",
+		"capaj.graphql-codegen-vscode"
 	]
 }

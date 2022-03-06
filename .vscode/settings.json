@@ -22,5 +22,6 @@
 	"[json]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"editor.bracketPairColorization.enabled": true
+	"editor.bracketPairColorization.enabled": true,
+	"graphql-codegen.filePathToWatch": "./src/schema.ts"
 }

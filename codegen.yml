@@ -1,0 +1,8 @@
+schema: ./src/schema.ts
+generates:
+  ./src/resolvers-types.d.ts:
+    config:
+      defaultMapper: Partial<{T}>
+    plugins:
+      - typescript
+      - typescript-resolvers

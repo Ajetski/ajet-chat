@@ -2,23 +2,24 @@ import { User, Post } from '@prisma/client';
 import { getPosts } from './services/posts.service';
 import { getUsers } from './services/users.service';
 import { login, register } from './services/auth.service';
+import { Context } from './context';
+import { Resolvers } from './resolvers-types';
 
-export const resolvers = {
+export const resolvers: Resolvers<Context> = {
 	Query: {
-		currentUser: (_parent, _params, ctx) => ctx.user,
-		users: () => getUsers(),
+		currentUser: (_, __, ctx) => ctx.user,
+		users: (_, __, ___) => getUsers(),
 		posts: () => getPosts(),
 	},
 	Mutation: {
-		login: (_parent, { username, password }) => login(username, password),
-		register: (_parent, { userInfo }) => register(userInfo),
+		login: (_, { username, password }) => login(username, password),
+		register: (_, { userInfo }) => register(userInfo),
 	},
 	User: {
-		posts: (parent: User, _, ctx) => ctx.postsLoader.load(parent.id),
-		lengthOfUsername: (parent: User) => parent?.username.length,
+		posts: (parent, _, ctx) => ctx.postsLoader.load(parent.id),
+		lengthOfUsername: (parent) => parent?.username.length,
 	},
 	Post: {
-		poster: (parent: Post, _params, ctx) =>
-			ctx.posterLoader.load(parent.poster_id),
+		poster: (parent, _, ctx) => ctx.posterLoader.load(parent.poster.id),
 	},
 };

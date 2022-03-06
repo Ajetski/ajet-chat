@@ -1,10 +1,11 @@
 import { postsLoader } from './services/posts.service';
 import { posterLoader } from './services/users.service';
 import { getUserByToken } from './services/users.service';
+import { User } from './resolvers-types';
 
 export const context = async ({ req }) => {
 	const token: string = req.headers.authorization;
-	let user;
+	let user: User;
 	if (token) {
 		user = await getUserByToken(+token).catch(() => null);
 	}
@@ -15,3 +16,5 @@ export const context = async ({ req }) => {
 		user,
 	};
 };
+
+export type Context = Awaited<ReturnType<typeof context>>;

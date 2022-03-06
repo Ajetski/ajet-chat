@@ -1,5 +1,6 @@
 import DataLoader from 'dataloader';
 import { PrismaClient, User } from '@prisma/client';
+import { UserInfo } from '../resolvers-types';
 
 const prisma = new PrismaClient();
 
@@ -21,31 +22,25 @@ export const getUserByUsername = (username: string): Promise<User> =>
 		},
 	});
 
-export const createUser = async ({
-	username,
-	password,
-	age,
-}: User): Promise<User> =>
+export const createUser = async (user: UserInfo): Promise<User> =>
 	prisma.user.create({
-		data: {
-			username,
-			password,
-			age,
-		},
+		data: user,
 	});
 
-export const posterLoader = new DataLoader(async (posterIds: number[]) => {
-	let users = await prisma.user.findMany({
-		where: {
-			id: {
-				in: posterIds,
+export const posterLoader = new DataLoader(
+	async (posterIds: number[]): Promise<User[]> => {
+		let users = await prisma.user.findMany({
+			where: {
+				id: {
+					in: posterIds,
+				},
 			},
-		},
-	});
+		});
 
-	let usersGroupedByPost = posterIds.map((posterId) => {
-		return users.find((user) => user.id === posterId);
-	});
+		let usersGroupedByPost = posterIds.map((posterId) => {
+			return users.find((user) => user.id === posterId);
+		});
 
-	return usersGroupedByPost;
-});
+		return usersGroupedByPost;
+	},
+);

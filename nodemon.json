@@ -1,4 +1,5 @@
 {
+	"ext": "json,ts,schema",
 	"execMap": {
 		"ts": "ts-node"
 	}

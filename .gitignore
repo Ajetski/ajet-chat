@@ -3,4 +3,5 @@ dist
 yarn-error.log
 *.sqlite
 *.sqlite-journal
+resolvers-types.d.ts
 .env

@@ -1,10 +1,5 @@
-import { User } from '@prisma/client';
+import { Login, UserInfo } from '../resolvers-types';
 import { createUser, getUserByUsername } from './users.service';
-
-export type Login = {
-	user?: User;
-	token?: number;
-};
 
 export const login = async (
 	username: string,
@@ -21,10 +16,10 @@ export const login = async (
 	}
 };
 
-export const register = async (userData: User): Promise<Login> => {
+export const register = async (userData: UserInfo): Promise<Login> => {
 	const user = await createUser(userData);
 	return {
-		user,
-		token: user.id,
+		user: user as any,
+		token: user.id.toString(),
 	};
 };
