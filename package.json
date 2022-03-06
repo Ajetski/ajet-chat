@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"scripts": {
 		"heroku-postbuild": "npx prisma db push",
-		"start": "npx ts-node src/index.js",
+		"start": "npx ts-node src/index.ts",
 		"dev": "npx nodemon src/index.ts",
 		"format": "npx prettier -w ."
 	},
