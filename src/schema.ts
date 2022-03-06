@@ -34,6 +34,6 @@ export default gql`
 
 	type Login {
 		user: User
-		token: ID # change type to use real access tokens later
+		token: Int # change type to use real access tokens later
 	}
 `;

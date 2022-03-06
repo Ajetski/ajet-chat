@@ -20,6 +20,6 @@ export const register = async (userData: UserInfo): Promise<Login> => {
 	const user = await createUser(userData);
 	return {
 		user: user as any,
-		token: user.id.toString(),
+		token: user.id,
 	};
 };
