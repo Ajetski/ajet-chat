@@ -7,7 +7,6 @@
 		"generate": "graphql-codegen && prisma generate",
 		"start": "npx ts-node src/index.ts",
 		"dev": "npx nodemon src/index.ts",
-		"predev": "npm run generate",
 		"format": "npx prettier -w ."
 	},
 	"dependencies": {

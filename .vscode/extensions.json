@@ -3,6 +3,6 @@
 		"esbenp.prettier-vscode",
 		"graphql.vscode-graphql",
 		"prisma.prisma",
-		"capaj.graphql-codegen-vscode"
+		"VilvaAthibanPB.graphql-codegen"
 	]
 }
