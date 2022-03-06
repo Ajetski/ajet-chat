@@ -5,5 +5,7 @@
 		"esModuleInterop": true,
 		"moduleResolution": "node",
 		"outDir": "dist"
-	}
+	},
+	"include": ["src/**/*", "prisma/**/*"],
+	"exclude": ["node_modules", "**/*.spec.ts"]
 }
