@@ -6,8 +6,9 @@ import http from 'http';
 import { typeDefs } from './schemas';
 import { resolvers } from './resolvers';
 import { context } from './context';
-import './db';
 import cors from 'cors';
+
+import '../prisma/seed';
 
 const app = express();
 const port = process.env.PORT ?? 4000;

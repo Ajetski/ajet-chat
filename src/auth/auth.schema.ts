@@ -1,5 +1,5 @@
+import { User } from '@prisma/client';
 import { gql } from 'apollo-server-express';
-import { User } from '../users/users.schema';
 
 export type Login = {
 	user?: User;

@@ -1,24 +1,24 @@
 import DataLoader from 'dataloader';
-import { db } from '../db';
-import { Post } from './posts.schema';
+import { PrismaClient, Post } from '@prisma/client';
 
-export const getPosts = (): Promise<Post[]> => {
-	return db.all(`
-		SELECT * FROM POSTS;
-	`);
-};
+const prisma = new PrismaClient();
 
-export const postsLoader = new DataLoader(async (userIds) => {
-	let posts: Post[] = await db.all(
-		`
-		SELECT * FROM POSTS WHERE poster in (${userIds.map((_) => '?').join(',')})
-	`,
-		userIds,
-	);
+export const getPosts = (): Promise<Post[]> => prisma.post.findMany();
 
-	let postsGroupedByUser = userIds.map((userId) => {
-		return posts.filter((post) => post.poster === userId);
-	});
+export const postsLoader = new DataLoader(
+	async (userIds: number[]): Promise<Post[][]> => {
+		let posts = await prisma.post.findMany({
+			where: {
+				poster_id: {
+					in: userIds,
+				},
+			},
+		});
 
-	return postsGroupedByUser;
-});
+		let postsGroupedByUser = userIds.map((userId) => {
+			return posts.filter((post) => post.poster_id === userId);
+		});
+
+		return postsGroupedByUser;
+	},
+);

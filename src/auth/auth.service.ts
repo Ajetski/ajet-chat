@@ -1,4 +1,4 @@
-import { User } from '../users/users.schema';
+import { User } from '@prisma/client';
 import { createUser, getUserByUsername } from '../users/users.service';
 import { Login } from './auth.schema';
 
@@ -6,7 +6,7 @@ export const login = async (
 	username: string,
 	password: string,
 ): Promise<Login> => {
-	const user = await getUserByUsername(username);
+	const user = await getUserByUsername(username).catch(() => null);
 	if (user?.password === password) {
 		return {
 			user,
