@@ -1,19 +1,24 @@
-import { getPosts as posts } from './posts/posts.service';
-import { getUsers as users } from './users/users.service';
-import { userResolver as User } from './users/users.resolver';
-import { postResolver as Post } from './posts/posts.resolver';
-import { login, register } from './auth/auth.service';
+import { User, Post } from '@prisma/client';
+import { getPosts } from './services/posts.service';
+import { getUsers } from './services/users.service';
+import { login, register } from './services/auth.service';
 
 export const resolvers = {
-	User,
-	Post,
 	Query: {
 		currentUser: (_parent, _params, ctx) => ctx.user,
-		users,
-		posts,
+		users: () => getUsers(),
+		posts: () => getPosts(),
 	},
 	Mutation: {
 		login: (_parent, { username, password }) => login(username, password),
 		register: (_parent, { userInfo }) => register(userInfo),
+	},
+	User: {
+		posts: (parent: User, _, ctx) => ctx.postsLoader.load(parent.id),
+		lengthOfUsername: (parent: User) => parent?.username.length,
+	},
+	Post: {
+		poster: (parent: Post, _params, ctx) =>
+			ctx.posterLoader.load(parent.poster_id),
 	},
 };

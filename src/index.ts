@@ -3,7 +3,7 @@ import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import express from 'express';
 import http from 'http';
 
-import { typeDefs } from './schemas';
+import typeDefs from './schema';
 import { resolvers } from './resolvers';
 import { context } from './context';
 import cors from 'cors';

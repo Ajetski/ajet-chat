@@ -1,6 +1,10 @@
 import { User } from '@prisma/client';
-import { createUser, getUserByUsername } from '../users/users.service';
-import { Login } from './auth.schema';
+import { createUser, getUserByUsername } from './users.service';
+
+export type Login = {
+	user?: User;
+	token?: number;
+};
 
 export const login = async (
 	username: string,

@@ -1,6 +1,6 @@
-import { postsLoader } from './posts/posts.service';
-import { posterLoader } from './users/users.service';
-import { getUserByToken } from './users/users.service';
+import { postsLoader } from './services/posts.service';
+import { posterLoader } from './services/users.service';
+import { getUserByToken } from './services/users.service';
 
 export const context = async ({ req }) => {
 	const token: string = req.headers.authorization;
