@@ -3,10 +3,10 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"scripts": {
-		"heroku-postbuild": "prisma db push",
-		"start": "ts-node src/index.js",
-		"dev": "nodemon src/index.ts",
-		"format": "prettier -w ."
+		"heroku-postbuild": "npx prisma db push",
+		"start": "npx ts-node src/index.js",
+		"dev": "npx nodemon src/index.ts",
+		"format": "npx prettier -w ."
 	},
 	"dependencies": {
 		"@prisma/client": "^3.10.0",
