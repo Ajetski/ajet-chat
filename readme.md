@@ -1,6 +1,6 @@
 ## GraphQL Learning Project
 
-A simple hello world application for learning graphql.
+A model application for learning graphql.
 
 ### Usage
 play around with [the final product](https://graphql-hello-world-ajet.herokuapp.com)
