@@ -1,5 +1,8 @@
 import { ApolloServer } from 'apollo-server-express';
-import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
+import {
+	ApolloServerPluginDrainHttpServer,
+	ApolloServerPluginLandingPageGraphQLPlayground,
+} from 'apollo-server-core';
 import express from 'express';
 import http from 'http';
 
@@ -24,7 +27,10 @@ const server = new ApolloServer({
 	typeDefs,
 	resolvers,
 	context,
-	plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+	plugins: [
+		ApolloServerPluginDrainHttpServer({ httpServer }),
+		ApolloServerPluginLandingPageGraphQLPlayground(),
+	],
 	introspection: true, // disable for production application
 });
 
