@@ -6,7 +6,22 @@ play around with the [graphql endpoint](https://graphql-hello-world-ajet.herokua
 
 To run locally:
 
-- clone repo
+- prerequisites that are installed and in PATH
+  - git
+  - node.js
+  - yarn
+- clone this repository
+- cd into the repository
 - run `yarn install`
 - run `yarn generate`
 - run `yarn dev`
+
+Tech Stack:
+
+- [node.js](https://nodejs.org/en/) (runtime)
+- [yarn](https://www.npmjs.com/package/yarn) (package manager)
+- [express.js](https://www.npmjs.com/package/express) (http server)
+- [apollo-server-express](https://www.apollographql.com/docs/apollo-server/integrations/middleware/#apollo-server-express) (graphql express middleware)
+- [prisma](https://www.prisma.io/) (ORM)
+- [sqlite](https://www.sqlite.org/index.html) (database) [temporary, will change]
+- [graphql-codegen](https://www.graphql-code-generator.com/) (generate static types from graphql schema)
