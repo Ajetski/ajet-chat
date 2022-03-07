@@ -3,7 +3,7 @@ generates:
   ./src/resolvers-types.d.ts:
     plugins:
       - add:
-          content: "import { DeepPartial } from 'utility-types';"
+          content: "import type { DeepPartial } from 'utility-types';"
       - typescript
       - typescript-resolvers
     config:
