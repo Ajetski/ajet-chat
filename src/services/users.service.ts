@@ -6,8 +6,8 @@ const prisma = new PrismaClient();
 
 export const getUsers = (pageInfo: PageInfo): Promise<User[]> =>
 	prisma.user.findMany({
-		take: pageInfo.length,
-		skip: pageInfo.length * pageInfo.pageNumber,
+		take: pageInfo.pageLength,
+		skip: pageInfo.pageLength * pageInfo.pageNumber,
 	});
 
 export const getUserById = (id: number): Promise<User> =>

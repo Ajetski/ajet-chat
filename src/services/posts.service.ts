@@ -6,8 +6,8 @@ const prisma = new PrismaClient();
 
 export const getPosts = (pageInfo: PageInfo): Promise<Post[]> =>
 	prisma.post.findMany({
-		take: pageInfo.length,
-		skip: pageInfo.length * pageInfo.pageNumber,
+		take: pageInfo.pageLength,
+		skip: pageInfo.pageLength * pageInfo.pageNumber,
 	});
 
 export const postsLoader = new DataLoader(

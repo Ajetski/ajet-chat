@@ -38,7 +38,7 @@ export default gql`
 	}
 
 	input PageInfo {
-		length: Int!
+		pageLength: Int!
 		pageNumber: Int!
 	}
 `;
