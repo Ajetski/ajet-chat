@@ -25,3 +25,4 @@ Tech Stack:
 - [prisma](https://www.prisma.io/) (ORM)
 - [sqlite](https://www.sqlite.org/index.html) (database) [temporary, will change]
 - [graphql-codegen](https://www.graphql-code-generator.com/) (generate static types from graphql schema)
+- [heroku](https://heroku.com) (cloud platform)
