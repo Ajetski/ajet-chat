@@ -6,7 +6,7 @@ A simple hello world application for learning graphql.
 play around with [the final product](https://graphql-hello-world-ajet.herokuapp.com)
 
 ### Screenshot
-![image](https://user-images.githubusercontent.com/45019515/157101282-070c9147-50dc-4828-a235-498b5d2869e3.png)
+![image](https://user-images.githubusercontent.com/45019515/157102297-c5915a58-2a85-486a-b29e-cf4017403fe5.png)
 
 ### To run locally
 - prerequisites that are installed and in PATH
