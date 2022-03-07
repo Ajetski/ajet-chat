@@ -1,10 +1,14 @@
 import DataLoader from 'dataloader';
 import { PrismaClient, User } from '@prisma/client';
-import { UserInfo } from '../resolvers-types';
+import { PageInfo, UserInfo } from '../resolvers-types';
 
 const prisma = new PrismaClient();
 
-export const getUsers = (): Promise<User[]> => prisma.user.findMany();
+export const getUsers = (pageInfo: PageInfo): Promise<User[]> =>
+	prisma.user.findMany({
+		take: pageInfo.length,
+		skip: pageInfo.length * pageInfo.pageNumber,
+	});
 
 export const getUserById = (id: number): Promise<User> =>
 	prisma.user.findFirst({

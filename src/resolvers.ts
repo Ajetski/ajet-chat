@@ -8,8 +8,10 @@ import { Resolvers } from './resolvers-types';
 export const resolvers: Resolvers<Context> = {
 	Query: {
 		currentUser: (_, __, ctx) => ctx.user,
-		users: (_, __, ___) => getUsers(),
-		posts: () => getPosts(),
+		users: (_, { pageInfo }) =>
+			getUsers({ pageNumber: 0, length: 15, ...pageInfo }),
+		posts: (_, { pageInfo }) =>
+			getPosts({ pageNumber: 0, length: 15, ...pageInfo }),
 	},
 	Mutation: {
 		login: (_, { username, password }) => login(username, password),

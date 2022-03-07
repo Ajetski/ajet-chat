@@ -3,13 +3,13 @@ import { gql } from 'apollo-server-express';
 export default gql`
 	type Query {
 		currentUser: User
-		users: [User!]!
-		posts: [Post!]!
+		users(pageInfo: PageInfo): [User!]!
+		posts(pageInfo: PageInfo): [Post!]!
 	}
 
 	type Mutation {
 		register(userInfo: UserInfo!): Login!
-		login(username: String, password: String): Login!
+		login(username: String!, password: String!): Login!
 	}
 
 	type User {
@@ -35,5 +35,10 @@ export default gql`
 	type Login {
 		user: User
 		token: Int # change type to use real access tokens later
+	}
+
+	input PageInfo {
+		length: Int!
+		pageNumber: Int!
 	}
 `;
