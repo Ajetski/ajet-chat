@@ -1,11 +1,13 @@
-import { Login, UserInfo } from '../resolvers-types';
+import type { User } from '@prisma/client';
+import type { DeepPartial } from 'utility-types';
+import type { Login, UserInfo } from '../resolvers-types';
 import { createUser, getUserByUsername } from './users.service';
 
 export const login = async (
 	username: string,
 	password: string,
-): Promise<Login> => {
-	const user = await getUserByUsername(username).catch(() => null);
+): Promise<DeepPartial<Login>> => {
+	const user: User = await getUserByUsername(username).catch(() => null);
 	if (user?.password === password) {
 		return {
 			user,
@@ -16,10 +18,12 @@ export const login = async (
 	}
 };
 
-export const register = async (userData: UserInfo): Promise<Login> => {
+export const register = async (
+	userData: UserInfo,
+): Promise<DeepPartial<Login>> => {
 	const user = await createUser(userData);
 	return {
-		user: user as any,
+		user: user,
 		token: user.id,
 	};
 };

@@ -1,7 +1,7 @@
 import { postsLoader } from './services/posts.service';
 import { posterLoader } from './services/users.service';
 import { getUserByToken } from './services/users.service';
-import { User } from './resolvers-types';
+import type { User } from './resolvers-types';
 
 export const context = async ({ req }) => {
 	const token: string = req.headers.authorization;

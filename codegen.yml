@@ -1,8 +1,10 @@
 schema: ./src/schema.ts
 generates:
   ./src/resolvers-types.d.ts:
-    config:
-      defaultMapper: Partial<{T}>
     plugins:
+      - add:
+          content: "import { DeepPartial } from 'utility-types';"
       - typescript
       - typescript-resolvers
+    config:
+      defaultMapper: DeepPartial<{T}>

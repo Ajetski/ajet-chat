@@ -1,6 +1,6 @@
 import DataLoader from 'dataloader';
 import { PrismaClient, User } from '@prisma/client';
-import { PageInfo, UserInfo } from '../resolvers-types';
+import type { PageInfo, UserInfo } from '../resolvers-types';
 
 const prisma = new PrismaClient();
 

@@ -1,9 +1,8 @@
-import { User, Post } from '@prisma/client';
 import { getPosts } from './services/posts.service';
 import { getUsers } from './services/users.service';
 import { login, register } from './services/auth.service';
 import { Context } from './context';
-import { Resolvers } from './resolvers-types';
+import type { Resolvers } from './resolvers-types';
 
 export const resolvers: Resolvers<Context> = {
 	Query: {
