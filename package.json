@@ -6,7 +6,7 @@
 		"heroku-postbuild": "npm run generate && prisma db push && vite build && tsc",
 		"generate": "graphql-codegen && prisma generate",
 		"build": "vite build && tsc",
-		"start": "node dist/index.js",
+		"start": "node dist/src/index.js",
 		"dev:server": "nodemon src/index.ts",
 		"dev:web": "vite",
 		"format": "prettier -w ."
