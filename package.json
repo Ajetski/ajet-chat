@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"heroku-postbuild": "npm run generate && prisma db push && yarn build:web",
+		"heroku-postbuild": "npm run generate && prisma db push",
 		"generate": "graphql-codegen && prisma generate",
 		"build": "vite build && tsc",
 		"start": "node --experimental-specifier-resolution=node dist/src/index.js",
