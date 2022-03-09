@@ -1,5 +1,5 @@
 {
-	"ext": "json,ts,schema",
+	"ext": "json,ts,schema,html,svelte",
 	"execMap": {
 		"ts": "ts-node"
 	}

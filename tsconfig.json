@@ -1,11 +1,14 @@
 {
 	"compilerOptions": {
-		"target": "es2017",
-		"module": "commonjs",
+		"target": "esnext",
+		"useDefineForClassFields": true,
+		"module": "esnext",
 		"esModuleInterop": true,
 		"moduleResolution": "node",
-		"outDir": "dist"
+		"outDir": "dist",
+		"allowJs": true,
+		"checkJs": true
 	},
-	"include": ["src/**/*", "prisma/**/*"],
+	"include": ["src/**/*", "prisma/**/*", "web/**/*"],
 	"exclude": ["node_modules", "**/*.spec.ts"]
 }

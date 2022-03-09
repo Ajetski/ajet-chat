@@ -3,12 +3,15 @@
 A simple hello world application for learning graphql.
 
 ### Usage
+
 play around with [the final product](https://graphql-hello-world-ajet.herokuapp.com)
 
 ### Screenshot
+
 ![image](https://user-images.githubusercontent.com/45019515/157101282-070c9147-50dc-4828-a235-498b5d2869e3.png)
 
 ### To run locally
+
 - prerequisites that are installed and in PATH
   - git
   - node.js
@@ -20,6 +23,7 @@ play around with [the final product](https://graphql-hello-world-ajet.herokuapp.
 - run `yarn dev`
 
 ### Tech Stack
+
 - [node.js](https://nodejs.org/en/) (runtime)
 - [yarn](https://www.npmjs.com/package/yarn) (package manager)
 - [express.js](https://www.npmjs.com/package/express) (http server)
@@ -28,6 +32,3 @@ play around with [the final product](https://graphql-hello-world-ajet.herokuapp.
 - [sqlite](https://www.sqlite.org/index.html) (database) [temporary, will change]
 - [graphql-codegen](https://www.graphql-code-generator.com/) (generate static types from graphql schema)
 - [heroku](https://heroku.com) (cloud platform)
-
-
-

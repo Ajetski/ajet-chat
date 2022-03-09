@@ -22,6 +22,7 @@ app.use(
 		allowedHeaders: ['authorization', 'content-type'],
 	}),
 );
+app.use(express.static('public'));
 
 const server = new ApolloServer({
 	typeDefs,
@@ -34,13 +35,12 @@ const server = new ApolloServer({
 	introspection: true, // disable for production application
 });
 
-app.get('/', (_req, res) => res.redirect('/graphql'));
-
 server.start().then(() => {
 	server.applyMiddleware({ app });
 	httpServer.listen({ port }, () => {
+		console.log(`🚀 Server ready at http://localhost:${port}`);
 		console.log(
-			`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`,
+			`GraphQL endpoint is http://localhost:${port}${server.graphqlPath}`,
 		);
 	});
 });

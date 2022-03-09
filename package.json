@@ -2,12 +2,15 @@
 	"name": "graphql",
 	"version": "1.0.0",
 	"license": "MIT",
+	"type": "module",
 	"scripts": {
-		"heroku-postbuild": "npm run generate && npx prisma db push",
+		"heroku-postbuild": "npm run generate && prisma db push && yarn build:web",
 		"generate": "graphql-codegen && prisma generate",
-		"start": "npx ts-node src/index.ts",
-		"dev": "npx nodemon src/index.ts",
-		"format": "npx prettier -w ."
+		"build": "vite build && tsc",
+		"start": "node --experimental-specifier-resolution=node dist/src/index.js",
+		"dev:server": "nodemon src/index.ts",
+		"dev:web": "vite",
+		"format": "prettier -w ."
 	},
 	"dependencies": {
 		"@prisma/client": "^3.10.0",
@@ -25,11 +28,18 @@
 		"@graphql-codegen/cli": "^2.6.2",
 		"@graphql-codegen/typescript": "^2.4.5",
 		"@graphql-codegen/typescript-resolvers": "^2.5.2",
+		"@sveltejs/vite-plugin-svelte": "^1.0.0-next.39",
 		"@tsconfig/recommended": "^1.0.1",
+		"@tsconfig/svelte": "^3.0.0",
 		"@types/node": "^17.0.21",
 		"nodemon": "^2.0.15",
 		"prettier": "^2.5.1",
 		"prisma": "^3.10.0",
-		"typescript": "^4.6.2"
+		"svelte": "^3.46.4",
+		"svelte-check": "^2.4.5",
+		"svelte-preprocess": "^4.10.4",
+		"tslib": "^2.3.1",
+		"typescript": "^4.6.2",
+		"vite": "^2.8.6"
 	}
 }

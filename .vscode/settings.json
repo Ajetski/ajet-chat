@@ -8,8 +8,8 @@
 		"**/Thumbs.db": true,
 		"**/node_modules": true,
 		"**/yarn.lock": true,
-		"**/yarn-error.log": true,
-		"**/dist": true
+		"**/yarn-error.log": true
+		// "**/dist": true
 	},
 	"editor.formatOnSave": true,
 	"prettier.configPath": ".prettierrc",

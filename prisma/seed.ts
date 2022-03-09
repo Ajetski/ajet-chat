@@ -1,8 +1,8 @@
-import { PrismaClient, User } from '@prisma/client';
+import Prisma from '@prisma/client';
 
-const prisma = new PrismaClient();
+const prisma = new Prisma.PrismaClient();
 
-const userData: User[] = [
+const userData: Prisma.User[] = [
 	{
 		id: undefined,
 		username: 'ajet',
