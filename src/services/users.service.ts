@@ -1,16 +1,16 @@
 import DataLoader from 'dataloader';
-import Prisma from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import type { PageInfo, UserInfo } from '../resolvers-types';
 
-const prisma = new Prisma.PrismaClient();
+const prisma = new PrismaClient();
 
-export const getUsers = (pageInfo: PageInfo): Promise<Prisma.User[]> =>
+export const getUsers = (pageInfo: PageInfo): Promise<User[]> =>
 	prisma.user.findMany({
 		take: pageInfo.pageLength,
 		skip: pageInfo.pageLength * pageInfo.pageNumber,
 	});
 
-export const getUserById = (id: number): Promise<Prisma.User> =>
+export const getUserById = (id: number): Promise<User> =>
 	prisma.user.findFirst({
 		where: {
 			id,
@@ -19,20 +19,20 @@ export const getUserById = (id: number): Promise<Prisma.User> =>
 
 export const getUserByToken = getUserById;
 
-export const getUserByUsername = (username: string): Promise<Prisma.User> =>
+export const getUserByUsername = (username: string): Promise<User> =>
 	prisma.user.findUnique({
 		where: {
 			username,
 		},
 	});
 
-export const createUser = async (user: UserInfo): Promise<Prisma.User> =>
+export const createUser = async (user: UserInfo): Promise<User> =>
 	prisma.user.create({
 		data: user,
 	});
 
 export const posterLoader = new DataLoader(
-	async (posterIds: number[]): Promise<Prisma.User[]> => {
+	async (posterIds: number[]): Promise<User[]> => {
 		let users = await prisma.user.findMany({
 			where: {
 				id: {

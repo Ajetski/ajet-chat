@@ -1,17 +1,17 @@
 import DataLoader from 'dataloader';
-import Prisma from '@prisma/client';
+import { PrismaClient, Post } from '@prisma/client';
 import type { PageInfo } from '../resolvers-types';
 
-const prisma = new Prisma.PrismaClient();
+const prisma = new PrismaClient();
 
-export const getPosts = (pageInfo: PageInfo): Promise<Prisma.Post[]> =>
+export const getPosts = (pageInfo: PageInfo): Promise<Post[]> =>
 	prisma.post.findMany({
 		take: pageInfo.pageLength,
 		skip: pageInfo.pageLength * pageInfo.pageNumber,
 	});
 
 export const postsLoader = new DataLoader(
-	async (userIds: number[]): Promise<Prisma.Post[][]> => {
+	async (userIds: number[]): Promise<Post[][]> => {
 		let posts = await prisma.post.findMany({
 			where: {
 				poster_id: {

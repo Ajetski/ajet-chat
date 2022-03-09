@@ -1,4 +1,4 @@
-import type Prisma from '@prisma/client';
+import type { User } from '@prisma/client';
 import type { DeepPartial } from 'utility-types';
 import type { Login, UserInfo } from '../resolvers-types';
 import { createUser, getUserByUsername } from './users.service';
@@ -7,7 +7,7 @@ export const login = async (
 	username: string,
 	password: string,
 ): Promise<DeepPartial<Login>> => {
-	const user: Prisma.User = await getUserByUsername(username).catch(() => null);
+	const user: User = await getUserByUsername(username).catch(() => null);
 	if (user?.password === password) {
 		return {
 			user,

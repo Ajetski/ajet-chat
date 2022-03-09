@@ -6,10 +6,10 @@
 		"**/CVS": true,
 		"**/.DS_Store": true,
 		"**/Thumbs.db": true,
-		"**/node_modules": true,
+		// "**/node_modules": true,
+		// "**/dist": true,
 		"**/yarn.lock": true,
 		"**/yarn-error.log": true
-		// "**/dist": true
 	},
 	"editor.formatOnSave": true,
 	"prettier.configPath": ".prettierrc",
