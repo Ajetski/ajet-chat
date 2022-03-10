@@ -4,7 +4,7 @@ A model application for learning graphql.
 
 ### Usage
 
-play around with [the final product](https://ajet-graphql-project.herokuapp.com)
+Play around with [the final product](https://ajet-graphql-project.herokuapp.com) or [the graphql endpoint/playground](https://ajet-graphql-project.herokuapp.com/graphql).
 
 ### Screenshot
 
