@@ -5,6 +5,7 @@ import {
 } from 'apollo-server-core';
 import express from 'express';
 import http from 'http';
+import { graphqlUploadExpress } from 'graphql-upload';
 
 import typeDefs from './schema';
 import { resolvers } from './resolvers';
@@ -23,6 +24,7 @@ app.use(
 	}),
 );
 app.use(express.static('public'));
+app.use(graphqlUploadExpress());
 
 const server = new ApolloServer({
 	typeDefs,

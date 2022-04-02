@@ -1,6 +1,6 @@
 import DataLoader from 'dataloader';
 import { PrismaClient, User } from '@prisma/client';
-import type { PageInfo, UserInfo } from '../resolvers-types';
+import type { PageInfo, UserInfo } from '@graphql/types';
 
 const prisma = new PrismaClient();
 
@@ -10,7 +10,7 @@ export const getUsers = (pageInfo: PageInfo): Promise<User[]> =>
 		skip: pageInfo.pageLength * pageInfo.pageNumber,
 	});
 
-export const getUserById = (id: number): Promise<User> =>
+export const getUserById = async (id: number): Promise<User> =>
 	prisma.user.findFirst({
 		where: {
 			id,

@@ -1,6 +1,6 @@
 import type { User } from '@prisma/client';
 import type { DeepPartial } from 'utility-types';
-import type { Login, UserInfo } from '../resolvers-types';
+import type { Login, UserInfo } from '@graphql/types';
 import { createUser, getUserByUsername } from './users.service';
 
 export const login = async (

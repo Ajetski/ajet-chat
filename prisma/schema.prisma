@@ -11,6 +11,7 @@ model Post {
   id        Int    @id @default(autoincrement())
   text      String
   poster_id Int?
+  media     Bytes?
   poster    User?  @relation(fields: [poster_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 

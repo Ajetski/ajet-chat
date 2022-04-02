@@ -1,6 +1,14 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
+	scalar Upload
+
+	type File {
+		filename: String!
+		mimetype: String!
+		encoding: String!
+	}
+
 	type Query {
 		currentUser: User
 		users(pageInfo: PageInfo): [User!]!
@@ -10,6 +18,7 @@ export default gql`
 	type Mutation {
 		register(userInfo: UserInfo!): Login!
 		login(username: String!, password: String!): Login!
+		createPost(post: CreatePostInfo!): Post!
 	}
 
 	type User {
@@ -30,6 +39,12 @@ export default gql`
 		id: Int!
 		text: String!
 		poster: User!
+		hasMedia: Boolean!
+	}
+
+	input CreatePostInfo {
+		text: String!
+		media: Upload
 	}
 
 	type Login {

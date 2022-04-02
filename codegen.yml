@@ -1,6 +1,6 @@
 schema: ./src/schema.ts
 generates:
-  ./src/resolvers-types.d.ts:
+  ./node_modules/@graphql/types.d.ts:
     plugins:
       - add:
           content: "import type { DeepPartial } from 'utility-types';"

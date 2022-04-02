@@ -1,6 +1,7 @@
 import DataLoader from 'dataloader';
 import { PrismaClient, Post } from '@prisma/client';
-import type { PageInfo } from '../resolvers-types';
+import type { PageInfo, CreatePostInfo } from '@graphql/types';
+import { uploadFile } from './file.service';
 
 const prisma = new PrismaClient();
 
@@ -8,6 +9,18 @@ export const getPosts = (pageInfo: PageInfo): Promise<Post[]> =>
 	prisma.post.findMany({
 		take: pageInfo.pageLength,
 		skip: pageInfo.pageLength * pageInfo.pageNumber,
+	});
+
+export const createPost = async (
+	post: CreatePostInfo,
+	userId: number,
+): Promise<Post> =>
+	prisma.post.create({
+		data: {
+			text: post.text,
+			media: await uploadFile(post.media),
+			poster_id: userId,
+		},
 	});
 
 export const postsLoader = new DataLoader(
