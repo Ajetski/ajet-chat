@@ -19,7 +19,10 @@ const port = process.env.PORT ?? 4000;
 const httpServer = http.createServer(app);
 app.use(
 	cors({
-		origin: 'https://studio.apollographql.com',
+		origin: [
+			'https://studio.apollographql.com',
+			'https://ajet-graphql-project.herokuapp.com',
+		],
 		allowedHeaders: ['authorization', 'content-type'],
 	}),
 );
