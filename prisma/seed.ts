@@ -2,33 +2,28 @@ import { PrismaClient, User } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const userData: User[] = [
+const userData: { username: string; password: string; age: number }[] = [
 	{
-		id: undefined,
 		username: 'ajet',
 		password: 'password',
 		age: 23,
 	},
 	{
-		id: undefined,
 		username: 'kleb',
 		password: 'password',
 		age: 24,
 	},
 	{
-		id: undefined,
 		username: 'boosh',
 		password: 'password',
 		age: 25,
 	},
 	{
-		id: undefined,
 		username: 'john',
 		password: 'password',
 		age: 21,
 	},
 	{
-		id: undefined,
 		username: 'ty',
 		password: 'password',
 		age: 24,
