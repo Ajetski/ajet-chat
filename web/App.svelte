@@ -1,8 +1,7 @@
-<script>
-	// @ts-nocheck
-
+<script lang="ts">
 	import { ApolloClient, InMemoryCache, gql } from '@apollo/client/core';
-	import { setClient, query } from 'svelte-apollo';
+	import { setClient, query, ReadableQuery } from 'svelte-apollo';
+	import type { Post } from '@graphql/types';
 
 	const client = new ApolloClient({
 		uri: '/graphql',
@@ -13,7 +12,6 @@
 	const POSTS = gql`
 		query Query($pageInfo: PageInfo) {
 			posts(pageInfo: $pageInfo) {
-				id
 				text
 				poster {
 					username
@@ -27,7 +25,9 @@
 		pageLength: 20,
 		pageNumber: 0,
 	};
-	const posts = query(POSTS, {
+	const posts: ReadableQuery<{
+		posts: Post[];
+	}> = query(POSTS, {
 		variables: { pageInfo },
 	});
 
