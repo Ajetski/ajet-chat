@@ -27,6 +27,7 @@ export const resolvers: Resolvers<Context> = {
 	},
 	Post: {
 		poster: (parent: Post, _, ctx) => ctx.posterLoader.load(parent.poster_id),
-		hasMedia: (parent: Post) => parent.media != null,
+		mediaUrl: (parent: Post) =>
+			parent.media != null ? `/posts/media/${parent.id}` : null,
 	},
 };

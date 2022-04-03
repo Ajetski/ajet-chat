@@ -11,6 +11,11 @@ export const getPosts = (pageInfo: PageInfo): Promise<Post[]> =>
 		skip: pageInfo.pageLength * pageInfo.pageNumber,
 	});
 
+export const getPostsById = (id: number) =>
+	prisma.post.findUnique({
+		where: { id },
+	});
+
 export const createPost = async (
 	post: CreatePostInfo,
 	userId: number,

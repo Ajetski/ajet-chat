@@ -39,7 +39,7 @@ export default gql`
 		id: Int!
 		text: String!
 		poster: User!
-		hasMedia: Boolean!
+		mediaUrl: String
 	}
 
 	input CreatePostInfo {
@@ -49,7 +49,7 @@ export default gql`
 
 	type Login {
 		user: User
-		token: Int # change type to use real access tokens later
+		token: Int
 	}
 
 	input PageInfo {

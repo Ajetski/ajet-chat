@@ -18,7 +18,7 @@
 				poster {
 					username
 				}
-				hasMedia
+				mediaUrl
 			}
 		}
 	`;
@@ -45,8 +45,8 @@
 			{#each $posts.data.posts as post}
 				<li>
 					{post.poster.username}: {post.text}
-					{#if post.hasMedia}
-						<i>&nbsp; &nbsp; has media</i>
+					{#if post.mediaUrl}
+						<img src={post.mediaUrl} alt="post media" />
 					{/if}
 				</li>
 			{/each}

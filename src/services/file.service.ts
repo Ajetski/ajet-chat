@@ -11,8 +11,9 @@ const streamToBuffer = (stream): Promise<Buffer> =>
 		stream.on('end', () => resolve(buffer));
 	});
 
-export const uploadFile = async (file: Upload) => {
-	const { createReadStream, filename, mimetype, encoding } = await file;
+export const uploadFile = async (file: Upload): Promise<Buffer | null> => {
+	if (!file) return null;
+	const { createReadStream } = await file;
 
 	const stream = createReadStream();
 	return streamToBuffer(stream);

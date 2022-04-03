@@ -11,6 +11,7 @@ import typeDefs from './schema';
 import { resolvers } from './resolvers';
 import { context } from './context';
 import cors from 'cors';
+import router from './routes';
 
 import '../prisma/seed';
 
@@ -28,6 +29,7 @@ app.use(
 );
 app.use(express.static('public'));
 app.use(graphqlUploadExpress());
+app.use(router);
 
 const server = new ApolloServer({
 	typeDefs,
@@ -37,7 +39,7 @@ const server = new ApolloServer({
 		ApolloServerPluginDrainHttpServer({ httpServer }),
 		ApolloServerPluginLandingPageGraphQLPlayground(),
 	],
-	introspection: true, // disable for production application
+	introspection: true,
 });
 
 server.start().then(() => {
