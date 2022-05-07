@@ -8,6 +8,7 @@
 		"generate": "graphql-codegen && prisma generate",
 		"build": "vite build && tsc",
 		"start": "node dist/src/index.js",
+		"dev": "npm run generate && concurrently \"npm run dev:server\" \"npm run dev:web\"",
 		"dev:server": "nodemon src/index.ts",
 		"dev:web": "vite build --watch",
 		"format": "prettier -w ."
@@ -35,6 +36,7 @@
 		"@tsconfig/recommended": "^1.0.1",
 		"@tsconfig/svelte": "^3.0.0",
 		"@types/node": "^17.0.21",
+		"concurrently": "^7.1.0",
 		"nodemon": "^2.0.15",
 		"prettier": "^2.5.1",
 		"prisma": "^3.10.0",

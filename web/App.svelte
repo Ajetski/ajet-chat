@@ -1,55 +1,38 @@
 <script lang="ts">
-	import { ApolloClient, InMemoryCache, gql } from '@apollo/client/core';
-	import { setClient, query, ReadableQuery } from 'svelte-apollo';
-	import type { Post } from '@graphql/types';
+	import {
+		ApolloClient,
+		createHttpLink,
+		InMemoryCache,
+	} from '@apollo/client/core';
+	import { setContext } from '@apollo/client/link/context';
+	import { setClient } from 'svelte-apollo';
+	import Home from './components/Home.svelte';
+	import { clientStore } from './stores/graphql-client.store';
+	import { tokenStore, userStore } from './stores/user.store';
+
+	const httpLink = createHttpLink({
+		uri: '/graphql',
+	});
+
+	const authLink = setContext((_, { headers }) => {
+		const token = $tokenStore;
+		// return the headers to the context so httpLink can read them
+		return {
+			headers: {
+				...headers,
+				authorization: token ? `Bearer ${token}` : '',
+			},
+		};
+	});
 
 	const client = new ApolloClient({
-		uri: '/graphql',
+		link: authLink.concat(httpLink),
 		cache: new InMemoryCache(),
 	});
 	setClient(client);
-
-	const POSTS = gql`
-		query Query($pageInfo: PageInfo) {
-			posts(pageInfo: $pageInfo) {
-				text
-				poster {
-					username
-				}
-				mediaUrl
-			}
-		}
-	`;
-
-	let pageInfo = {
-		pageLength: 20,
-		pageNumber: 0,
-	};
-	const posts: ReadableQuery<{
-		posts: Post[];
-	}> = query(POSTS, {
-		variables: { pageInfo },
-	});
-
-	const reload = () => posts.refetch();
+	// clientStore.set(client);
 </script>
 
 <main>
-	<h2>Posts:</h2>
-	<ul>
-		{#if $posts.loading}
-			<li>Loading...</li>
-		{:else if $posts.error}
-			<li>ERROR: {$posts.error.message}</li>
-		{:else}
-			{#each $posts.data.posts as post}
-				<li>
-					{post.poster.username}: {post.text}
-					{#if post.mediaUrl}
-						<img src={post.mediaUrl} alt="post media" />
-					{/if}
-				</li>
-			{/each}
-		{/if}
-	</ul>
+	<Home />
 </main>
