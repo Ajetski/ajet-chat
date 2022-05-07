@@ -7,7 +7,6 @@ export const context = async ({ req }) => {
 	let user: User;
 	if (req.headers.authorization?.startsWith('Bearer ')) {
 		const token = req.headers.authorization.substring(7);
-		console.log(token);
 		user = await getUserByToken(+token).catch(() => null);
 	}
 
