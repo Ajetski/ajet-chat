@@ -1,10 +1,10 @@
-## GraphQL Learning Project
+## Ajet chat
 
-A model application for learning graphql.
+A web based communication platform.
 
 ### Usage
 
-Play around with [the final product](https://ajet-graphql-project.herokuapp.com) or [the graphql endpoint/playground](https://ajet-graphql-project.herokuapp.com/graphql).
+[Live demo](https://ajet-graphql-project.herokuapp.com) or [the graphql endpoint/playground](https://ajet-graphql-project.herokuapp.com/graphql).
 
 ### Screenshot
 
