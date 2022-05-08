@@ -1,4 +1,5 @@
 {
+	"extends": "@tsconfig/svelte/tsconfig.json",
 	"compilerOptions": {
 		"target": "es6",
 		"useDefineForClassFields": true,
@@ -8,6 +9,5 @@
 		"allowJs": true,
 		"checkJs": true
 	},
-	"extends": "../tsconfig.json",
 	"include": ["**/*.svelte", "**/*.ts"]
 }

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { query, ReadableQuery } from 'svelte-apollo';
+	import { query } from 'svelte-apollo';
+	import type { ReadableQuery } from 'svelte-apollo';
 	import { POSTS } from '../queries/post.query';
 	import type { Post } from '@graphql/types';
 
