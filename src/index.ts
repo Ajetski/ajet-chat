@@ -5,6 +5,7 @@ import {
 } from 'apollo-server-core';
 import express from 'express';
 import http from 'http';
+import https from 'https';
 import { graphqlUploadExpress } from 'graphql-upload';
 
 import typeDefs from './schema';
@@ -16,11 +17,20 @@ import { PeerServer } from 'peer';
 
 // Seed the db if it is empty
 import '../prisma/seed';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+const credentials = {
+	key: readFileSync(join('certs', 'privatekey.pem')),
+	cert: readFileSync(join('certs', 'certificate.pem')),
+};
 
 // Configure HTTP Server
 const app = express();
-const port = process.env.PORT ?? 4000;
+const port = process.env.PORT ?? 8080;
+const securePort = process.env.SECURE_PORT ?? 8443;
 const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 app.use(
 	cors({
 		origin: [
@@ -28,6 +38,7 @@ app.use(
 			'https://ajet-graphql-project.herokuapp.com',
 		],
 		allowedHeaders: ['authorization', 'content-type'],
+		credentials: true,
 	}),
 );
 app.use(express.static('public'));
@@ -44,7 +55,6 @@ const server = new ApolloServer({
 	],
 	introspection: true,
 });
-
 server.start().then(() => {
 	server.applyMiddleware({ app });
 	httpServer.listen({ port }, () => {
@@ -53,10 +63,22 @@ server.start().then(() => {
 			`GraphQL endpoint is http://localhost:${port}${server.graphqlPath}`,
 		);
 	});
+	httpsServer.listen({ port: securePort }, () => {
+		console.log(`🚀 Server ready at https://localhost:${securePort}`);
+		console.log(
+			`GraphQL endpoint is https://localhost:${securePort}${server.graphqlPath}`,
+		);
+	});
 });
 
 // Configure P2P Signaling Server
 const P2P_PORT = 9000;
-const peerServer = PeerServer({ port: P2P_PORT, path: '/p2p' });
-
+const peerServer = PeerServer({
+	port: P2P_PORT,
+	path: '/p2p',
+	ssl: {
+		key: credentials.key.toString(),
+		cert: credentials.cert.toString(),
+	},
+});
 console.log(`P2P server listening on localhost:${P2P_PORT}`);
