@@ -73,12 +73,14 @@ server.start().then(() => {
 
 // Configure P2P Signaling Server
 const P2P_PORT = 9000;
-const peerServer = PeerServer({
-	port: P2P_PORT,
-	path: '/p2p',
-	ssl: {
-		key: credentials.key.toString(),
-		cert: credentials.cert.toString(),
+const peerServer = PeerServer(
+	{
+		port: P2P_PORT,
+		path: '/p2p',
+		ssl: {
+			key: credentials.key.toString(),
+			cert: credentials.cert.toString(),
+		},
 	},
-});
-console.log(`P2P server listening on localhost:${P2P_PORT}`);
+	() => console.log(`P2P server listening on localhost:${P2P_PORT}`),
+);
