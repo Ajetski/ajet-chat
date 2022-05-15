@@ -31,7 +31,7 @@
 	setClient(client);
 
 	// Setup WebRTC video chat
-	let video1;
+	let video1: HTMLVideoElement;
 	navigator.mediaDevices
 		.getUserMedia({
 			audio: false,
@@ -41,7 +41,7 @@
 			video1.srcObject = stream;
 			video1.play();
 		});
-	let video2;
+	let video2: HTMLVideoElement;
 	let peerId = '';
 	let myId = 'loading...';
 	const peer = new Peer(undefined, {
