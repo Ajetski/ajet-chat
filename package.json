@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.5.10",
-		"@prisma/client": "^3.10.0",
+		"@prisma/client": "^3.14.0",
 		"apollo-server-core": "^3.6.3",
 		"apollo-server-express": "^3.6.3",
 		"cors": "^2.8.5",
@@ -41,7 +41,7 @@
 		"concurrently": "^7.1.0",
 		"nodemon": "^2.0.15",
 		"prettier": "^2.5.1",
-		"prisma": "^3.10.0",
+		"prisma": "^3.14.0",
 		"svelte": "^3.46.4",
 		"svelte-check": "^2.4.5",
 		"svelte-preprocess": "^4.10.4",
