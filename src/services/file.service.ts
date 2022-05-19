@@ -1,7 +1,4 @@
-import { finished } from 'stream/promises';
 import { Upload } from 'graphql-upload';
-import { Writable } from 'stream';
-import { resolve } from 'path';
 
 const streamToBuffer = (stream): Promise<Buffer> =>
 	new Promise((resolve, reject) => {
@@ -13,8 +10,9 @@ const streamToBuffer = (stream): Promise<Buffer> =>
 
 export const uploadFile = async (file: Upload): Promise<Buffer | null> => {
 	if (!file) return null;
-	const { createReadStream } = await file;
+	const { createReadStream } =  await file.promise;
 
 	const stream = createReadStream();
 	return streamToBuffer(stream);
 };
+
