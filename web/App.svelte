@@ -45,9 +45,10 @@
 	let peerId = '';
 	let myId = 'loading...';
 	const peer = new Peer(undefined, {
-		host: 'localhost',
-		port: 9000,
-		path: '/p2p',
+		host: 'ajet-chat-p2p.herokuapp.com',
+		/*port: 9000,*/
+		path: '/myapp',
+		secure: true,
 	});
 	peer.on('open', () => {
 		myId = peer.id;
