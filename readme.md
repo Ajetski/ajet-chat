@@ -19,7 +19,6 @@ A web based communication platform.
 - clone this repository
 - cd into the repository
 - run `yarn install`
-- run `yarn generate`
 - run `yarn dev`
 
 ### Tech Stack
