@@ -4,7 +4,7 @@ A web based communication platform.
 
 ### Usage
 
-[Live demo](https://ajet-graphql-project.herokuapp.com) or [the graphql endpoint/playground](https://ajet-graphql-project.herokuapp.com/graphql).
+[Live demo](https://ajet-chat-dev.herokuapp.com/) or [the graphql endpoint/playground](https://ajet-chat-dev.herokuapp.com/graphql).
 
 ### Screenshot
 
