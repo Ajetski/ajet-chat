@@ -964,6 +964,11 @@
   resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a.tgz#7fa11bc26a51d450185c816cc0ab8cac673fb4bf"
   integrity sha512-LwZvI3FY6f43xFjQNRuE10JM5R8vJzFTSmbV9X0Wuhv9kscLkjRlZt0BEoiHmO+2HA3B3xxbMfB5du7ZoSFXGg==
 
+"@prisma/prisma-fmt-wasm@3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a":
+  version "3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a"
+  resolved "https://registry.yarnpkg.com/@prisma/prisma-fmt-wasm/-/prisma-fmt-wasm-3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a.tgz#25cfdfbef45e2332f390507a630f7ead5e63fda2"
+  integrity sha512-YwiGDAfUqLPz1NIyd6y6LyT1ViiTCXNx7AFWuMwb7aGhBmzhfuTeo/MQpzlA9x90wKh2ACJ4Fa3nZS5Wvr8xbg==
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
@@ -4134,6 +4139,13 @@ prepend-http@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
+
+prettier-plugin-prisma@^3.14.0:
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-prisma/-/prettier-plugin-prisma-3.14.0.tgz#751c53677238b60ac84cff7e53469e8f83d777fe"
+  integrity sha512-/6xrVjtnFBB591Fq2M/8lCf2agzq0rTLQhKV/VX+dwL0vtbH2KXw+iXWPifPFw3HvcHNbSjZ4yGVPc2Zwf0J5g==
+  dependencies:
+    "@prisma/prisma-fmt-wasm" "3.14.0-36.2b0c12756921c891fec4f68d9444e18c7d5d4a6a"
 
 prettier@^2.5.1:
   version "2.5.1"

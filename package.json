@@ -42,6 +42,7 @@
 		"concurrently": "^7.1.0",
 		"nodemon": "^2.0.15",
 		"prettier": "^2.5.1",
+		"prettier-plugin-prisma": "^3.14.0",
 		"prisma": "^3.14.0",
 		"svelte": "^3.46.4",
 		"svelte-check": "^2.4.5",
