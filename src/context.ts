@@ -1,19 +1,19 @@
-import { postsLoader } from './services/posts.service';
-import { posterLoader } from './services/users.service';
-import { getUserByToken } from './services/users.service';
+//import { postsLoader } from './services/posts.service';
+//import { posterLoader } from './services/users.service';
+//import { getUserByToken } from './services/users.service';
 import type { User } from '@graphql/types';
 
 export const context = async ({ req }) => {
-	let user: User;
-	if (req.headers.authorization?.startsWith('Bearer ')) {
-		const token = req.headers.authorization.substring(7);
-		user = await getUserByToken(+token).catch(() => null);
-	}
+	//let user: User;
+	//if (req.headers.authorization?.startsWith('Bearer ')) {
+		//const token = req.headers.authorization.substring(7);
+		//user = await getUserByToken(+token).catch(() => null);
+	//}
 
 	return {
-		postsLoader,
-		posterLoader,
-		user,
+		//postsLoader,
+		//posterLoader,
+		//user,
 	};
 };
 

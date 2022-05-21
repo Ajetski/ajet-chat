@@ -10,41 +10,22 @@ export default gql`
 	}
 
 	type Query {
-		currentUser: User
 		users(pageInfo: PageInfo): [User!]!
-		posts(pageInfo: PageInfo): [Post!]!
 	}
 
 	type Mutation {
 		register(userInfo: UserInfo!): Login!
-		login(username: String!, password: String!): Login!
-		createPost(post: CreatePostInfo!): Post!
+		login(userInfo: UserInfo!): Login!
 	}
 
 	type User {
 		id: Int!
 		username: String!
-		posts: [Post!]!
-		lengthOfUsername: Int!
-		age: Int
 	}
 
 	input UserInfo {
 		username: String!
 		password: String!
-		age: Int
-	}
-
-	type Post {
-		id: Int!
-		text: String!
-		poster: User!
-		mediaUrl: String
-	}
-
-	input CreatePostInfo {
-		text: String!
-		media: Upload
 	}
 
 	type Login {

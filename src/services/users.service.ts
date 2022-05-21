@@ -9,7 +9,7 @@ export const getUsers = (pageInfo: PageInfo): Promise<User[]> =>
 		take: pageInfo.pageLength,
 		skip: pageInfo.pageLength * pageInfo.pageNumber,
 	});
-
+/*
 export const getUserById = async (id: number): Promise<User> =>
 	prisma.user.findFirst({
 		where: {
@@ -47,4 +47,4 @@ export const posterLoader = new DataLoader(
 
 		return usersGroupedByPost;
 	},
-);
+);*/

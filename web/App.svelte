@@ -46,7 +46,6 @@
 	let myId = 'loading...';
 	const peer = new Peer(undefined, {
 		host: 'ajet-chat-p2p.herokuapp.com',
-		/*port: 9000,*/
 		path: '/myapp',
 		secure: true,
 	});
@@ -78,8 +77,6 @@
 </script>
 
 <main>
-	<Home />
-	<br /><br />
 	<h2>video calling:</h2>
 	<label>
 		id to call:
