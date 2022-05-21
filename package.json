@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"scripts": {
-		"heroku-postbuild": "npm run migrate && vite build && tsc",
+		"heroku-postbuild": "npm run migrate && npm run build",
 		"migrate": "npm run generate && prisma db push",
 		"generate": "graphql-codegen && prisma generate",
 		"build": "vite build && tsc",
