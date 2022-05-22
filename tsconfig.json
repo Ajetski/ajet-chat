@@ -9,6 +9,6 @@
 		"allowJs": true,
 		"checkJs": true
 	},
-	"include": ["src/**/*", "prisma/**/*"],
+	"include": ["src/**/*", "prisma/**/*", "shared/**/*"],
 	"exclude": ["node_modules", "**/*.spec.ts"]
 }

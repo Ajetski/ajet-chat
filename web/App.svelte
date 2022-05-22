@@ -9,6 +9,9 @@
 	import { tokenStore } from './stores/user.store';
 	import Peer from 'peerjs';
 	import Home from './components/Home.svelte';
+	import { io } from 'socket.io-client';
+	import { Event } from '../shared/event';
+	/*import type {  } from '@graphql/types';*/
 
 	// Setup GraphQL client
 	const httpLink = createHttpLink({
@@ -74,9 +77,15 @@
 			video2.play();
 		});
 	});
+
+	const socket = io();
+	socket.on('msg', (data) => {
+		console.log('message:', data);
+	});
 </script>
 
 <main>
+	<button on:click={() => socket.emit(Event.Message, 'hello people')}>test</button>
 	<h2>video calling:</h2>
 	<label>
 		id to call:

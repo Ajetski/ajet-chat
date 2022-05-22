@@ -9,5 +9,5 @@
 		"allowJs": true,
 		"checkJs": true
 	},
-	"include": ["**/*.svelte", "**/*.ts"]
+	"include": ["**/*.svelte", "**/*.ts", "../shared/**/*.ts"]
 }

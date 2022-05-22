@@ -12,6 +12,7 @@ import { resolvers } from './resolvers';
 import { context } from './context';
 import cors from 'cors';
 import router from './routes';
+import { initSocketServer } from './socket-server';
 
 // Configure HTTP Server
 const app = express();
@@ -41,6 +42,7 @@ const server = new ApolloServer({
 	],
 	introspection: true,
 });
+const io = initSocketServer(httpServer);
 server.start().then(() => {
 	server.applyMiddleware({ app });
 	httpServer.listen({ port }, () => {
