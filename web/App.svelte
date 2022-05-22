@@ -8,7 +8,6 @@
 	import { setClient } from 'svelte-apollo';
 	import { tokenStore } from './stores/user.store';
 	import Peer from 'peerjs';
-	import Home from './components/Home.svelte';
 	import { io } from 'socket.io-client';
 	import { Event } from '../shared/event';
 	import type { MessageInfo, Channel } from '@graphql/types';
@@ -45,7 +44,7 @@
 		myPeerId = peer.id;
 	});
 	const makeCall = (peerId: string) =>
-		new Promise<MediaStream>((resolve, reject) => {
+		new Promise<MediaStream>((resolve) => {
 			const call = peer.call(peerId, localStream);
 			call.on('stream', (remoteStream) => {
 				resolve(remoteStream);
@@ -80,16 +79,26 @@
 		}
 	});
 
+	socket.on(Event.LeaveVoiceChat, async (channel: Channel, peerId: string) => {
+		if (channel.id === currVoiceChat.channel.id) {
+			console.log('user left channel', channel, peerId);
+			currVoiceChat.connectedUsers = currVoiceChat.connectedUsers.filter(
+				(u) => u.peerId !== peerId,
+			);
+		}
+	});
+
 	const sendMessage = () => {
 		const msg: MessageInfo = {
 			channelId: 1,
+			authorId: 1,
 			text: message,
 		};
 		socket.emit(Event.Message, msg);
 		message = '';
 	};
 
-	let channels: Channel[] = [{ id: 1, name: 'general', messages: [] }];
+	let channels: Channel[] = [{ id: 1, name: 'general' }];
 	let currVoiceChat: {
 		channel?: Channel;
 		connectedUsers: {
@@ -104,10 +113,10 @@
 		node.srcObject = stream;
 		return {
 			update(nextStream: MediaStream) {
-				node.srcObject = stream;
+				node.srcObject = nextStream;
 			},
 			destroy() {
-				/* stream revoking logic here */
+				node.srcObject = null;
 			},
 		};
 	};
