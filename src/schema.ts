@@ -10,7 +10,8 @@ export default gql`
 	}
 
 	type Query {
-		users(pageInfo: PageInfo): [User!]!
+		users(pageInfo: PageInfo!): [User!]!
+		messages(channelId: Int!, pageInfo: PageInfo!): [Message!]!
 	}
 
 	type Mutation {
@@ -37,7 +38,7 @@ export default gql`
 	type Channel {
 		id: Int!
 		name: String!
-		messages: [Message!]!
+		messages: [Message!]
 	}
 
 	type Message {
@@ -51,6 +52,7 @@ export default gql`
 	input MessageInfo {
 		text: String!
 		channelId: Int!
+		authorId: Int!
 	}
 
 	input PageInfo {

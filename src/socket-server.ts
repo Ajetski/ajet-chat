@@ -12,8 +12,7 @@ export const initSocketServer = (server: Server) => {
 	io.on('connection', async (socket) => {
 		await socket.join(Room.Messages);
 		socket.on(Event.Message, async (msgInfo: MessageInfo) => {
-			console.log('sending msg', msgInfo);
-			await createMessage(msgInfo, 1);
+			await createMessage(msgInfo);
 			const sockets = await io.in(Room.Messages).fetchSockets();
 			for (let s of sockets) s.emit(Event.Message, msgInfo);
 		});
@@ -25,14 +24,17 @@ export const initSocketServer = (server: Server) => {
 				.filter((s) => s.id != socket.id)
 				.forEach((s) => s.emit(Event.JoinVoiceChat, channel, peerId));
 		});
-		socket.on(Event.LeaveVoiceChat, async (channel: Channel, peerId: string) => {
-			const voiceChannelId = channel.id.toString();
-			await socket.join(voiceChannelId);
-			const sockets = await io.in(voiceChannelId).fetchSockets();
-			sockets
-				.filter((s) => s.id != socket.id)
-				.forEach((s) => s.emit(Event.LeaveVoiceChat, channel, peerId));
-		});
+		socket.on(
+			Event.LeaveVoiceChat,
+			async (channel: Channel, peerId: string) => {
+				const voiceChannelId = channel.id.toString();
+				await socket.join(voiceChannelId);
+				const sockets = await io.in(voiceChannelId).fetchSockets();
+				sockets
+					.filter((s) => s.id != socket.id)
+					.forEach((s) => s.emit(Event.LeaveVoiceChat, channel, peerId));
+			},
+		);
 	});
 
 	return io;

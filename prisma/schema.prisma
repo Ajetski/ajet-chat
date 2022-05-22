@@ -8,8 +8,8 @@ datasource db {
 }
 
 model Channel {
-  id      Int       @id @default(autoincrement())
-  name    String
+  id       Int       @id @default(autoincrement())
+  name     String
   messages Message[]
 }
 
@@ -23,13 +23,15 @@ model File {
 }
 
 model Message {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   text      String
   authorId  Int
-  author    User    @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  author    User     @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   channelId Int
-  channel   Channel @relation(fields: [channelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   files     File[]
+  createdTs DateTime @default(now())
+  editedTs  DateTime @default(now())
 }
 
 model User {
