@@ -1,5 +1,5 @@
 export enum Event {
-	Message = 'msg'
-};
-
-
+	Message = 'msg',
+	JoinVoiceChat = 'jvc',
+	LeaveVoiceChat = 'lvc',
+}

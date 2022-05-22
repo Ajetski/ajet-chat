@@ -14,6 +14,9 @@ import cors from 'cors';
 import router from './routes';
 import { initSocketServer } from './socket-server';
 
+// seed db
+import '../prisma/seed';
+
 // Configure HTTP Server
 const app = express();
 const port = process.env.PORT ?? 8080;

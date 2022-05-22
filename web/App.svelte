@@ -11,7 +11,7 @@
 	import Home from './components/Home.svelte';
 	import { io } from 'socket.io-client';
 	import { Event } from '../shared/event';
-	/*import type {  } from '@graphql/types';*/
+	import type { MessageInfo } from '@graphql/types';
 
 	// Setup GraphQL client
 	const httpLink = createHttpLink({
@@ -78,14 +78,26 @@
 		});
 	});
 
+	let message = '';
+
 	const socket = io();
-	socket.on('msg', (data) => {
+	socket.on(Event.Message, (data) => {
 		console.log('message:', data);
 	});
+
+	const sendMessage = () => {
+		const msg: MessageInfo = {
+			channelId: 1,
+			text: message,
+		};
+		socket.emit(Event.Message, msg);
+		message = '';
+	};
 </script>
 
 <main>
-	<button on:click={() => socket.emit(Event.Message, 'hello people')}>test</button>
+	<input type="text" bind:value={message} />
+	<button on:click={sendMessage}>test</button>
 	<h2>video calling:</h2>
 	<label>
 		id to call:

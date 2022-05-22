@@ -16,6 +16,7 @@ export default gql`
 	type Mutation {
 		register(userInfo: UserInfo!): Login!
 		login(userInfo: UserInfo!): Login!
+		postMessage(msgInfo: MessageInfo!): Message!
 	}
 
 	type User {
@@ -29,8 +30,27 @@ export default gql`
 	}
 
 	type Login {
-		user: User
-		token: Int
+		user: User!
+		token: Int!
+	}
+
+	type Channel {
+		id: Int!
+		name: String!
+		messages: [Message!]!
+	}
+
+	type Message {
+		id: Int!
+		text: String!
+		author: User
+		channel: Channel
+		fileUrls: [String!]!
+	}
+
+	input MessageInfo {
+		text: String!
+		channelId: Int!
 	}
 
 	input PageInfo {

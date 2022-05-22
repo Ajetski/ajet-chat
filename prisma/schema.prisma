@@ -10,10 +10,10 @@ datasource db {
 model Channel {
   id      Int       @id @default(autoincrement())
   name    String
-  Message Message[]
+  messages Message[]
 }
 
-model Media {
+model File {
   id        Int     @id @default(autoincrement())
   messageId Int
   type      String
@@ -29,7 +29,7 @@ model Message {
   author    User    @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   channelId Int
   channel   Channel @relation(fields: [channelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Media     Media[]
+  files     File[]
 }
 
 model User {
