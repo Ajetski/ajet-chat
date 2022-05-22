@@ -50,9 +50,6 @@ server.start().then(() => {
 	server.applyMiddleware({ app });
 	httpServer.listen({ port }, () => {
 		console.log(`🚀 Server ready at http://localhost:${port}`);
-		console.log(
-			`GraphQL endpoint is http://localhost:${port}${server.graphqlPath}`,
-		);
 	});
 });
 
