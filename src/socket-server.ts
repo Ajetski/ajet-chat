@@ -17,21 +17,21 @@ export const initSocketServer = (server: Server) => {
 			const sockets = await io.in(Room.Messages).fetchSockets();
 			for (let s of sockets) s.emit(Event.Message, msgInfo);
 		});
-		socket.on(Event.JoinVoiceChat, async (channel: Channel) => {
-			const roomId = channel.id.toString();
-			await socket.join(roomId);
-			const sockets = await io.in(roomId).fetchSockets();
+		socket.on(Event.JoinVoiceChat, async (channel: Channel, peerId: string) => {
+			const voiceChannelId = channel.id.toString();
+			await socket.join(voiceChannelId);
+			const sockets = await io.in(voiceChannelId).fetchSockets();
 			sockets
 				.filter((s) => s.id != socket.id)
-				.forEach((s) => s.emit(Event.JoinVoiceChat, channel));
+				.forEach((s) => s.emit(Event.JoinVoiceChat, channel, peerId));
 		});
-		socket.on(Event.LeaveVoiceChat, async (channel: Channel) => {
-			const roomId = channel.id.toString();
-			await socket.join(roomId);
-			const sockets = await io.in(roomId).fetchSockets();
+		socket.on(Event.LeaveVoiceChat, async (channel: Channel, peerId: string) => {
+			const voiceChannelId = channel.id.toString();
+			await socket.join(voiceChannelId);
+			const sockets = await io.in(voiceChannelId).fetchSockets();
 			sockets
 				.filter((s) => s.id != socket.id)
-				.forEach((s) => s.emit(Event.LeaveVoiceChat, channel));
+				.forEach((s) => s.emit(Event.LeaveVoiceChat, channel, peerId));
 		});
 	});
 

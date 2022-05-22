@@ -11,7 +11,7 @@
 	import Home from './components/Home.svelte';
 	import { io } from 'socket.io-client';
 	import { Event } from '../shared/event';
-	import type { MessageInfo } from '@graphql/types';
+	import type { MessageInfo, Channel } from '@graphql/types';
 
 	// Setup GraphQL client
 	const httpLink = createHttpLink({
@@ -34,47 +34,31 @@
 	setClient(client);
 
 	// Setup WebRTC video chat
-	let video1: HTMLVideoElement;
-	navigator.mediaDevices
-		.getUserMedia({
-			audio: false,
-			video: true,
-		})
-		.then((stream) => {
-			video1.srcObject = stream;
-			video1.play();
-		});
-	let video2: HTMLVideoElement;
-	let peerId = '';
-	let myId = 'loading...';
+	let localStream: MediaStream;
+	let myPeerId = '';
 	const peer = new Peer(undefined, {
 		host: 'ajet-chat-p2p.herokuapp.com',
 		path: '/myapp',
 		secure: true,
 	});
 	peer.on('open', () => {
-		myId = peer.id;
+		myPeerId = peer.id;
 	});
-	const makeCall = async () => {
-		const stream = await navigator.mediaDevices.getUserMedia({
-			video: true,
-			audio: true,
+	const makeCall = (peerId: string) =>
+		new Promise<MediaStream>((resolve, reject) => {
+			const call = peer.call(peerId, localStream);
+			call.on('stream', (remoteStream) => {
+				resolve(remoteStream);
+			});
 		});
-		const call = peer.call(peerId, stream);
-		call.on('stream', (remoteStream) => {
-			video2.srcObject = remoteStream;
-			video2.play();
-		});
-	};
+
 	peer.on('call', async (call) => {
-		const stream = await navigator.mediaDevices.getUserMedia({
-			video: true,
-			audio: true,
-		});
-		call.answer(stream); // Answer the call with an A/V stream.
+		call.answer(localStream); // Answer the call with an A/V stream.
+		console.log('user called me', call.peer);
 		call.on('stream', (remoteStream) => {
-			video2.srcObject = remoteStream;
-			video2.play();
+			currVoiceChat.connectedUsers.push({ peerId: call.peer, remoteStream });
+			currVoiceChat = currVoiceChat; // trigger re-render
+			console.log('vc', currVoiceChat);
 		});
 	});
 
@@ -83,6 +67,17 @@
 	const socket = io();
 	socket.on(Event.Message, (data) => {
 		console.log('message:', data);
+	});
+	socket.on(Event.JoinVoiceChat, async (channel: Channel, peerId: string) => {
+		if (channel.id === currVoiceChat.channel.id) {
+			console.log('user join channel', channel, peerId);
+			currVoiceChat.connectedUsers.push({
+				peerId,
+				remoteStream: await makeCall(peerId),
+			});
+			currVoiceChat = currVoiceChat; // trigger re-render
+			console.log('vc', currVoiceChat);
+		}
 	});
 
 	const sendMessage = () => {
@@ -93,12 +88,72 @@
 		socket.emit(Event.Message, msg);
 		message = '';
 	};
+
+	let channels: Channel[] = [{ id: 1, name: 'general', messages: [] }];
+	let currVoiceChat: {
+		channel?: Channel;
+		connectedUsers: {
+			peerId: string;
+			remoteStream: MediaStream;
+		}[];
+	} = {
+		connectedUsers: [],
+	};
+
+	const srcObject = (node: HTMLAudioElement, stream: MediaStream) => {
+		node.srcObject = stream;
+		return {
+			update(nextStream: MediaStream) {
+				node.srcObject = stream;
+			},
+			destroy() {
+				/* stream revoking logic here */
+			},
+		};
+	};
+
+	const joinChannel = async (channel: Channel) => {
+		if (!localStream) {
+			localStream = await navigator.mediaDevices.getUserMedia({
+				audio: true,
+			});
+		}
+		currVoiceChat = {
+			channel,
+			connectedUsers: [],
+		};
+		socket.emit(Event.JoinVoiceChat, currVoiceChat.channel, myPeerId);
+	};
+
+	const leaveChannel = async () => {
+		localStream = null;
+		socket.emit(Event.LeaveVoiceChat, currVoiceChat.channel, myPeerId);
+		currVoiceChat = {
+			channel: null,
+			connectedUsers: [],
+		};
+	};
 </script>
 
 <main>
 	<input type="text" bind:value={message} />
 	<button on:click={sendMessage}>test</button>
-	<h2>video calling:</h2>
+
+	{#each channels as channel}
+		<p class:bold={channel.id === currVoiceChat.channel?.id}>{channel.name}</p>
+		{#if channel.id === currVoiceChat.channel?.id}
+			<p>num users: {currVoiceChat.connectedUsers.length}</p>
+			{#each currVoiceChat.connectedUsers as { peerId, remoteStream }}
+				<p>{peerId}</p>
+				<audio use:srcObject={remoteStream} autoplay />
+			{/each}
+			<button on:click={leaveChannel}>leave</button>
+		{:else}
+			<button on:click={() => joinChannel(channel)}>join</button>
+		{/if}
+	{/each}
+
+	<!-- <h2>video calling:</h2>
 	<label>
 		id to call:
 		<input type="text" bind:value={peerId} />
@@ -106,5 +161,11 @@
 	<button on:click={makeCall}>call</button><br />
 	<p>your id is: {myId}</p>
 	<video bind:this={video1}><track kind="captions" /></video>
-	<video bind:this={video2}><track kind="captions" /></video>
+	<video bind:this={video2}><track kind="captions" /></video> -->
 </main>
+
+<style>
+	p.bold {
+		font-weight: bolder;
+	}
+</style>
