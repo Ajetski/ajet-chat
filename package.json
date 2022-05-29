@@ -5,10 +5,12 @@
 	"scripts": {
 		"heroku-postbuild": "npm run migrate && npm run build",
 		"migrate": "npm run generate && prisma db push",
-		"generate": "graphql-codegen && prisma generate",
+		"generate": "yarn generate:graphql && yarn generate:prisma",
+		"generate:graphql": "graphql-codegen",
+		"generate:prisma": "prisma generate",
 		"build": "vite build && tsc",
 		"start": "node dist/src/index.js",
-		"dev": "npm run generate && concurrently \"npm run dev:server\" \"npm run dev:web\"",
+		"dev": "concurrently \"yarn generate:prisma --watch\" \"yarn generate:graphql --watch\" \"npm run dev:server\" \"npm run dev:web\"",
 		"dev:server": "nodemon src/index.ts",
 		"dev:web": "vite build --watch",
 		"format": "prettier -w ."
