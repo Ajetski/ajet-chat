@@ -161,20 +161,5 @@
 			<button on:click={() => joinChannel(channel)}>join</button>
 		{/if}
 	{/each}
-
-	<!-- <h2>video calling:</h2>
-	<label>
-		id to call:
-		<input type="text" bind:value={peerId} />
-	</label>
-	<button on:click={makeCall}>call</button><br />
-	<p>your id is: {myId}</p>
-	<video bind:this={video1}><track kind="captions" /></video>
-	<video bind:this={video2}><track kind="captions" /></video> -->
 </main>
 
-<style>
-	p.bold {
-		font-weight: bolder;
-	}
-</style>
