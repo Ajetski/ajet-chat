@@ -1,9 +1,0 @@
-{
-	"recommendations": [
-		"esbenp.prettier-vscode",
-		"graphql.vscode-graphql",
-		"prisma.prisma",
-		"VilvaAthibanPB.graphql-codegen",
-		"svelte.svelte-vscode"
-	]
-}
