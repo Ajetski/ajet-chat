@@ -1,14 +1,19 @@
 {
 	"compilerOptions": {
-		"target": "es6",
+		"target": "ESNext",
 		"useDefineForClassFields": true,
-		"module": "commonjs",
+		"module": "ESNext",
 		"esModuleInterop": true,
 		"moduleResolution": "node",
 		"outDir": "dist",
 		"allowJs": true,
-		"checkJs": true
+		"checkJs": false,
+		"sourceMap": true
 	},
+	"lib": [
+		"ESNext",
+		"DOM"
+	],
 	"include": ["src/**/*", "prisma/**/*", "shared/**/*"],
-	"exclude": ["node_modules", "**/*.spec.ts"]
+	"exclude": ["node_modules", "**/*.spec.ts", "web/**", "dist"]
 }
