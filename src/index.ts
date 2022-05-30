@@ -36,7 +36,7 @@ app.use(router);
 
 // Configure sveltekit access
 if (process.env.NODE_ENV !== 'local') {
-	import('../web/build/handler.js').then(({handler}) => {
+	import('../web/dist/handler.js').then(({handler}) => {
 		app.use(handler);
 	})
 }
