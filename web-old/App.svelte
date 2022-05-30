@@ -145,13 +145,10 @@
 </script>
 
 <main>
-	<input type="text" bind:value={message} />
-	<button on:click={sendMessage}>test</button>
-
 	{#each channels as channel}
 		<p class:bold={channel.id === currVoiceChat.channel?.id}>{channel.name}</p>
 		{#if channel.id === currVoiceChat.channel?.id}
-			<p>num users: {currVoiceChat.connectedUsers.length}</p>
+			<p>num users: {currVoiceChat.connectedUsers.length + 1}</p>
 			{#each currVoiceChat.connectedUsers as { peerId, remoteStream }}
 				<p>{peerId}</p>
 				<audio use:srcObject={remoteStream} autoplay />
@@ -161,5 +158,7 @@
 			<button on:click={() => joinChannel(channel)}>join</button>
 		{/if}
 	{/each}
-</main>
 
+	<input type="text" bind:value={message} />
+	<button on:click={sendMessage}>test</button>
+</main>

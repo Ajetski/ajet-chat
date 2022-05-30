@@ -31,9 +31,15 @@ app.use(
 		credentials: true,
 	}),
 );
-app.use(express.static('public'));
 app.use(graphqlUploadExpress());
 app.use(router);
+
+// Configure sveltekit access
+if (process.env.NODE_ENV !== 'local') {
+	import('../web/build/handler.js').then(({handler}) => {
+		app.use(handler);
+	})
+}
 
 const server = new ApolloServer({
 	typeDefs,
@@ -52,4 +58,3 @@ server.start().then(() => {
 		console.log(`🚀 Server ready at http://localhost:${port}`);
 	});
 });
-
