@@ -2,13 +2,17 @@
 	"name": "graphql",
 	"version": "1.0.0",
 	"license": "MIT",
+	"engines": {
+		"node": "18.x"
+	},
 	"scripts": {
+		"heroku-postbuild": "(cd web && yarn) && yarn build",
 		"migrate": "yarn generate && prisma db push",
 		"generate": "yarn generate:graphql && yarn generate:prisma",
 		"generate:graphql": "graphql-codegen",
 		"generate:prisma": "prisma generate",
 		"prebuild": "yarn generate",
-		"build": "mkdir -p dist && (cd web && yarn build && cp -r dist/ ../dist/web) && tsc",
+		"build": "(cd web && yarn build) && tsc",
 		"start": "node --es-module-specifier-resolution=node dist/src/index.js",
 		"dev": "nodemon src/index.ts",
 		"dev-old": "yarn build && concurrently \"yarn generate:prisma --watch\" \"yarn generate:graphql --watch\" \"yarn dev:server\" \"yarn dev:web\"",
