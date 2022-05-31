@@ -8,3 +8,11 @@ generates:
       - typescript-resolvers
     config:
       defaultMapper: DeepPartial<{T}>
+  ./web/node_modules/@graphql/types.d.ts:
+    plugins:
+      - add:
+          content: "import type { DeepPartial } from 'utility-types';"
+      - typescript
+      - typescript-resolvers
+    config:
+      defaultMapper: DeepPartial<{T}>

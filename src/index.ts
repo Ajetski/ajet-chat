@@ -26,8 +26,8 @@ app.use(
 		origin: [
 			'https://studio.apollographql.com',
 			'https://ajet-chat-dev.herokuapp.com',
+			'http://localhost:8080'
 		],
-		allowedHeaders: ['authorization', 'content-type'],
 		credentials: true,
 	}),
 );
@@ -40,6 +40,9 @@ if (process.env.NODE_ENV !== 'local') {
 		app.use(handler);
 	})
 }
+
+app.use(express.static('web/dist/static'));
+app.use(express.static('web/dist/client'));
 
 const server = new ApolloServer({
 	typeDefs,

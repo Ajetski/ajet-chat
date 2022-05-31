@@ -8,9 +8,10 @@
 		"generate:graphql": "graphql-codegen",
 		"generate:prisma": "prisma generate",
 		"prebuild": "yarn generate",
-		"build": "(cd web && yarn build) && tsc",
+		"build": "mkdir -p dist && (cd web && yarn build && cp -r dist/ ../dist/web) && tsc",
 		"start": "node --es-module-specifier-resolution=node dist/src/index.js",
-		"dev": "concurrently \"yarn generate:prisma --watch\" \"yarn generate:graphql --watch\" \"yarn dev:server\" \"yarn dev:web\"",
+		"dev": "nodemon src/index.ts",
+		"dev-old": "yarn build && concurrently \"yarn generate:prisma --watch\" \"yarn generate:graphql --watch\" \"yarn dev:server\" \"yarn dev:web\"",
 		"dev:server": "nodemon src/index.ts",
 		"dev:web": "cd web && yarn dev",
 		"format": "prettier -w ."
@@ -30,7 +31,7 @@
 		"socket.io": "^4.5.1",
 		"socket.io-client": "^4.5.1",
 		"svelte-apollo": "^0.5.0",
-		"ts-node": "^10.7.0",
+		"ts-node": "^10.8.0",
 		"utility-types": "^3.10.0"
 	},
 	"devDependencies": {

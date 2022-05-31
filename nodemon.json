@@ -1,6 +1,6 @@
 {
-	"ext": "json,ts,schema,html,svelte",
+	"ext": "ts,svelte",
 	"execMap": {
-		"ts": "ts-node"
+		"ts": "yarn build && yarn start"
 	}
 }
