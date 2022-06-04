@@ -7,7 +7,7 @@
 	},
 	"scripts": {
 		"heroku-postbuild": "yarn install:web && yarn test-print && yarn build",
-		"test-print": "ls web/node_modules/@sveltejs",
+		"test-print": "ls web/node_modules",
 		"install:web": "cd web && yarn install",
 		"migrate": "yarn generate && prisma db push",
 		"generate": "yarn generate:graphql && yarn generate:prisma",
