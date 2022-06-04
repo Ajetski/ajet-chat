@@ -1,8 +1,10 @@
 <script lang="ts">
-	/*import {createHttpLink, ApolloClient, InMemoryCache} from '@apollo/client/core';*/
-	/*import { setContext } from '@apollo/client/link/context';*/
-	/*import { setClient } from 'svelte-apollo';*/
-	/*import { tokenStore } from '../stores/user.store';*/
+	 import { ApolloClient } from '@apollo/client/core';
+ import { HttpLink } from '@apollo/client/link/http';
+ 	import { InMemoryCache } from '@apollo/client/cache';
+	import { setContext } from '@apollo/client/link/context';
+	import { setClient } from 'svelte-apollo';
+	import { tokenStore } from '../stores/user.store';
 	import { io } from 'socket.io-client';
 	import { Event } from '../../../shared/event';
 	import type { MessageInfo, Channel } from '@graphql/types';
@@ -34,7 +36,7 @@
 	})();
 
 	// Setup GraphQL client
-	/*const httpLink = createHttpLink({
+	const httpLink = new HttpLink({
 		uri: '/graphql'
 	});
 	const authLink = setContext((_, { headers }) => {
@@ -51,7 +53,7 @@
 		link: authLink.concat(httpLink),
 		cache: new InMemoryCache()
 	});
-	setClient(client);*/
+	setClient(client);
 
 	// Setup WebRTC video chat
 	let localStream: MediaStream | null = null;

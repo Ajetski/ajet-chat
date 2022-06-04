@@ -17,4 +17,4 @@ export const context = async ({ req }) => {
 	};
 };
 
-export type Context = Awaited<ReturnType<typeof context>>;
+export type Context = {}; //Awaited<ReturnType<typeof context>>;

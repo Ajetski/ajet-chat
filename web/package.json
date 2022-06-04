@@ -2,16 +2,22 @@
 	"name": "web",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "npx svelte-kit dev",
-		"build": "npx svelte-kit build",
-		"package": "npx svelte-kit package",
-		"preview": "npx svelte-kit preview",
-		"prepare": "npx svelte-kit sync",
+		"svelte-kit": "node --experimental-specifier-resolution=node node_modules/\\@sveltejs/kit/dist/cli.js",
+		"dev": "yarn svelte-kit dev",
+		"build": "yarn svelte-kit build",
+		"package": "yarn svelte-kit package",
+		"preview": "yarn svelte-kit preview",
+		"prepare": "yarn svelte-kit sync",
 		"test": "playwright test",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
 		"format": "prettier --write --plugin-search-dir=. ."
+	},
+	"dependencies": {
+		"socket.io-client": "^4.5.1",
+		"svelte-apollo": "^0.5.0",
+		"@apollo/client": "^3.5.10"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.21.0",
