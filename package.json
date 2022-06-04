@@ -6,6 +6,8 @@
 		"node": "18.x"
 	},
 	"scripts": {
+		"heroku-postbuild": "yarn install:web && yarn build",
+		"install:web": "cd web && yarn install",
 		"migrate": "yarn generate && prisma db push",
 		"generate": "yarn generate:graphql && yarn generate:prisma",
 		"generate:graphql": "npx graphql-codegen",
