@@ -9,13 +9,15 @@ export const createMessage = (msgInfo: MessageInfo) =>
 	});
 
 export const getMessages = (channelId: number, pageInfo: PageInfo) =>
-	prisma.message.findMany({
-		where: {
-			channelId
-		},
-		orderBy: {
-			createdTs: 'desc'
-		},
-		take: pageInfo.pageLength,
-		skip: pageInfo.pageNumber * pageInfo.pageLength,
-	});
+	prisma.message
+		.findMany({
+			where: {
+				channelId,
+			},
+			orderBy: {
+				createdTs: 'desc',
+			},
+			take: pageInfo.pageLength,
+			skip: pageInfo.pageNumber * pageInfo.pageLength,
+		})
+		.then((msgs) => msgs.reverse());
