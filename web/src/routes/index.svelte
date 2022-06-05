@@ -1,14 +1,7 @@
 <script lang="ts">
-	import { ApolloClient } from '@apollo/client/core/ApolloClient';
-	import { HttpLink } from '@apollo/client/link/http';
-	import { InMemoryCache } from '@apollo/client/cache';
-	import { setContext } from '@apollo/client/link/context';
-	import { setClient, query } from 'svelte-apollo';
-	import { tokenStore } from '../stores/user.store';
 	import { io } from 'socket.io-client';
 	import { Event } from '../../../shared/event';
 	import type { MessageInfo, Channel, Message } from '@graphql/types';
-	import { GET_MESSAGES } from '$lib/queries/message.query';
 
 	let peer: any;
 	(async () => {
@@ -36,7 +29,8 @@
 		}
 	})();
 
-	// Setup GraphQL client
+	/*
+	// Setup GraphQL client (moved to SSR)
 	const httpLink = new HttpLink({
 		uri: '/graphql'
 	});
@@ -55,6 +49,7 @@
 		cache: new InMemoryCache()
 	});
 	setClient(client);
+	*/
 
 	// Setup WebRTC video chat
 	let localStream: MediaStream | null = null;
@@ -107,17 +102,7 @@
 	};
 
 	let channels: Channel[] = [{ id: 1, name: 'general' }];
-	let messages = query<{ messages: Message[] }>(GET_MESSAGES, {
-		variables: {
-			pageInfo: {
-				pageLength: 10,
-				pageNumber: 0
-			},
-			channelId: 1
-		}
-	});
-	const getMessages = (): Message[] =>
-		$messages.data!.messages;
+	export let messages: Message[];
 	let currVoiceChat: {
 		channel?: Channel;
 		connectedUsers: {
@@ -164,15 +149,9 @@
 
 <main>
 	<ul>
-		{#if $messages.loading}
-			<li>Loading...</li>
-		{:else if $messages.error}
-			<li>ERROR: {$messages.error.message}</li>
-		{:else}
-			{#each getMessages() as message}
-				<li>{message.author}: {message.text}</li>
-			{/each}
-		{/if}
+		{#each messages as message}
+			<li>{message.author?.username}: {message.text}</li>
+		{/each}
 	</ul>
 	{#each channels as channel}
 		<p class:bold={channel.id === currVoiceChat.channel?.id}>{channel.name}</p>
@@ -191,4 +170,5 @@
 		<input type="text" bind:value={message} />
 		<button on:click={sendMessage}>test</button>
 	</div>
+	<a href="/channels/1">go to channel</a>
 </main>

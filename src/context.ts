@@ -1,7 +1,10 @@
-//import { postsLoader } from './services/posts.service';
-//import { posterLoader } from './services/users.service';
-//import { getUserByToken } from './services/users.service';
 import type { User } from '@graphql/types';
+import DataLoader from 'dataloader';
+import {getUsersByIds} from './services/users.service';
+
+const loaders = () => ({
+	getUsersByIds: new DataLoader(getUsersByIds)
+});
 
 export const context = async ({ req }) => {
 	//let user: User;
@@ -11,10 +14,9 @@ export const context = async ({ req }) => {
 	//}
 
 	return {
-		//postsLoader,
-		//posterLoader,
+		loaders: loaders()
 		//user,
 	};
 };
 
-export type Context = {}; //Awaited<ReturnType<typeof context>>;
+export type Context = Awaited<ReturnType<typeof context>>;

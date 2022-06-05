@@ -5,6 +5,7 @@ import { getUsers } from './services/users.service';
 import { Context } from './context';
 import type { Resolvers } from '@graphql/types';
 import { getMessages } from './services/message.service';
+import type { Message } from '@prisma/client';
 
 const defaultPageInfo = {
 	pageNumber: 0,
@@ -14,10 +15,14 @@ const defaultPageInfo = {
 export const resolvers: Resolvers<Context> = {
 	Upload: GraphQLUpload,
 	Query: {
-		users: (parent, { pageInfo }, ctx) =>
+		users: (_parent, { pageInfo }, _ctx) =>
 			getUsers(pageInfo ?? defaultPageInfo),
-		messages: (parent, { channelId, pageInfo }, ctx) =>
+		messages: (_parent, { channelId, pageInfo }, _ctx) =>
 			getMessages(channelId, pageInfo ?? defaultPageInfo),
 	},
 	Mutation: {},
+	Message: {
+		author: (parent: Message, _params, ctx) =>
+			ctx.loaders.getUsersByIds.load(parent.authorId)
+	}
 };

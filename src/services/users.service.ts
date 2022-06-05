@@ -9,7 +9,7 @@ export const getUsers = (pageInfo: PageInfo): Promise<User[]> =>
 		take: pageInfo.pageLength,
 		skip: pageInfo.pageLength * pageInfo.pageNumber,
 	});
-/*
+
 export const getUserById = async (id: number): Promise<User> =>
 	prisma.user.findFirst({
 		where: {
@@ -17,6 +17,7 @@ export const getUserById = async (id: number): Promise<User> =>
 		},
 	});
 
+/*
 export const getUserByToken = getUserById;
 
 export const getUserByUsername = (username: string): Promise<User> =>
@@ -31,20 +32,19 @@ export const createUser = async (user: UserInfo): Promise<User> =>
 		data: user,
 	});
 
-export const posterLoader = new DataLoader(
-	async (posterIds: number[]): Promise<User[]> => {
-		let users = await prisma.user.findMany({
-			where: {
-				id: {
-					in: posterIds,
-				},
+*/
+export const getUsersByIds = async (ids: number[]): Promise<User[]> => {
+	let users = await prisma.user.findMany({
+		where: {
+			id: {
+				in: ids,
 			},
-		});
+		},
+	});
 
-		let usersGroupedByPost = posterIds.map((posterId) => {
-			return users.find((user) => user.id === posterId);
-		});
+	//TODO: improve this; can be faster than O(n^2)
+	return ids.map((id) => {
+		return users.find((user) => user.id === id);
+	});
+};
 
-		return usersGroupedByPost;
-	},
-);*/
