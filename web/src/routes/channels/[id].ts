@@ -18,7 +18,7 @@ export const get: RequestHandler = async ({ params }) => {
 
 		if (messages) {
 			return {
-				body: { messages: messages.data.messages }
+				body: { messages: messages.data.messages, channelId: params.id }
 			};
 		}
 	} catch (err: any) {
