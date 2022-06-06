@@ -1,3 +1,30 @@
+<script context="module" lang="ts">
+	import type { Load } from '@sveltejs/kit';
+	import { client } from '$lib/client';
+	import { GET_MESSAGES } from '$lib/queries/message.query';
+
+	export const load: Load = async ({params}) => {
+		const messages = await client.query<{ messages: Message[] }>({
+			query: GET_MESSAGES,
+			variables: {
+				channelId: +params.id,
+				pageInfo: {
+					pageNumber: 0,
+					pageLength: 30
+				}
+			}
+		})			.catch((err) => {
+				throw JSON.stringify(err);
+			});
+		return {
+			props: {
+				messages: messages.data.messages,
+				channelId: params.id
+			}
+		};
+	};
+</script>
+
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import type { Message } from '@graphql/types';
