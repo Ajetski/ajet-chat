@@ -10,8 +10,9 @@ export default gql`
 	}
 
 	type Query {
-		users(pageInfo: PageInfo!): [User!]!
-		messages(channelId: Int!, pageInfo: PageInfo!): [Message!]!
+		users(pageInfo: PageInfo): [User!]!
+		messages(channelId: Int!, pageInfo: PageInfo): [Message!]!
+		channels(pageInfo: PageInfo): [Channel!]!
 	}
 
 	type Mutation {

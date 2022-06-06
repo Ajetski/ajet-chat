@@ -5,6 +5,7 @@ import { getUsers } from './services/users.service';
 import { Context } from './context';
 import type { Resolvers } from '@graphql/types';
 import { getMessages } from './services/message.service';
+import { getChannels } from './services/channel.service';
 import type { Message } from '@prisma/client';
 
 const defaultPageInfo = {
@@ -19,6 +20,8 @@ export const resolvers: Resolvers<Context> = {
 			getUsers(pageInfo ?? defaultPageInfo),
 		messages: (_parent, { channelId, pageInfo }, _ctx) =>
 			getMessages(channelId, pageInfo ?? defaultPageInfo),
+		channels: (_parent, { pageInfo }, _ctx) =>
+			getChannels(pageInfo)
 	},
 	Mutation: {},
 	Message: {

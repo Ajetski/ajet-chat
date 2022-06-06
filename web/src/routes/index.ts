@@ -1,23 +1,9 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { ApolloClient } from '@apollo/client/core';
-import { HttpLink } from '@apollo/client/link/http';
-import { InMemoryCache } from '@apollo/client/cache';
 import type { Message } from '@graphql/types';
 import { GET_MESSAGES } from '$lib/queries/message.query';
+import { client } from '$lib/client';
 
-const client = new ApolloClient({
-	cache: new InMemoryCache(),
-	link: new HttpLink({
-		uri: `http://localhost:${process.env.PORT ?? 8080}/graphql`
-	}),
-	defaultOptions: {
-		query: {
-			fetchPolicy: 'no-cache'
-		}
-	}
-});
-
-export const get: RequestHandler = async ({ params }) => {
+export const get: RequestHandler = async () => {
 	try {
 		const messages = await client.query<{ messages: Message[] }>({
 			query: GET_MESSAGES,

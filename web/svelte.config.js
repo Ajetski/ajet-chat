@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import sveltePreprocess from "svelte-preprocess";
 import node from "@sveltejs/adapter-node";
+import { resolve } from 'path';
 // import pkg from "./package.json";
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -17,9 +18,11 @@ export default {
     }),
 
     vite: {
-      ssr: {
-        // noExternal: Object.keys(pkg.dependencies || {}),
-      },
+		resolve: {
+			alias: {
+				$shared: resolve('../shared')
+			}
+		}
     },
   },
 };

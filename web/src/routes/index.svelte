@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { io } from 'socket.io-client';
-	import { Event } from '../../../shared/event';
+	import { Event } from '$shared/event';
 	import type { MessageInfo, Channel, Message } from '@graphql/types';
+	import { fade } from 'svelte/transition';
 
 	let peer: any;
 	(async () => {
@@ -28,28 +29,6 @@
 			});
 		}
 	})();
-
-	/*
-	// Setup GraphQL client (moved to SSR)
-	const httpLink = new HttpLink({
-		uri: '/graphql'
-	});
-	const authLink = setContext((_, { headers }) => {
-		const token = $tokenStore;
-		// return the headers to the context so httpLink can read them
-		return {
-			headers: {
-				...headers,
-				authorization: token ? `Bearer ${token}` : ''
-			}
-		};
-	});
-	const client = new ApolloClient({
-		link: authLink.concat(httpLink),
-		cache: new InMemoryCache()
-	});
-	setClient(client);
-	*/
 
 	// Setup WebRTC video chat
 	let localStream: MediaStream | null = null;
@@ -147,7 +126,7 @@
 	};
 </script>
 
-<main>
+<main in:fade>
 	<ul>
 		{#each messages as message}
 			<li>{message.author?.username}: {message.text}</li>
