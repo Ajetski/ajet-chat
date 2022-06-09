@@ -1,9 +1,6 @@
 {
 	"useTabs": true,
-	"trailingComma": "all",
-	"bracketSpacing": true,
 	"singleQuote": true,
-	"tabWidth": 2,
-	"bracketSameLine": true,
-	"semi": true
+	"trailingComma": "none",
+	"printWidth": 100
 }
