@@ -1,0 +1,15 @@
+node_modules
+
+dist
+
+yarn-error.log
+
+*.sqlite
+*.sqlite-journal
+
+.env
+
+public/assets
+public/index.html
+
+file_uploads

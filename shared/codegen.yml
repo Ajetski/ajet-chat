@@ -1,0 +1,10 @@
+schema: ./graphql/schema.ts
+generates:
+  ./graphql/index.d.ts:
+    plugins:
+      - add:
+          content: "import type { DeepPartial } from 'utility-types';"
+      - typescript
+      - typescript-resolvers
+    config:
+      defaultMapper: DeepPartial<{T}>

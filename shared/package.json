@@ -1,0 +1,30 @@
+{
+  "name": "@ajet-chat/shared",
+  "version": "0.0.1",
+  "main": "build/index.js",
+  "license": "MIT",
+  "scripts": {
+    "generate": "yarn generate:graphql && yarn generate:prisma",
+    "generate:graphql": "graphql-codegen",
+    "generate:prisma": "prisma generate",
+    "migrate": "yarn generate && prisma db push",
+    "build": "yarn generate && cp -r node_modules/.prisma ../server/node_modules",
+    "postinstall": "yarn build"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.14.0",
+    "graphql": "^16.5.0",
+    "graphql-request": "^4.3.0",
+    "utility-types": "^3.10.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/add": "^3.1.1",
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typescript": "^2.4.5",
+    "@graphql-codegen/typescript-resolvers": "^2.5.2",
+    "prettier-plugin-prisma": "^3.14.0",
+    "typescript": "^4.7.3"
+  },
+  "type": "module"
+}

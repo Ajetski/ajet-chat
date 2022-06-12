@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Channel {
+  id       Int       @id @default(autoincrement())
+  name     String
+  messages Message[]
+}
+
+model File {
+  id        Int     @id @default(autoincrement())
+  messageId Int
+  type      String
+  name      String
+  data      Bytes
+  message   Message @relation(fields: [messageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  text      String
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  channelId Int
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  files     File[]
+  createdTs DateTime @default(now())
+  editedTs  DateTime @default(now())
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  username String    @unique()
+  hash     String
+  messages Message[]
+}
