@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"engines": {
-		"node": "18.x"
+		"node": "16.x"
 	},
 	"scripts": {
 		"build": "tsc",
