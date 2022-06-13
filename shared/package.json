@@ -9,8 +9,7 @@
     "generate:prisma": "prisma generate",
     "migrate": "yarn generate && prisma db push",
 	"prebuild": "yarn install",
-    "build": "yarn generate && cp -r node_modules/.prisma ../server/node_modules",
-    "postinstall": "yarn build"
+    "build": "yarn generate && cp -r node_modules/.prisma ../server/node_modules"
   },
   "dependencies": {
     "@prisma/client": "^3.14.0",
