@@ -8,6 +8,7 @@
     "generate:graphql": "graphql-codegen",
     "generate:prisma": "prisma generate",
     "migrate": "yarn generate && prisma db push",
+	"prebuild": "yarn install",
     "build": "yarn generate && cp -r node_modules/.prisma ../server/node_modules",
     "postinstall": "yarn build"
   },
