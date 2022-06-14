@@ -2,9 +2,9 @@
 	"version": 2,
 	"name": "ajet-chat-server",
 	"builds": [
-		{ "src": "dist/server/src/index.js", "use": "@vercel/node" }
+		{ "src": "./server/src/index.js", "use": "@vercel/node" }
 	],
 	"routes": [
-		{ "src": "/(.*)", "dest": "/dist/server/src/index.js" }
+		{ "src": "/(.*)", "dest": "/server/src" }
 	]
 }
