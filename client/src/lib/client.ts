@@ -1,2 +1,3 @@
 import { GraphQLClient } from 'graphql-request';
-export const client = new GraphQLClient('http://localhost:8080/graphql');
+export const client = new GraphQLClient(import.meta.env.VITE_GRAPHQL_ENDPOINT);
+

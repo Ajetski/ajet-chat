@@ -29,7 +29,7 @@
 		if (typeof navigator !== 'undefined') {
 			const Peer = (await import('peerjs')).default;
 			peer = new Peer(undefined as unknown as string, {
-				host: 'ajet-chat-p2p.herokuapp.com',
+				host: import.meta.env.VITE_P2P_HOST,
 				path: '/myapp',
 				secure: true
 			});
