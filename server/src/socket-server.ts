@@ -8,10 +8,10 @@ import { createMessage } from './services/message.service';
 export const initSocketServer = (server: Server) => {
 	const io = new SocketServer(server, {
 		cors: {
-			origin: "http://localhost:3000",
-			methods: ["GET", "POST"],
-			credentials: true
-		}
+			origin: 'http://localhost:3000',
+			methods: ['GET', 'POST'],
+			credentials: true,
+		},
 	});
 
 	io.on('connection', async (socket) => {

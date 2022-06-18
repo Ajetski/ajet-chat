@@ -2,7 +2,7 @@ import { PrismaClient, Channel, User } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const channels: Partial<Channel>[] = [{name: 'general' }];
+const channels: Partial<Channel>[] = [{ name: 'general' }];
 
 const users: Partial<User>[] = [{ username: 'test user', hash: '' }];
 

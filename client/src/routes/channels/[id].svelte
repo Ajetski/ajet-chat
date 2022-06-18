@@ -6,11 +6,11 @@
 	export const load: Load = async ({ params }) => {
 		const messages = await client
 			.request<{ messages: Message[] }>(GET_MESSAGES, {
-					channelId: +params.id,
-					pageInfo: {
-						pageNumber: 0,
-						pageLength: 30
-					}
+				channelId: +params.id,
+				pageInfo: {
+					pageNumber: 0,
+					pageLength: 30
+				}
 			})
 			.catch((err) => {
 				throw JSON.stringify(err);
@@ -45,4 +45,3 @@
 	{/each}
 	<VoiceChat {channelId} />
 </main>
-

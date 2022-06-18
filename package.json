@@ -1,15 +1,17 @@
 {
-    "scripts": {
-        "install": "yarn install:shared && yarn install:client && yarn install:server",
-        "install:client": "cd client && yarn install",
-        "install:shared": "cd shared && yarn install",
-        "install:server": "cd server && yarn install",
-        "dev": "concurrently \"yarn dev:client\" \"yarn dev:server\"",
-        "dev:client": "cd client && yarn dev",
-        "dev:server": "cd server && yarn dev"
-    },
-    "devDependencies": {
-        "concurrently": "^7.2.1",
-        "prettier": "^2.7.1"
-    }
+	"scripts": {
+		"install": "yarn install:shared && yarn install:client && yarn install:server",
+		"install:client": "cd client && yarn install",
+		"install:shared": "cd shared && yarn install",
+		"install:server": "cd server && yarn install",
+		"dev": "concurrently \"yarn dev:client\" \"yarn dev:server\"",
+		"dev:client": "cd client && yarn dev",
+		"dev:server": "cd server && yarn dev"
+	},
+	"devDependencies": {
+		"concurrently": "^7.2.1",
+		"prettier": "^2.7.1",
+		"prettier-plugin-svelte": "^2.7.0",
+		"svelte": "^3.44.0"
+	}
 }

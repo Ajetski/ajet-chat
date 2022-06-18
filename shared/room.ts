@@ -1,5 +1,5 @@
 enum room {
-	Messages = "messages"
+	Messages = 'messages',
 }
 
 export const Room = room;

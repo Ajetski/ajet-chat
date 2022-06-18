@@ -6,15 +6,12 @@
 
 	export const load: Load = async () => {
 		const req = await client
-			.request<{ channels: Channel[] }>(
-				GET_CHANNELS,
-				{
-					pageInfo: {
-						pageNumber: 0,
-						pageLength: 30
-					}
+			.request<{ channels: Channel[] }>(GET_CHANNELS, {
+				pageInfo: {
+					pageNumber: 0,
+					pageLength: 30
 				}
-			)
+			})
 			.catch((err) => {
 				throw JSON.stringify(err);
 			});
