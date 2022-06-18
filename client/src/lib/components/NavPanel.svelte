@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Channel } from '../../../../shared/graphql';
+	import type { Channel } from '$shared/graphql';
 
 	export let channels: Channel[];
 </script>

@@ -26,8 +26,8 @@
 
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import type { Message } from '../../../../shared/graphql';
-	import { Event } from '../../../../shared/event';
+	import type { Message } from '$shared/graphql';
+	import { Event } from '$shared/event';
 	import { socket } from '$lib/stores/socket.store';
 	import VoiceChat from '$lib/components/VoiceChat.svelte';
 

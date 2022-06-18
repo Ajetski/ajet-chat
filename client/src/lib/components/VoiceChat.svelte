@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import type { Channel } from '../../../../shared/graphql';
+	import type { Channel } from '$shared/graphql';
 	import { socket } from '$lib/stores/socket.store';
-	import { Event } from '../../../../shared/event';
+	import { Event } from '$shared/event';
 
 	export let channelId: number;
 
