@@ -14,7 +14,10 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"dependencies": {
+		"@prisma/client": "^3.15.2",
+		"module-alias": "^2.2.2",
 		"peerjs": "^1.4.6",
+		"socket.io": "^4.5.1",
 		"socket.io-client": "^4.5.1"
 	},
 	"devDependencies": {
@@ -26,12 +29,16 @@
 		"nodemon": "^2.0.18",
 		"prettier": "^2.5.1",
 		"prettier-plugin-svelte": "^2.5.0",
+		"prisma": "^3.15.2",
 		"svelte": "^3.44.0",
 		"svelte-check": "^2.2.6",
 		"svelte-preprocess": "^4.10.1",
 		"ts-node": "^10.8.1",
 		"tslib": "^2.3.1",
 		"typescript": "~4.6.2"
+	},
+	"_moduleAliases": {
+		"$lib": "src/lib"
 	},
 	"type": "module"
 }

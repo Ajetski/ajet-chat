@@ -10,6 +10,7 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
+		"outDir": "dist",
 		"paths": {
 			"$lib": ["./src/lib"],
 			"$lib/*": ["./src/lib/*"],

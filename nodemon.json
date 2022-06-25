@@ -1,6 +1,6 @@
 {
 	"execMap": {
-		"ts": "tsc && dist/index.js"
+		"ts": "node --experimental-specifier-resolution=node --loader ts-node/esm"
 	}
 }
 
