@@ -1,14 +1,13 @@
-import { MessageInfo, PageInfo } from '../../../shared/graphql';
-import { PrismaClient, Message } from '../../../shared/prisma';
+import { PrismaClient, Message } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const createMessage = (msgInfo: MessageInfo) =>
+export const createMessage = (msgInfo: any) =>
 	prisma.message.create({
 		data: msgInfo,
 	});
 
-export const getMessages = (channelId: number, pageInfo: PageInfo) =>
+export const getMessages = (channelId: number, pageInfo: any) =>
 	prisma.message
 		.findMany({
 			where: {

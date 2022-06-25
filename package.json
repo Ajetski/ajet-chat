@@ -2,8 +2,9 @@
 	"name": "client",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "concurrently \"svelte-kit dev\" \"nodemon ./src/index.ts\"",
-		"build": "svelte-kit build",
+		"start": "node --experimental-specifier-resolution=node dist/index.js",
+		"dev": "concurrently \"svelte-kit dev\" \"tsc -w\" \"\"",
+		"build": "svelte-kit build && tsc && tsc-alias",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
 		"prepare": "svelte-kit sync",
@@ -25,6 +26,7 @@
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-node": "^1.0.0-next.78",
 		"@sveltejs/kit": "next",
+		"@types/module-alias": "^2.0.1",
 		"concurrently": "^7.2.2",
 		"nodemon": "^2.0.18",
 		"prettier": "^2.5.1",
@@ -34,11 +36,10 @@
 		"svelte-check": "^2.2.6",
 		"svelte-preprocess": "^4.10.1",
 		"ts-node": "^10.8.1",
+		"tsc-alias": "^1.6.11",
+		"tsconfig-paths": "^4.0.0",
 		"tslib": "^2.3.1",
 		"typescript": "~4.6.2"
-	},
-	"_moduleAliases": {
-		"$lib": "src/lib"
 	},
 	"type": "module"
 }

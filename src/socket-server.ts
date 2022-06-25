@@ -1,5 +1,6 @@
 import type { Server } from 'http';
 import { Server as SocketServer } from 'socket.io';
+
 import { Event } from '$lib/event';
 import { Room } from '$lib/room';
 import { createMessage } from '$lib/services/message.service';

@@ -1,6 +1,4 @@
-import { PrismaClient } from '../../../shared/prisma';
-
-import { PageInfo } from '../../../shared/graphql';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -9,10 +7,10 @@ const prisma = new PrismaClient();
 		data: msgInfo,
 	});*/
 
-export const getChannels = (pageInfo: PageInfo) =>
+export const getChannels = (pageInfo: any) =>
 	prisma.channel
 		.findMany({
 			take: pageInfo.pageLength,
 			skip: pageInfo.pageNumber * pageInfo.pageLength,
 		})
-		.then((msgs) => msgs.reverse());
+		.then((msgs: any) => msgs.reverse());

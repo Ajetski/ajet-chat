@@ -1,5 +1,5 @@
-import type { User } from '../../../shared/prisma';
-import type { DeepPartial } from 'utility-types';
+import type { User } from '@prisma/client';
+//import type { DeepPartial } from 'utility-types';
 /*import { createUser, getUserByUsername } from './users.service';
 
 export const login = async (
