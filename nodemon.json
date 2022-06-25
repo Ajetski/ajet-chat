@@ -1,6 +1,6 @@
 {
 	"execMap": {
-		"ts": "ts-node"
+		"ts": "tsc && dist/index.js"
 	}
 }
 
