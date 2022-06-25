@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"start": "node --experimental-specifier-resolution=node dist/index.js",
-		"dev": "concurrently \"svelte-kit dev\" \"tsc -w\" \"\"",
+		"dev": "concurrently \"svelte-kit dev\" \"tsc -w\"",
 		"build": "svelte-kit build && tsc && tsc-alias",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
