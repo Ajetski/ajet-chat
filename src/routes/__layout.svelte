@@ -1,8 +1,8 @@
-<script context="module" lang="ts">
+<!--<script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit';
 	import { client } from '$lib/client';
 	import { GET_CHANNELS } from '$lib/queries/channel.query';
-	import type { Channel } from '$shared/graphql';
+	//import type { Channel } from '$shared/graphql';
 
 	export const load: Load = async () => {
 		const req = await client
@@ -60,4 +60,7 @@
 	:global(body) {
 		margin: 0;
 	}
-</style>
+</style>-->
+
+<slot />
+

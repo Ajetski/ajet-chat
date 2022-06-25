@@ -10,9 +10,9 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			$shared: '../shared/'
-		}
-	}
+			$shared: '../shared/',
+		},
+	},
 };
 
 export default config;

@@ -14,7 +14,7 @@
 		}[];
 	} = {
 		joined: false,
-		connectedUsers: []
+		connectedUsers: [],
 	};
 
 	let peerId: string;
@@ -31,7 +31,7 @@
 			peer = new Peer(undefined as unknown as string, {
 				host: import.meta.env.VITE_P2P_HOST,
 				path: '/myapp',
-				secure: true
+				secure: true,
 			});
 			peer.on('open', () => {
 				peerId = peer?.id;
@@ -44,8 +44,8 @@
 						...voiceChat.connectedUsers,
 						{
 							peerId: call.peer,
-							remoteStream
-						}
+							remoteStream,
+						},
 					];
 				});
 			});
@@ -67,8 +67,8 @@
 				...voiceChat.connectedUsers,
 				{
 					peerId,
-					remoteStream
-				}
+					remoteStream,
+				},
 			];
 		}
 	});
@@ -76,7 +76,9 @@
 	$socket.on(Event.LeaveVoiceChat, async (channel: Channel, peerId: string) => {
 		if (voiceChat.joined) {
 			console.log('user left channel', channel, peerId);
-			voiceChat.connectedUsers = voiceChat.connectedUsers.filter((u) => u.peerId !== peerId);
+			voiceChat.connectedUsers = voiceChat.connectedUsers.filter(
+				(u) => u.peerId !== peerId,
+			);
 		}
 	});
 
@@ -88,14 +90,14 @@
 			},
 			destroy() {
 				node.srcObject = null;
-			}
+			},
 		};
 	};
 
 	const joinVoice = async () => {
 		voiceChat = {
 			joined: true,
-			connectedUsers: []
+			connectedUsers: [],
 		};
 		$socket.emit(Event.JoinVoiceChat, channelId, peerId);
 	};
@@ -104,7 +106,7 @@
 		$socket.emit(Event.LeaveVoiceChat, channelId, peerId);
 		voiceChat = {
 			joined: false,
-			connectedUsers: []
+			connectedUsers: [],
 		};
 	};
 </script>

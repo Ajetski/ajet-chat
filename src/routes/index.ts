@@ -4,7 +4,7 @@ export const get: RequestHandler = () => {
 	return {
 		status: 303,
 		headers: {
-			Location: '/channels/1'
-		}
+			Location: '/channels/1',
+		},
 	};
 };

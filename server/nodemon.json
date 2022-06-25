@@ -1,6 +1,0 @@
-{
-	"ext": "ts,svelte,prisma",
-	"execMap": {
-		"ts": "yarn build && yarn start"
-	}
-}

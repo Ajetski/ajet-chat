@@ -1,5 +1,10 @@
+.DS_Store
 node_modules
-build
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
+/dist
 
-*error.log
-*debug.log

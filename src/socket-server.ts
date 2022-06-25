@@ -1,9 +1,8 @@
-import { Server } from 'http';
+import type { Server } from 'http';
 import { Server as SocketServer } from 'socket.io';
-import { Event } from '../../shared/event';
-import { Room } from '../../shared/room';
-import { MessageInfo } from '../../shared/graphql';
-import { createMessage } from './services/message.service';
+import { Event } from '$lib/event';
+import { Room } from '$lib/room';
+import { createMessage } from '$lib/services/message.service';
 
 export const initSocketServer = (server: Server) => {
 	const io = new SocketServer(server, {
@@ -16,7 +15,7 @@ export const initSocketServer = (server: Server) => {
 
 	io.on('connection', async (socket) => {
 		await socket.join(Room.Messages);
-		socket.on(Event.Message, async (msgInfo: MessageInfo) => {
+		socket.on(Event.Message, async (msgInfo: any) => {
 			await createMessage(msgInfo);
 			const sockets = await io.in(Room.Messages).fetchSockets();
 			for (let s of sockets) s.emit(Event.Message, msgInfo);
