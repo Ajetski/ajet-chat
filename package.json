@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"start": "node --experimental-specifier-resolution=node dist/index.js",
-		"dev": "concurrently \"svelte-kit dev\" \"tsc -w\"",
+		"dev": "concurrently \"svelte-kit dev\" \"tsc -w\" \"tsc-alias -w\"",
 		"build": "svelte-kit build && tsc && tsc-alias",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
@@ -16,6 +16,8 @@
 	},
 	"dependencies": {
 		"@prisma/client": "^3.15.2",
+		"dotenv": "^16.0.1",
+		"express": "^4.18.1",
 		"module-alias": "^2.2.2",
 		"peerjs": "^1.4.6",
 		"socket.io": "^4.5.1",
@@ -26,6 +28,7 @@
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-node": "^1.0.0-next.78",
 		"@sveltejs/kit": "next",
+		"@types/express": "^4.17.13",
 		"@types/module-alias": "^2.0.1",
 		"concurrently": "^7.2.2",
 		"nodemon": "^2.0.18",
