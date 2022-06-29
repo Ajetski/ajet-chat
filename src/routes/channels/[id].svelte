@@ -35,6 +35,7 @@
 	$socket.on(Event.Message, (data) => {
 		console.log('message:', data);
 	});*/
+	export let message: string;
 </script>
 
 <main in:fade>
@@ -42,5 +43,5 @@
 		<p>{message.author?.username}: {message.text}</p>
 	{/each}
 	<VoiceChat {channelId} />-->
-	<p>test</p>
+	<p>{message}</p>
 </main>

@@ -15,8 +15,7 @@ export const getUserById = async (id: number): Promise<User> => {
 		},
 	});
 
-	if (!user)
-		throw "user not found";
+	if (!user) throw 'user not found';
 
 	return user;
 };

@@ -1,29 +1,29 @@
-<!--<script context="module" lang="ts">
+<script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit';
-	import { client } from '$lib/client';
-	import { GET_CHANNELS } from '$lib/queries/channel.query';
-	//import type { Channel } from '$shared/graphql';
+	//import { server } from '$app/env';
 
 	export const load: Load = async () => {
-		const req = await client
-			.request<{ channels: Channel[] }>(GET_CHANNELS, {
-				pageInfo: {
-					pageNumber: 0,
-					pageLength: 30
-				}
-			})
-			.catch((err) => {
-				throw JSON.stringify(err);
-			});
+		//if (server) {
 		return {
 			props: {
-				channels: req.channels
-			}
+				username: 'nhavasi',
+				pfp: 'https://u.cubeupload.com/Moonlight0619/pfp.png',
+			},
 		};
+		//}
 	};
 </script>
 
 <script lang="ts">
+	import TitleHeader from '$lib/components/TitleHeader.svelte';
+	export let username: string;
+	export let pfp: string;
+</script>
+
+<TitleHeader {username} {pfp} />
+<slot />
+
+<!--<script lang="ts">
 	import NavPanel from '$lib/components/NavPanel.svelte';
 
 	export let channels: Channel[];
@@ -55,12 +55,18 @@
 		grid-template-areas: 'left center right';
 		min-height: 100vh;
 		overflow-y: hidden;
-	}
+	}-->
+<style>
+	:global(:root) {
+		font-family: proxima-nova;
+		--light-gray: #c1c1c1;
+		color: var(--light-gray);
 
-	:global(body) {
+		--green-activity: #61bc4b;
+		--yellow-activity: #f9ff40;
+		--red-activity: #ac2929;
+	}
+	:global(body, html) {
 		margin: 0;
 	}
-</style>-->
-
-<slot />
-
+</style>
