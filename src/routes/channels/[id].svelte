@@ -1,28 +1,3 @@
-<script context="module" lang="ts">
-	/*import type { Load } from '@sveltejs/kit';
-	import { client } from '$lib/client';
-
-	export const load: Load = async ({ params }) => {
-		const messages = await client
-			.request<{ messages: Message[] }>(GET_MESSAGES, {
-				channelId: +params.id,
-				pageInfo: {
-					pageNumber: 0,
-					pageLength: 30
-				}
-			})
-			.catch((err) => {
-				throw JSON.stringify(err);
-			});
-		return {
-			props: {
-				messages: [], //messages.messages,
-				channelId: params.id,
-			},
-		};
-	};*/
-</script>
-
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	/*import { Event } from '$shared/event';
@@ -35,13 +10,16 @@
 	$socket.on(Event.Message, (data) => {
 		console.log('message:', data);
 	});*/
-	export let message: string;
+	export let messages: unknown[];
+	export let channelId: number;
 </script>
 
 <main in:fade>
 	<!--{#each messages as message}
 		<p>{message.author?.username}: {message.text}</p>
 	{/each}
-	<VoiceChat {channelId} />-->
-	<p>{message}</p>
+	<VoiceChat {channelId} />
+	<p>{message}</p>-->
+	<p>{channelId}</p>
+	<p>{JSON.stringify(messages)}</p>
 </main>
