@@ -10,8 +10,22 @@
 	$socket.on(Event.Message, (data) => {
 		console.log('message:', data);
 	});*/
+	import client from '$lib/trpcClient';
+	import { browser } from '$app/env';
 	export let messages: unknown[];
 	export let channelId: number;
+
+	// trpc example
+	if (browser)
+		client
+			.query('getMessages', {
+				channelId: 1,
+				pageInfo: {
+					pageLength: 50,
+					pageNumber: 0,
+				},
+			})
+			.then((res) => console.log(JSON.stringify(res)));
 </script>
 
 <main in:fade>
