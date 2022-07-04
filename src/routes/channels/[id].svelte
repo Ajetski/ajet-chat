@@ -11,9 +11,11 @@
 		console.log('message:', data);
 	});*/
 	import client from '$lib/trpcClient';
+	import type { Messages } from '$lib/services/message.service';
 	import { browser } from '$app/env';
-	export let messages: unknown[];
-	export let channelId: number;
+	import Message from '$lib/components/Message.svelte';
+	export let messages: Messages;
+	//export let channelId: number;
 
 	// trpc example
 	if (browser)
@@ -29,11 +31,22 @@
 </script>
 
 <main in:fade>
-	<!--{#each messages as message}
-		<p>{message.author?.username}: {message.text}</p>
-	{/each}
-	<VoiceChat {channelId} />
-	<p>{message}</p>-->
-	<p>{channelId}</p>
-	<p>{JSON.stringify(messages)}</p>
+	<div class="message">
+		{#each messages as message}
+			<Message
+				messageText={message.text}
+				authorName={message.author.username}
+				avatarUrl="https://u.cubeupload.com/Moonlight0619/pfp.png" />
+		{/each}
+	</div>
+	<!--<VoiceChat {channelId} />-->
 </main>
+
+<style>
+	main {
+		background-color: #1b1b23;
+	}
+	.message {
+		padding: 30px;
+	}
+</style>

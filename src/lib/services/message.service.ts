@@ -13,6 +13,9 @@ export const getMessages = (channelId: number, pageInfo: any) =>
 			where: {
 				channelId,
 			},
+			include: {
+				author: true,
+			},
 			orderBy: {
 				createdTs: 'desc',
 			},
@@ -20,3 +23,5 @@ export const getMessages = (channelId: number, pageInfo: any) =>
 			skip: pageInfo.pageNumber * pageInfo.pageLength,
 		})
 		.then((msgs) => msgs.reverse());
+
+export type Messages = Awaited<ReturnType<typeof getMessages>>;

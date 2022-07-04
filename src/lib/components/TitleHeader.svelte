@@ -9,7 +9,9 @@
 			AJET-CHAT
 			<div class="flex-activity" />
 			<div class="flex-item">{username}</div>
-			<div class="flex-item"><img src={pfp} alt="pfp" /></div>
+			<div class="flex-item">
+				<img src={pfp} alt="pfp" height="32x" />
+			</div>
 		</div>
 	</div>
 	<hr />
@@ -42,7 +44,9 @@
 	.flex-item {
 		padding-left: 12px;
 	}
-
+	img {
+		border-radius: 50%;
+	}
 	hr {
 		margin: 0;
 		padding: 0;
