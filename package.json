@@ -19,6 +19,9 @@
 	},
 	"dependencies": {
 		"@prisma/client": "^3.15.2",
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/adapter-node": "next",
+		"@sveltejs/kit": "next",
 		"@trpc/client": "^9.25.3",
 		"@trpc/server": "^9.25.3",
 		"dotenv": "^16.0.1",
@@ -27,12 +30,9 @@
 		"peerjs": "^1.4.6",
 		"socket.io": "^4.5.1",
 		"socket.io-client": "^4.5.1",
-		"trpc-sveltekit": "^2.1.0",
-		"zod": "^3.17.3",
 		"svelte-preprocess": "^4.10.1",
-		"@sveltejs/adapter-auto": "next",
-		"@sveltejs/adapter-node": "next",
-		"@sveltejs/kit": "next"
+		"trpc-sveltekit": "^2.1.0",
+		"zod": "^3.17.3"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.21.0",
