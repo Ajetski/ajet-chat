@@ -27,13 +27,13 @@
 		"socket.io": "^4.5.1",
 		"socket.io-client": "^4.5.1",
 		"trpc-sveltekit": "^2.1.0",
-		"zod": "^3.17.3"
+		"zod": "^3.17.3",
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/adapter-node": "next",
+		"@sveltejs/kit": "next"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.21.0",
-		"@sveltejs/adapter-auto": "next",
-		"@sveltejs/adapter-node": "next",
-		"@sveltejs/kit": "next",
 		"@types/express": "^4.17.13",
 		"@types/module-alias": "^2.0.1",
 		"@types/node": "^18.0.2",
