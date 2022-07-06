@@ -153,7 +153,7 @@
     set-cookie-parser "^2.4.8"
     tiny-glob "^0.2.9"
 
-"@sveltejs/adapter-node@^1.0.0-next.78":
+"@sveltejs/adapter-node@next":
   version "1.0.0-next.78"
   resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-1.0.0-next.78.tgz#72c35dfc5bdf6e15aa206745b39ca6402185f318"
   integrity sha512-TXB5Ii0z/7o1B05p/YLsS4t+JUHFHWBzFv1U16TKvM3HMbMUJIx+AhpM2WJfDX8HtAyfd1m9OawGoUB+1ed24A==
@@ -304,6 +304,11 @@
   version "18.0.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.0.0.tgz#67c7b724e1bcdd7a8821ce0d5ee184d3b4dd525a"
   integrity sha512-cHlGmko4gWLVI27cGJntjs/Sj8th9aYwplmZFwmmgYQQvL5NUsgVJG7OddLvNfLqYS31KFN0s3qlaD9qCaxACA==
+
+"@types/node@^18.0.2":
+  version "18.0.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.0.2.tgz#a594e580c396c22dd6b1470be81737c79ec0b1b1"
+  integrity sha512-b947SdS4GH+g2W33wf5FzUu1KLj5FcSIiNWbU1ZyMvt/X7w48ZsVcsQoirIgE/Oq03WT5Qbn/dkY0hePi4ZXcQ==
 
 "@types/pug@^2.0.4":
   version "2.0.6"
