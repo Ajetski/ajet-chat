@@ -2,6 +2,7 @@
 	"name": "client",
 	"version": "0.0.1",
 	"scripts": {
+		"heroku-prebuild": "yarn build && yarn generate",
 		"start": "node --experimental-specifier-resolution=node dist/index.js",
 		"dev": "concurrently \"svelte-kit dev\" \"tsc -w\" \"tsc-alias -w\"",
 		"build": "svelte-kit build && tsc && tsc-alias",
