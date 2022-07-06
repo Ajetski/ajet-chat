@@ -2,7 +2,7 @@
 import type { inferAsyncReturnType } from '@trpc/server';
 import * as trpc from '@trpc/server';
 import { getMessages } from './services/message.service';
-import { number, z } from 'zod';
+import { z } from 'zod';
 
 // optional
 export const createContext = () => {
