@@ -1,5 +1,5 @@
 // src/hooks.ts
-import { createContext, responseMeta, router } from '$lib/trpcServer';
+import { createContext, responseMeta, router } from '$lib/trpc/server';
 import type { Handle } from '@sveltejs/kit';
 import { createTRPCHandle } from 'trpc-sveltekit';
 // create your tRPC router...

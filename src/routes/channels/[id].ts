@@ -8,7 +8,7 @@ export const get: RequestHandler = async ({ params }) => {
 				pageLength: 30,
 				pageNumber: 0,
 			}),
-			channelId: +params.id,
+			//channelId: +params.id,
 		},
 	};
 };

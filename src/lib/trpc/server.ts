@@ -1,8 +1,7 @@
 // $lib/trpcServer.ts
 import type { inferAsyncReturnType } from '@trpc/server';
 import * as trpc from '@trpc/server';
-import { getMessages } from './services/message.service';
-import { z } from 'zod';
+import { messageRouter } from './message.router';
 
 // optional
 export const createContext = () => {
@@ -22,19 +21,6 @@ export const responseMeta = () => {
 
 export const router = trpc
 	.router<inferAsyncReturnType<typeof createContext>>()
-	// queries and mutations...
-	.query('hello', {
-		resolve: () => 'world',
-	})
-	.query('getMessages', {
-		input: z.object({
-			channelId: z.number(),
-			pageInfo: z.object({
-				pageLength: z.number(),
-				pageNumber: z.number(),
-			}),
-		}),
-		resolve: (req) => getMessages(req.input.channelId, req.input.pageInfo),
-	});
+	.merge(messageRouter);
 
 export type Router = typeof router;

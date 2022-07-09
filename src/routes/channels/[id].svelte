@@ -10,7 +10,7 @@
 	$socket.on(Event.Message, (data) => {
 		console.log('message:', data);
 	});*/
-	import client from '$lib/trpcClient';
+	import client from '$lib/trpc/client';
 	import type { Messages } from '$lib/services/message.service';
 	import { browser } from '$app/env';
 	import Message from '$lib/components/Message.svelte';
