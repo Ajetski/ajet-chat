@@ -86,7 +86,7 @@
 		color: white;
 	}
 	textarea {
-		padding-left: .5rem;
+		padding-left: 0.5rem;
 		resize: none;
 		grid-area: box;
 		border: none;
