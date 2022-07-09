@@ -14,14 +14,16 @@
 			</div>
 		</div>
 	</div>
-	<hr />
 </main>
 
 <style>
+	main {
+		height: 100%;
+	}
 	.header {
 		display: block;
 		background-color: black;
-		height: 55px;
+		height: 100%;
 	}
 	.flex-container {
 		font-weight: 900;

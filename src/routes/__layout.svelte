@@ -3,33 +3,33 @@
 	//import { server } from '$app/env';
 
 	export const load: Load = async () => {
-		//if (server) {
 		return {
 			props: {
 				username: 'nhavasi',
 				pfp: 'https://u.cubeupload.com/Moonlight0619/pfp.png',
 			},
 		};
-		//}
 	};
 </script>
 
 <script lang="ts">
 	import TitleHeader from '$lib/components/TitleHeader.svelte';
-	export let username: string;
-	export let pfp: string;
-</script>
-
-<TitleHeader {username} {pfp} />
-<slot />
-
-<!--<script lang="ts">
 	import NavPanel from '$lib/components/NavPanel.svelte';
 
-	export let channels: Channel[];
+	export let username: string;
+	export let pfp: string;
+	let channels = [
+		{
+			id: 1,
+			name: 'general',
+		},
+	];
 </script>
 
 <div class="grid-container">
+	<div class="grid-top">
+		<TitleHeader {username} {pfp} />
+	</div>
 	<div class="grid-left">
 		<NavPanel {channels} />
 	</div>
@@ -40,6 +40,10 @@
 </div>
 
 <style>
+	.grid-top {
+		grid-area: top;
+		border-bottom: 2px solid grey;
+	}
 	.grid-left {
 		grid-area: left;
 	}
@@ -52,11 +56,15 @@
 
 	.grid-container {
 		display: grid;
-		grid-template-areas: 'left center right';
+		grid-template-areas:
+			'top top top'
+			'left center right';
+		grid-template-rows: 60px auto;
 		min-height: 100vh;
 		overflow-y: hidden;
-	}-->
-<style>
+		background-color: #1b1b23;
+	}
+
 	:global(:root) {
 		font-family: proxima-nova;
 		--light-gray: #c1c1c1;

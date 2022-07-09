@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { Channel } from '$shared/graphql';
-
-	export let channels: Channel[];
+	export let channels: { id: number; name: string }[];
 </script>
 
 <main>

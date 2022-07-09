@@ -7,7 +7,7 @@
 <main>
 	<div class="container">
 		<div>
-			<img src={avatarUrl} alt="pfp" height="75px" />
+			<img src={avatarUrl} alt="pfp" height="45px" />
 		</div>
 		<div>
 			<div class="name">{authorName}</div>
@@ -20,8 +20,8 @@
 	.container {
 		display: flex;
 		flex-direction: row;
-		font-size: 26px;
-		padding: 20px;
+		font-size: 16px;
+		padding: 20px 20px;
 	}
 	img {
 		border-radius: 50%;

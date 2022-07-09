@@ -31,13 +31,21 @@
 </script>
 
 <main in:fade>
-	<div class="message">
-		{#each messages as message}
-			<Message
-				messageText={message.text}
-				authorName={message.author.username}
-				avatarUrl="https://u.cubeupload.com/Moonlight0619/pfp.png" />
-		{/each}
+	<div class="grid">
+		<div class="messages">
+			{#each messages as message}
+				<Message
+					messageText={message.text}
+					authorName={message.author.username}
+					avatarUrl="https://u.cubeupload.com/Moonlight0619/pfp.png" />
+			{/each}
+		</div>
+		<div class="sender-box">
+			<div class="sender">
+				<button class="attachment-btn">+</button>
+				<textarea rows={1} placeholder="type yo shit here..." />
+			</div>
+		</div>
 	</div>
 	<!--<VoiceChat {channelId} />-->
 </main>
@@ -45,8 +53,44 @@
 <style>
 	main {
 		background-color: #1b1b23;
+		height: 100%;
 	}
-	.message {
-		padding: 30px;
+	.messages {
+		grid-area: messages;
+	}
+	.grid {
+		display: grid;
+		grid-template-areas: 'messages' 'sender';
+		grid-template-rows: auto 50px;
+		height: 100%;
+	}
+	.sender-box {
+		/*position: -webkit-sticky;  /* Safari */
+		/*position: sticky; */
+		/*bottom: 0; */
+		grid-area: sender;
+		height: 100%;
+	}
+	.sender {
+		display: grid;
+		grid-template-columns: 30px auto;
+		grid-template-areas: 'btn box';
+	}
+	.attachment-btn {
+		border-top-left-radius: 20px;
+		border-bottom-left-radius: 20px;
+		padding: 0;
+		grid-area: btn;
+		border: none;
+		background-color: black;
+		color: white;
+	}
+	textarea {
+		padding-left: .5rem;
+		resize: none;
+		grid-area: box;
+		border: none;
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
 	}
 </style>
