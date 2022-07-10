@@ -2,11 +2,17 @@
 	import type { Load } from '@sveltejs/kit';
 	//import { server } from '$app/env';
 
-	export const load: Load = async () => {
+	export const load: Load = async ({ fetch }) => {
 		return {
 			props: {
 				username: 'nhavasi',
 				pfp: 'https://u.cubeupload.com/Moonlight0619/pfp.png',
+				users: await client(fetch).query('getUsers', {
+					pageInfo: {
+						pageLength: 30,
+						pageNumber: 0,
+					},
+				}),
 			},
 		};
 	};
@@ -15,6 +21,8 @@
 <script lang="ts">
 	import TitleHeader from '$lib/components/TitleHeader.svelte';
 	import NavPanel from '$lib/components/NavPanel.svelte';
+	import type { InferQueryOutput } from '$lib/trpc/client';
+	import client from '$lib/trpc/client';
 
 	export let username: string;
 	export let pfp: string;
@@ -28,16 +36,7 @@
 			name: 'cs-stuff',
 		},
 	];
-	let users = [
-		{
-			id: 1,
-			username: 'test user',
-		},
-		{
-			id: 3,
-			username: 'test user 2',
-		},
-	];
+	export let users: InferQueryOutput<'getUsers'>;
 </script>
 
 <div class="grid-container">

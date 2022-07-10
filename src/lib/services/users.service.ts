@@ -1,3 +1,4 @@
+import type { InferQueryInput } from '$lib/trpc/client';
 import { PrismaClient, User } from '@prisma/client';
 
 const prisma = new PrismaClient();
