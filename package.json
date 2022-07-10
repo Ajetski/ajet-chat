@@ -35,6 +35,7 @@
 		"svelte-preprocess": "^4.10.1",
 		"trpc-sveltekit": "^2.1.0",
 		"trpc-transformer": "^2.0.3",
+		"tsc-alias": "^1.6.11",
 		"vite": "^2.9.14",
 		"zod": "^3.17.3"
 	},
@@ -50,7 +51,6 @@
 		"svelte": "^3.44.0",
 		"svelte-check": "^2.2.6",
 		"ts-node": "^10.8.1",
-		"tsc-alias": "^1.6.11",
 		"tsconfig-paths": "^4.0.0",
 		"tslib": "^2.3.1",
 		"typescript": "~4.6.2"
