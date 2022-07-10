@@ -24,14 +24,12 @@
 			name: 'general',
 		},
 	];
-	let showChannels = false;
-	const toggleChannelList = () => {
-		showChannels = !showChannels;
-	};
-	let showDms = false;
-	const toggleDirectMessage = () => {
-		showDms = !showDms;
-	};
+	let users = [
+		{
+			id: 1,
+			username: 'test user',
+		},
+	];
 </script>
 
 <div class="grid-container">
@@ -39,21 +37,7 @@
 		<TitleHeader {username} {pfp} />
 	</div>
 	<div class="grid-left">
-		<div class="clickable" on:click={toggleDirectMessage}>
-			<span class="section-title">Direct Message</span>
-			<span class="dropdown-symbol">{showDms ? '-' : '>'}</span>
-		</div>
-		{#if showDms}
-			<NavPanel {channels} />
-		{/if}
-		<div class="divider" />
-		<div class="clickable" on:click={toggleChannelList}>
-			<span class="section-title">Channel List</span>
-			<span class="dropdown-symbol">{showChannels ? '-' : '>'}</span>
-		</div>
-		{#if showChannels}
-			<NavPanel {channels} />
-		{/if}
+		<NavPanel {channels} {users} />
 	</div>
 	<div class="grid-center">
 		<slot />
@@ -100,24 +84,5 @@
 	}
 	:global(body, html) {
 		margin: 0;
-	}
-	.clickable:hover {
-		cursor: pointer;
-	}
-	.clickable {
-		margin-top: 5px;
-		margin-bottom: 5px;
-	}
-	.divider {
-		border-bottom: 1px solid grey;
-		margin-right: 1rem;
-	}
-	.dropdown-symbol {
-		float: right;
-		margin-right: 1rem;
-	}
-	.section-title {
-		font-size: 20px;
-		font-weight: bolder;
 	}
 </style>
