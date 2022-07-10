@@ -31,7 +31,7 @@
 			// TODO: send msg here
 			msgInput = '';
 		}
-	}
+	};
 </script>
 
 <main in:fade>
@@ -47,7 +47,11 @@
 		<div class="sender-box">
 			<div class="sender">
 				<button class="attachment-btn">+</button>
-				<textarea rows={1} placeholder="type yo shit here..." bind:value={msgInput} on:keypress={handleSendMessage} />
+				<textarea
+					rows={1}
+					placeholder="type yo shit here..."
+					bind:value={msgInput}
+					on:keypress={handleSendMessage} />
 			</div>
 		</div>
 	</div>
