@@ -1,33 +1,37 @@
+<script context="module" lang="ts">
+	import type { Load } from '@sveltejs/kit';
+	import client, { type InferQueryOutput } from '$lib/trpc/client';
+
+	export const load: Load = async ({ params, fetch }) => {
+		return {
+			props: {
+				messages: await client(fetch).query('getMessages', {
+					channelId: +params.id,
+					pageInfo: {
+						pageLength: 30,
+						pageNumber: 0,
+					},
+				}),
+			},
+		};
+	};
+</script>
+
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	/*import { Event } from '$shared/event';
-	import { socket } from '$lib/stores/socket.store';
-	import VoiceChat from '$lib/components/VoiceChat.svelte';
-
-	export let messages: unknown[];
-	export let channelId: number;
-
-	$socket.on(Event.Message, (data) => {
-		console.log('message:', data);
-	});*/
-	import client from '$lib/trpc/client';
-	import type { Messages } from '$lib/services/message.service';
-	import { browser } from '$app/env';
 	import Message from '$lib/components/Message.svelte';
-	export let messages: Messages;
-	//export let channelId: number;
 
-	// trpc example
-	if (browser)
-		client
-			.query('getMessages', {
-				channelId: 1,
-				pageInfo: {
-					pageLength: 50,
-					pageNumber: 0,
-				},
-			})
-			.then((res) => console.log(JSON.stringify(res)));
+	export let messages: InferQueryOutput<'getMessages'>;
+
+	let msgInput = '';
+
+	const handleSendMessage = (e: KeyboardEvent) => {
+		if (e.code === 'Enter') {
+			console.log('sending message', msgInput);
+			// TODO: send msg here
+			msgInput = '';
+		}
+	}
 </script>
 
 <main in:fade>
@@ -43,11 +47,10 @@
 		<div class="sender-box">
 			<div class="sender">
 				<button class="attachment-btn">+</button>
-				<textarea rows={1} placeholder="type yo shit here..." />
+				<textarea rows={1} placeholder="type yo shit here..." bind:value={msgInput} on:keypress={handleSendMessage} />
 			</div>
 		</div>
 	</div>
-	<!--<VoiceChat {channelId} />-->
 </main>
 
 <style>

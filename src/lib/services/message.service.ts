@@ -8,20 +8,22 @@ export const createMessage = (msgInfo: any) =>
 	});
 
 export const getMessages = (channelId: number, pageInfo: any) =>
-	prisma.message
-		.findMany({
-			where: {
-				channelId,
+	prisma.message.findMany({
+		where: {
+			channelId,
+		},
+		include: {
+			author: {
+				select: {
+					id: true,
+					username: true,
+				},
 			},
-			include: {
-				author: true,
-			},
-			orderBy: {
-				createdTs: 'desc',
-			},
-			take: pageInfo.pageLength,
-			skip: pageInfo.pageNumber * pageInfo.pageLength,
-		})
-		.then((msgs) => msgs.reverse());
-
+		},
+		orderBy: {
+			createdTs: 'desc',
+		},
+		take: pageInfo.pageLength,
+		skip: pageInfo.pageNumber * pageInfo.pageLength,
+	});
 export type Messages = Awaited<ReturnType<typeof getMessages>>;

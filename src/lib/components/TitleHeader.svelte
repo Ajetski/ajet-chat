@@ -49,11 +49,4 @@
 	img {
 		border-radius: 50%;
 	}
-	hr {
-		margin: 0;
-		padding: 0;
-		background-color: #707070;
-		height: 4px;
-		border: 0;
-	}
 </style>

@@ -33,6 +33,7 @@
 		"socket.io-client": "^4.5.1",
 		"svelte-preprocess": "^4.10.1",
 		"trpc-sveltekit": "^2.1.0",
+		"trpc-transformer": "^2.0.3",
 		"zod": "^3.17.3"
 	},
 	"devDependencies": {
