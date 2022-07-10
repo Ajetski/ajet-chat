@@ -23,11 +23,19 @@
 			id: 1,
 			name: 'general',
 		},
+		{
+			id: 2,
+			name: 'cs-stuff',
+		},
 	];
 	let users = [
 		{
 			id: 1,
 			username: 'test user',
+		},
+		{
+			id: 3,
+			username: 'test user 2',
 		},
 	];
 </script>

@@ -19,8 +19,8 @@
 	</div>
 	{#if showDms}
 		<ul>
-			{#each channels as channel}
-				<li>{channel.name}</li>
+			{#each users as user}
+				<li>{user.username}</li>
 			{/each}
 		</ul>
 	{/if}
