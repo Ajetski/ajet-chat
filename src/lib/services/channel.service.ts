@@ -8,9 +8,7 @@ const prisma = new PrismaClient();
 	});*/
 
 export const getChannels = (pageInfo: any) =>
-	prisma.channel
-		.findMany({
-			take: pageInfo.pageLength,
-			skip: pageInfo.pageNumber * pageInfo.pageLength,
-		})
-		.then((msgs: any) => msgs.reverse());
+	prisma.channel.findMany({
+		take: pageInfo.pageLength,
+		skip: pageInfo.pageNumber * pageInfo.pageLength,
+	});
