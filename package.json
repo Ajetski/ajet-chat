@@ -6,7 +6,7 @@
 		"start": "node build/index.js",
 		"start:server": "node --experimental-specifier-resolution=node dist/index.js",
 		"dev": "concurrently \"svelte-kit dev\" \"tsc -w\" \"tsc-alias -w\"",
-		"build": "node node_modules/@sveltejs/kit/svelte-kit.js build",
+		"build": "vite build",
 		"build:server": "tsc && tsc-alias",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
@@ -25,9 +25,9 @@
 		"@sveltejs/kit": "next",
 		"@trpc/client": "^9.25.3",
 		"@trpc/server": "^9.25.3",
+		"@types/express": "^4.17.13",
 		"dotenv": "^16.0.1",
 		"express": "^4.18.1",
-		"@types/express": "^4.17.13",
 		"module-alias": "^2.2.2",
 		"peerjs": "^1.4.6",
 		"socket.io": "^4.5.1",
@@ -35,6 +35,7 @@
 		"svelte-preprocess": "^4.10.1",
 		"trpc-sveltekit": "^2.1.0",
 		"trpc-transformer": "^2.0.3",
+		"vite": "^2.9.14",
 		"zod": "^3.17.3"
 	},
 	"devDependencies": {
