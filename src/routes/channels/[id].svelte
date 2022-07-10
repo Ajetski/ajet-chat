@@ -2,19 +2,17 @@
 	import type { Load } from '@sveltejs/kit';
 	import client, { type InferQueryOutput } from '$lib/trpc/client';
 
-	export const load: Load = async ({ params, fetch }) => {
-		return {
-			props: {
-				messages: await client(fetch).query('getMessages', {
-					channelId: +params.id,
-					pageInfo: {
-						pageLength: 30,
-						pageNumber: 0,
-					},
-				}),
-			},
-		};
-	};
+	export const load: Load = async ({ params, fetch }) => ({
+		props: {
+			messages: await client(fetch).query('getMessages', {
+				channelId: +params.id,
+				pageInfo: {
+					pageLength: 30,
+					pageNumber: 0,
+				},
+			}),
+		},
+	});
 </script>
 
 <script lang="ts">
