@@ -11,6 +11,7 @@
 					pageNumber: 0,
 				},
 			}),
+			channelId: +params.id,
 		},
 	});
 </script>
@@ -20,13 +21,28 @@
 	import Message from '$lib/components/Message.svelte';
 
 	export let messages: InferQueryOutput<'getMessages'>;
+	export let channelId: number;
 
 	let msgInput = '';
 
-	const handleSendMessage = (e: KeyboardEvent) => {
+	const handleSendMessage = async (e: KeyboardEvent) => {
 		if (e.code === 'Enter') {
-			console.log('sending message', msgInput);
-			// TODO: send msg here
+			console.log('sending message:', msgInput);
+			const res = await client().mutation('createMessage', {
+				msgInfo: {
+					author: {
+						connect: {
+							id: 1,
+						},
+					},
+					text: msgInput,
+					channel: {
+						connect: {
+							id: channelId,
+						},
+					},
+				},
+			});
 			msgInput = '';
 		}
 	};

@@ -1,8 +1,8 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const createMessage = (msgInfo: any) =>
+export const createMessage = (msgInfo: Prisma.MessageCreateInput) =>
 	prisma.message.create({
 		data: msgInfo,
 	});
