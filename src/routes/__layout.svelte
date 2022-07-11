@@ -13,6 +13,12 @@
 						pageNumber: 0,
 					},
 				}),
+				channels: await client(fetch).query('getChannels', {
+					pageInfo: {
+						pageLength: 30,
+						pageNumber: 0,
+					},
+				}),
 			},
 		};
 	};
@@ -26,16 +32,7 @@
 
 	export let username: string;
 	export let pfp: string;
-	let channels = [
-		{
-			id: 1,
-			name: 'general',
-		},
-		{
-			id: 2,
-			name: 'cs-stuff',
-		},
-	];
+	export let channels: InferQueryOutput<'getChannels'>;
 	export let users: InferQueryOutput<'getUsers'>;
 </script>
 
