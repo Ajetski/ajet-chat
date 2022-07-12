@@ -62,6 +62,7 @@
 			<div class="sender">
 				<button class="attachment-btn">+</button>
 				<textarea
+					class="text-box"
 					rows={1}
 					placeholder="type yo shit here..."
 					bind:value={msgInput}
@@ -113,5 +114,9 @@
 		border: none;
 		border-top-right-radius: 20px;
 		border-bottom-right-radius: 20px;
+	}
+	.text-box {
+		background-color: rgb(86, 40, 86);
+		color: lightgray;
 	}
 </style>
