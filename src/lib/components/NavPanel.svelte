@@ -32,7 +32,9 @@
 	{#if showChannels}
 		<ul>
 			{#each channels as channel}
-				<li>{channel.name}</li>
+				<a href="/channels/{channel.id}">
+					<li>{channel.name}</li>
+				</a>
 			{/each}
 		</ul>
 	{/if}
@@ -65,5 +67,9 @@
 	.section-title {
 		font-size: 20px;
 		font-weight: bolder;
+	}
+	a {
+		text-decoration: none;
+		color: lightgray;
 	}
 </style>
