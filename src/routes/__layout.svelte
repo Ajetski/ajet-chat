@@ -46,7 +46,7 @@
 	<div class="grid-center">
 		<slot />
 	</div>
-	<div class="grid-right">right</div>
+	<div class="grid-right">Text-Channel-Name</div>
 </div>
 
 <style>
@@ -65,6 +65,9 @@
 	}
 	.grid-right {
 		grid-area: right;
+		background-color: rgb(62, 16, 62);
+		padding-left: 15px;
+		padding-top: 15px;
 	}
 	.grid-container {
 		display: grid;
