@@ -64,7 +64,7 @@
 				<textarea
 					class="text-box"
 					rows={1}
-					placeholder="type yo shit here..."
+					placeholder="message"
 					bind:value={msgInput}
 					on:keypress={handleSendMessage} />
 			</div>
@@ -79,6 +79,8 @@
 	}
 	.messages {
 		grid-area: messages;
+		display: flex;
+		flex-direction: column-reverse;
 	}
 	.grid {
 		display: grid;
