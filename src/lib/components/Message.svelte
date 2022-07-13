@@ -31,6 +31,6 @@
 		margin-left: 16px;
 	}
 	.text {
-		margin-left: 50px;
+		margin-left: 16px;
 	}
 </style>
