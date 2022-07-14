@@ -34,7 +34,6 @@
 		const elem = document.getElementById('message-log');
 		
 		if (elem) {
-			console.log('found elem', elem.scrollHeight);
 			elem.scrollTop = elem.scrollHeight;
 		}
 	})
