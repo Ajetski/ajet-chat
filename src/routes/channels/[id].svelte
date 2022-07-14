@@ -44,8 +44,7 @@
 					},
 				},
 			}
-			
-			messages = [...messages, {preview: true, author: {id: 1, username: 'test user'}, text: msgInput}];
+			messages = [{preview: true, author: {id: 1, username: 'test user'}, text: msgInput}, ...messages];
 
 			const res = await client().mutation('createMessage', newMessage);
 			msgInput = '';
