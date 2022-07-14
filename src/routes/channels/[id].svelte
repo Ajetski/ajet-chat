@@ -44,9 +44,9 @@
 					},
 				},
 			}
-			messages.unshift({preview: true, author: {id: 1, username: 'testUser1'}, text: msgInput})
+			messages.unshift({preview: true, author: {id: 1, username: 'test user'}, text: msgInput})
 			messages = messages;
-			
+
 			const res = await client().mutation('createMessage', newMessage);
 			msgInput = '';
 
