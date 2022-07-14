@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit';
 	import client, { type InferQueryOutput } from '$lib/trpc/client';
-
+	
 	export const load: Load = async ({ params, fetch }) => ({
 		props: {
 			messages: await client(fetch).query('getMessages', {
@@ -19,18 +19,23 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import Message from '$lib/components/Message.svelte';
+	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import type { MessageType, Preview } from '$lib/client-types';
 	import { onMount } from 'svelte';
-
+	
 	export let messages: ( MessageType | Preview)[];
 	export let channelId: number;
 
+	let loading: boolean = true;
+
 	onMount(()=> {
-		const elem = document.getElementById('MessageLog');
+		loading = false;
+
+		const elem = document.getElementById('message-log');
+		
 		if (elem) {
-			console.log(elem.scrollHeight);
+			console.log('found elem', elem.scrollHeight);
 			elem.scrollTop = elem.scrollHeight;
-			console.log('New',elem.scrollTop);
 		}
 	})
 
@@ -71,7 +76,13 @@
 </script>
 
 <main in:fade>
-	<div class="grid" id="MessageLog">
+	{#if loading}
+		<div class="grid" id="loading-spinner">
+			<LoadingSpinner>
+			</LoadingSpinner>
+		</div>
+	{/if}
+	<div class="grid" id="message-log">
 		<div class="messages">
 			{#each messages as message}
 				<Message
@@ -86,11 +97,11 @@
 					+
 				</button>
 				<textarea
-					class="text-box"
-					rows={1}
-					placeholder="message"
-					bind:value={msgInput}
-					on:keypress={handleSendMessage} />
+				class="text-box"
+				rows={1}
+				placeholder="message"
+				bind:value={msgInput}
+				on:keypress={handleSendMessage} />
 			</div>
 		</div>
 	</div>
@@ -148,5 +159,10 @@
 	.text-box {
 		background-color: rgb(86, 40, 86);
 		color: lightgray;
+	}
+	#loading-spinner{
+		display: flex;
+    	justify-content: center;
+    	align-items: center;
 	}
 </style>
