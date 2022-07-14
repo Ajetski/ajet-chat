@@ -30,13 +30,10 @@
 	import type { InferQueryOutput } from '$lib/trpc/client';
 	import client from '$lib/trpc/client';
 
-
 	export let username: string;
 	export let pfp: string;
 	export let channels: InferQueryOutput<'getChannels'>;
 	export let users: InferQueryOutput<'getUsers'>;
-
-	
 </script>
 
 <div class="grid-container">
@@ -94,5 +91,6 @@
 	}
 	:global(body, html) {
 		margin: 0;
+		scroll-behavior: smooth;
 	}
 </style>
