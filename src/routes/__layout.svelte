@@ -29,21 +29,14 @@
 	import NavPanel from '$lib/components/NavPanel.svelte';
 	import type { InferQueryOutput } from '$lib/trpc/client';
 	import client from '$lib/trpc/client';
-	import { onMount } from 'svelte';
+
 
 	export let username: string;
 	export let pfp: string;
 	export let channels: InferQueryOutput<'getChannels'>;
 	export let users: InferQueryOutput<'getUsers'>;
+
 	
-	onMount(()=> {
-		const elem = document.getElementById('MessageLog');
-		if (elem) {
-			console.log(elem.scrollHeight);
-			elem.scrollTop = elem.scrollHeight;
-			console.log('New',elem.scrollTop);
-		}
-	})
 </script>
 
 <div class="grid-container">
@@ -53,7 +46,7 @@
 	<div class="grid-left">
 		<NavPanel {channels} {users} />
 	</div>
-	<div class="grid-center" id="MessageLog">
+	<div class="grid-center">
 		<slot />
 	</div>
 	<div class="grid-right">Text-Channel-Name</div>
@@ -72,8 +65,6 @@
 	}
 	.grid-center {
 		grid-area: center;
-		max-height: calc(100vh - 60px);
-		overflow-y: scroll;
 	}
 	.grid-right {
 		grid-area: right;

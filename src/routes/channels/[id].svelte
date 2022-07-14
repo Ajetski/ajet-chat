@@ -20,9 +20,19 @@
 	import { fade } from 'svelte/transition';
 	import Message from '$lib/components/Message.svelte';
 	import type { MessageType, Preview } from '$lib/client-types';
+	import { onMount } from 'svelte';
 
 	export let messages: ( MessageType | Preview)[];
 	export let channelId: number;
+
+	onMount(()=> {
+		const elem = document.getElementById('MessageLog');
+		if (elem) {
+			console.log(elem.scrollHeight);
+			elem.scrollTop = elem.scrollHeight;
+			console.log('New',elem.scrollTop);
+		}
+	})
 
 	let msgInput = '';
 
@@ -61,7 +71,7 @@
 </script>
 
 <main in:fade>
-	<div class="grid">
+	<div class="grid" id="MessageLog">
 		<div class="messages">
 			{#each messages as message}
 				<Message
@@ -95,19 +105,23 @@
 		grid-area: messages;
 		display: flex;
 		flex-direction: column-reverse;
+		
 	}
 	.grid {
 		display: grid;
 		grid-template-areas: 'messages' 'sender';
 		grid-template-rows: auto 50px;
 		height: 100%;
+		max-height: calc(100vh - 60px);
+		overflow-y: scroll;
 	}
 	.sender-box {
-		/*position: -webkit-sticky;  /* Safari */
-		/*position: sticky; */
-		/*bottom: 0; */
+		position: -webkit-sticky;  /* Safari */
+		position: sticky;
+		bottom: 0;
 		grid-area: sender;
 		height: 100%;
+		background-color: #1b1b23;
 	}
 	.sender {
 		display: grid;
