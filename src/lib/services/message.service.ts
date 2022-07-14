@@ -11,8 +11,8 @@ export const createMessage = (msgInfo: Prisma.MessageCreateInput) =>
 					id: true,
 					username: true,
 				},
-			}
-		}
+			},
+		},
 	});
 
 export const getMessages = (channelId: number, pageInfo: any) =>
