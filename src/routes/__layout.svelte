@@ -62,6 +62,8 @@
 	}
 	.grid-center {
 		grid-area: center;
+		max-height: calc(100vh - 60px);
+		overflow-y: scroll;
 	}
 	.grid-right {
 		grid-area: right;

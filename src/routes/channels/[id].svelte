@@ -19,8 +19,9 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import Message from '$lib/components/Message.svelte';
+	import type { MessageType, Preview } from '$lib/client-types';
 
-	export let messages: InferQueryOutput<'getMessages'>;
+	export let messages: ( MessageType | Preview)[];
 	export let channelId: number;
 
 	let msgInput = '';
@@ -28,7 +29,7 @@
 	const handleSendMessage = async (e: KeyboardEvent) => {
 		if (e.code === 'Enter') {
 			console.log('sending message:', msgInput);
-			const res = await client().mutation('createMessage', {
+			const newMessage = {
 				msgInfo: {
 					author: {
 						connect: {
@@ -42,8 +43,20 @@
 						},
 					},
 				},
-			});
+			}
+			messages.unshift({preview: true, author: {id: 1, username: 'testUser1'}, text: msgInput})
+			messages = messages;
+			
+			const res = await client().mutation('createMessage', newMessage);
 			msgInput = '';
+
+			messages = messages.map(el => {
+				const p = el as Preview; 
+				if(p.preview){
+					return res;
+				}
+				return el;
+			});
 		}
 	};
 </script>
@@ -53,14 +66,16 @@
 		<div class="messages">
 			{#each messages as message}
 				<Message
-					messageText={message.text}
-					authorName={message.author.username}
-					avatarUrl="https://u.cubeupload.com/Moonlight0619/pfp.png" />
+					message={message}
+					avatarUrl="https://u.cubeupload.com/Moonlight0619/pfp.png"
+				/>
 			{/each}
 		</div>
 		<div class="sender-box">
 			<div class="sender">
-				<button class="attachment-btn">+</button>
+				<button class="attachment-btn">
+					+
+				</button>
 				<textarea
 					class="text-box"
 					rows={1}

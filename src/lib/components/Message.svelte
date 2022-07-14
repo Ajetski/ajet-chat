@@ -1,7 +1,11 @@
 <script lang="ts">
-	export let messageText: string;
-	export let authorName: string;
+import type { MessageType, Preview } from "$lib/client-types";
+
+
+	export let message: MessageType | Preview;
 	export let avatarUrl: string;
+
+	const isPreview = (message: MessageType | Preview) => (message as Preview).preview;
 </script>
 
 <main>
@@ -10,8 +14,11 @@
 			<img src={avatarUrl} alt="pfp" height="45px" />
 		</div>
 		<div>
-			<div class="name">{authorName}</div>
-			<div class="text">{messageText}</div>
+			<div class="name">{message.author.username}</div>
+			<div 
+				class="text" 
+				class:preview={isPreview(message)}
+			>{message.text}</div>
 		</div>
 	</div>
 </main>
@@ -32,5 +39,8 @@
 	}
 	.text {
 		margin-left: 16px;
+	}
+	.preview{
+		color: gray;
 	}
 </style>

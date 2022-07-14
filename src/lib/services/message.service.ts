@@ -5,6 +5,14 @@ const prisma = new PrismaClient();
 export const createMessage = (msgInfo: Prisma.MessageCreateInput) =>
 	prisma.message.create({
 		data: msgInfo,
+		include: {
+			author: {
+				select: {
+					id: true,
+					username: true,
+				},
+			}
+		}
 	});
 
 export const getMessages = (channelId: number, pageInfo: any) =>
