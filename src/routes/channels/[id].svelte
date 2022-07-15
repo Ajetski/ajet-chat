@@ -113,7 +113,7 @@
 
 <style>
 	main {
-		background-color: #1b1b23;
+		background-color: var(--secondary-100);
 		height: 100%;
 	}
 	.messages {
@@ -139,7 +139,7 @@
 		bottom: 0;
 		grid-area: sender;
 		height: 100%;
-		background-color: #1b1b23;
+		background-color: var(--secondary-100);
 		overflow-anchor: auto;
 	}
 	.sender {
@@ -165,7 +165,7 @@
 		border-bottom-right-radius: 20px;
 	}
 	.text-box {
-		background-color: rgb(86, 40, 86);
+		background-color: var(--primary-200);
 		color: lightgray;
 	}
 	/*#loading-spinner {

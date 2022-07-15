@@ -56,7 +56,7 @@
 	}
 	.grid-left {
 		grid-area: left;
-		background-color: rgb(62, 16, 62);
+		background-color: var(--primary-100);
 		padding-left: 15px;
 		padding-top: 15px;
 	}
@@ -65,7 +65,7 @@
 	}
 	.grid-right {
 		grid-area: right;
-		background-color: rgb(62, 16, 62);
+		background-color: var(--primary-100);
 		padding-left: 15px;
 		padding-top: 15px;
 	}
@@ -78,13 +78,16 @@
 		grid-template-columns: 300px auto 300px;
 		min-height: 100vh;
 		overflow-y: hidden;
-		background-color: #1b1b23;
+		background-color: var(--secondary-100);
 	}
 	:global(:root) {
 		font-family: proxima-nova;
-		--light-gray: #c1c1c1;
 		color: var(--light-gray);
-
+		
+		--secondary-100: #1b1b23;
+		--primary-100: #3E103E;
+		--primary-200: #4c284c;
+		--light-gray: #c1c1c1;
 		--green-activity: #61bc4b;
 		--yellow-activity: #f9ff40;
 		--red-activity: #ac2929;
