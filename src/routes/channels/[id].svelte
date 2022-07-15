@@ -20,71 +20,48 @@
 	import { fade } from 'svelte/transition';
 	import Message from '$lib/components/Message.svelte';
 	import type { MessageType, Preview } from '$lib/client-types';
-	import { onMount } from 'svelte';
 
 	export let messages: (MessageType | Preview)[];
 	export let channelId: number;
 
-	onMount(() => {
-		const elem = document.getElementById('message-log');
-
-		if (elem) {
-			elem.scrollTop = elem.scrollHeight;
-			const config = { childList: true };
-
-			const callback = (mutationsList: any, _observer: MutationObserver) => {
-				for (let mutation of mutationsList) {
-					if (mutation.type === 'childList') {
-						window.scrollTo(0, document.body.scrollHeight);
-					}
-				}
-			};
-
-			const observer = new MutationObserver(callback);
-			observer.observe(elem, config);
-		}
-	});
-
 	let msgInput = '';
 
-	const handleSendMessage = async (e: KeyboardEvent) => {
-		if (e.code === 'Enter') {
-			console.log('sending message:', msgInput);
-			const newMessage = {
-				msgInfo: {
-					author: {
-						connect: {
-							id: 1,
-						},
-					},
-					text: msgInput,
-					channel: {
-						connect: {
-							id: channelId,
-						},
+	const handleSendMessage = async () => {
+		console.log('sending message:', msgInput);
+		const newMessage = {
+			msgInfo: {
+				author: {
+					connect: {
+						id: 1,
 					},
 				},
-			};
-			messages = [
-				{
-					preview: true,
-					author: { id: 1, username: 'test user' },
-					text: msgInput,
+				text: msgInput,
+				channel: {
+					connect: {
+						id: channelId,
+					},
 				},
-				...messages,
-			];
+			},
+		};
+		messages = [
+			{
+				preview: true,
+				author: { id: 1, username: 'test user' },
+				text: msgInput,
+			},
+			...messages,
+		];
 
-			const res = await client().mutation('createMessage', newMessage);
-			msgInput = '';
+		const res = await client().mutation('createMessage', newMessage);
+		msgInput = '';
 
-			messages = messages.map((el) => {
-				const p = el as Preview;
-				if (p.preview) {
-					return res;
-				}
-				return el;
-			});
-		}
+		messages = messages.map((el) => {
+			const p = el as Preview;
+			if (p.preview) {
+				return res;
+			}
+			return el;
+		});
 	};
 </script>
 
@@ -92,9 +69,11 @@
 	<div class="grid" id="message-log">
 		<div class="messages">
 			{#each messages as message}
-				<Message
-					{message}
-					avatarUrl="https://u.cubeupload.com/Moonlight0619/pfp.png" />
+				<div class="message">
+					<Message
+						{message}
+						avatarUrl="https://u.cubeupload.com/Moonlight0619/pfp.png" />
+				</div>
 			{/each}
 		</div>
 		<div class="sender-box">
@@ -105,7 +84,9 @@
 					rows={1}
 					placeholder="message"
 					bind:value={msgInput}
-					on:keypress={handleSendMessage} />
+					on:keypress={(e) => {
+						if (e.code === 'Enter') handleSendMessage();
+					}} />
 			</div>
 		</div>
 	</div>
@@ -118,11 +99,14 @@
 	}
 	.messages {
 		grid-area: messages;
+		flex: 1;
+		height:100%;
+		overflow: auto;
 		display: flex;
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: -ms-flexbox;
 		flex-direction: column-reverse;
+	}
+	.message {
+		height: 8vh;
 	}
 	.grid {
 		display: grid;
@@ -168,9 +152,4 @@
 		background-color: var(--primary-200);
 		color: lightgray;
 	}
-	/*#loading-spinner {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}*/
 </style>
