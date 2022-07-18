@@ -8,9 +8,9 @@ datasource db {
 }
 
 model Channel {
-  id       Int       @id @default(autoincrement())
-  name     String
-  messages Message[]
+  id                 Int                     @id @default(autoincrement())
+  name               String
+  messageChannelMaps MessageChannelMapping[]
 }
 
 model File {
@@ -23,20 +23,47 @@ model File {
 }
 
 model Message {
-  id        Int      @id @default(autoincrement())
-  text      String
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id             Int                          @id @default(autoincrement())
+  text           String
+  authorId       Int
+  author         User                         @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  files          File[]
+  createdTs      DateTime                     @default(now())
+  editedTs       DateTime                     @default(now())
+  directMessage  DirectMessageChannelMapping?
+  channelMessage MessageChannelMapping?
+}
+
+model DirectMessageChannelMapping {
+  id        Int                  @id @default(autoincrement())
+  messageId Int                  @unique
+  message   Message              @relation(fields: [messageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   channelId Int
-  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  files     File[]
-  createdTs DateTime @default(now())
-  editedTs  DateTime @default(now())
+  channel   DirectMessageChannel @relation(fields: [channelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model MessageChannelMapping {
+  id        Int     @id @default(autoincrement())
+  messageId Int     @unique
+  message   Message @relation(fields: [messageId], references: [id])
+  channelId Int
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model DirectMessageChannel {
+  id             Int                           @id @default(autoincrement())
+  user1Id        Int
+  user1          User                          @relation("dm_user1", fields: [user1Id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user2Id        Int
+  user2          User                          @relation("dm_user2", fields: [user2Id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  directMessages DirectMessageChannelMapping[]
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  username String    @unique()
-  hash     String
-  messages Message[]
+  id             Int                    @id @default(autoincrement())
+  username       String                 @unique()
+  hash           String
+  messages       Message[]
+  dmChannelLeft  DirectMessageChannel[] @relation("dm_user1")
+  dmChannelRight DirectMessageChannel[] @relation("dm_user2")
 }
