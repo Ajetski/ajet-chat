@@ -50,7 +50,7 @@
     }
     .login-row button {
         padding: 0.5rem 1rem;
-        background-color: var(--green-activity);
+        background-color: var(--primary-100);
         color: var(--light-gray);
         border: none;
         border-radius: 1rem;
