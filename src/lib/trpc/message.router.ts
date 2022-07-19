@@ -1,6 +1,6 @@
 import { createMessage, getMessages } from '$lib/services/message.service';
 import * as trpc from '@trpc/server';
-import { number, z } from 'zod';
+import { z } from 'zod';
 
 export const messageRouter = trpc
 	.router()
@@ -23,11 +23,28 @@ export const messageRouter = trpc
 						id: z.number().int(),
 					}),
 				}),
-				channel: z.object({
-					connect: z.object({
-						id: z.number().int(),
-					}),
-				}),
+				directMessage: z
+					.object({
+						create: z.object({
+							channel: z.object({
+								connect: z.object({
+									id: z.number().positive(),
+								}),
+							}),
+						}),
+					})
+					.optional(),
+				channelMessage: z
+					.object({
+						create: z.object({
+							channel: z.object({
+								connect: z.object({
+									id: z.number().positive(),
+								}),
+							}),
+						}),
+					})
+					.optional(),
 			}),
 		}),
 		resolve: (req) => createMessage(req.input.msgInfo),

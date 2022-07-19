@@ -83,9 +83,9 @@
 	:global(:root) {
 		font-family: proxima-nova;
 		color: var(--light-gray);
-		
+
 		--secondary-100: #1b1b23;
-		--primary-100: #3E103E;
+		--primary-100: #3e103e;
 		--primary-200: #4c284c;
 		--light-gray: #c1c1c1;
 		--green-activity: #61bc4b;

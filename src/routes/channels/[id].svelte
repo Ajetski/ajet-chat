@@ -8,7 +8,7 @@
 				channelId: +params.id,
 				pageInfo: {
 					pageLength: 30,
-					pageNumber: 0,
+					pageNumber: 1,
 				},
 			}),
 			channelId: +params.id,
@@ -36,9 +36,13 @@
 					},
 				},
 				text: msgInput,
-				channel: {
-					connect: {
-						id: channelId,
+				channelMessage: {
+					create: {
+						channel: {
+							connect: {
+								id: channelId,
+							},
+						},
 					},
 				},
 			},
@@ -100,7 +104,7 @@
 	.messages {
 		grid-area: messages;
 		flex: 1;
-		height:100%;
+		height: 100%;
 		overflow: auto;
 		display: flex;
 		flex-direction: column-reverse;
