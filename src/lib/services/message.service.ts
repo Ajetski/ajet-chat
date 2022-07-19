@@ -39,5 +39,5 @@ export const getMessages = (channelId: number, pageInfo: any) =>
 		},
 		take: pageInfo.pageLength,
 		skip: pageInfo.pageLength * (pageInfo.pageNumber - 1),
-	});
+	}).then(res => res.map(msg => msg.message));
 export type Messages = Awaited<ReturnType<typeof getMessages>>;
