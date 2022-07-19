@@ -1,17 +1,19 @@
 <script lang="ts">
-	export let username: string;
-	export let pfp: string;
+	export let username: string | undefined = undefined;
+	export let pfp: string | undefined = undefined;
 </script>
 
 <main>
 	<div class="header">
 		<div class="flex-container">
 			AJET-CHAT
+			{#if username && pfp}
 			<div class="flex-activity" />
-			<div class="flex-item">{username}</div>
-			<div class="flex-item">
-				<img src={pfp} alt="pfp" height="32x" />
-			</div>
+				<div class="flex-item">{username}</div>
+				<div class="flex-item">
+					<img src={pfp} alt="pfp" height="32x" />
+				</div>
+			{/if}
 		</div>
 	</div>
 </main>
