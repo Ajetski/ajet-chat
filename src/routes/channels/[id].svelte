@@ -75,7 +75,7 @@
 			{#each messages as message}
 				<div class="message">
 					<Message
-						{message}
+						message={message.message}
 						avatarUrl="https://u.cubeupload.com/Moonlight0619/pfp.png" />
 				</div>
 			{/each}
