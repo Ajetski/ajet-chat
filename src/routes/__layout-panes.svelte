@@ -19,6 +19,9 @@
 						pageNumber: 0,
 					},
 				}),
+				dmChannels: await client(fetch).query('getDmChannels', {
+					userId: 1,
+				}),
 			},
 		};
 	};
@@ -34,6 +37,7 @@
 	export let pfp: string;
 	export let channels: InferQueryOutput<'getChannels'>;
 	export let users: InferQueryOutput<'getUsers'>;
+	export let dmChannels: InferQueryOutput<'getDmChannels'>;
 </script>
 
 <div class="grid-container">
@@ -42,6 +46,7 @@
 	</div>
 	<div class="grid-left">
 		<NavPanel
+			{dmChannels}
 			{channels}
 			{users}
 			avatarUrl={'https://u.cubeupload.com/Moonlight0619/pfp.png'} />

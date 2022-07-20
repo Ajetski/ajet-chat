@@ -1,7 +1,7 @@
 <slot />
 
 <style>
-    :global(:root) {
+	:global(:root) {
 		font-family: proxima-nova;
 		color: var(--light-gray);
 

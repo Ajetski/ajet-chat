@@ -16,28 +16,30 @@ export const createMessage = (msgInfo: Prisma.MessageCreateInput) =>
 	});
 
 export const getMessages = (channelId: number, pageInfo: any) =>
-	prisma.messageChannelMapping.findMany({
-		include: {
-			message: {
-				include: {
-					author: {
-						select: {
-							id: true,
-							username: true,
+	prisma.messageChannelMapping
+		.findMany({
+			include: {
+				message: {
+					include: {
+						author: {
+							select: {
+								id: true,
+								username: true,
+							},
 						},
 					},
 				},
 			},
-		},
-		where: {
-			channelId,
-		},
-		orderBy: {
-			message: {
-				createdTs: 'desc',
+			where: {
+				channelId,
 			},
-		},
-		take: pageInfo.pageLength,
-		skip: pageInfo.pageLength * (pageInfo.pageNumber - 1),
-	}).then(res => res.map(msg => msg.message));
+			orderBy: {
+				message: {
+					createdTs: 'desc',
+				},
+			},
+			take: pageInfo.pageLength,
+			skip: pageInfo.pageLength * (pageInfo.pageNumber - 1),
+		})
+		.then((res) => res.map((msg) => msg.message));
 export type Messages = Awaited<ReturnType<typeof getMessages>>;

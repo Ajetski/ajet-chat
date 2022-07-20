@@ -8,7 +8,7 @@
 		<div class="flex-container">
 			AJET-CHAT
 			{#if username && pfp}
-			<div class="flex-activity" />
+				<div class="flex-activity" />
 				<div class="flex-item">{username}</div>
 				<div class="flex-item">
 					<img src={pfp} alt="pfp" height="32x" />

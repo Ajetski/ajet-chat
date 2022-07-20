@@ -1,5 +1,8 @@
 <script lang="ts">
+	import type { InferQueryOutput } from '$lib/trpc/client';
+
 	export let channels: { id: number; name: string }[];
+	export let dmChannels: InferQueryOutput<'getDmChannels'>;
 	export let users: { id: number; username: string }[];
 	export let avatarUrl: string;
 
@@ -20,8 +23,10 @@
 	</div>
 	{#if showDms}
 		<ul>
-			{#each users as user}
-				<li>{user.username}</li>
+			{#each dmChannels as dmChannel}
+				<li>
+					{dmChannel.otherUser.username}
+				</li>
 			{/each}
 		</ul>
 	{/if}
@@ -43,7 +48,7 @@
 	<div class="section-title server-users-title">Server Users</div>
 	<ul>
 		{#each users as user}
-			<li>
+			<li class="server-user-list">
 				<img src={avatarUrl} alt="pfp" height="45px" />{user.username}
 			</li>
 		{/each}
@@ -78,5 +83,8 @@
 	img {
 		border-radius: 50%;
 		height: 48px;
+	}
+	.server-user-list {
+		list-style-type: none;
 	}
 </style>

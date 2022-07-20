@@ -5,6 +5,7 @@ import { messageRouter } from './message.router';
 import { userRouter } from './user.router';
 import trpcTransformer from 'trpc-transformer';
 import { channelRouter } from './channel.router';
+import { dmChannelRouter } from './dm-channel.router';
 
 // optional
 export const createContext = () => {
@@ -27,6 +28,7 @@ export const router = trpc
 	.transformer(trpcTransformer)
 	.merge(messageRouter)
 	.merge(userRouter)
-	.merge(channelRouter);
+	.merge(channelRouter)
+	.merge(dmChannelRouter);
 
 export type Router = typeof router;
