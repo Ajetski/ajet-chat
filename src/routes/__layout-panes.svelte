@@ -22,7 +22,6 @@
 			},
 		};
 	};
-
 </script>
 
 <script lang="ts">
@@ -42,7 +41,10 @@
 		<TitleHeader {username} {pfp} />
 	</div>
 	<div class="grid-left">
-		<NavPanel {channels} {users} />
+		<NavPanel
+			{channels}
+			{users}
+			avatarUrl={'https://u.cubeupload.com/Moonlight0619/pfp.png'} />
 	</div>
 	<div class="grid-center">
 		<slot />
@@ -55,16 +57,19 @@
 				<button type="button">Join</button>
 			</div>
 			{#each users as user}
-			<div class="vc-user">
-				<img class="profile-pic" src="https://u.cubeupload.com/Moonlight0619/pfp.png" alt="profile pic">
-				<h4 class="username">{user.username}</h4>
-				<button type="button">
-					<img src="" alt="">
-				</button>
-				<button type="button">
-					<img src="" alt="">
-				</button>
-			</div>
+				<div class="vc-user">
+					<img
+						class="profile-pic"
+						src="https://u.cubeupload.com/Moonlight0619/pfp.png"
+						alt="profile pic" />
+					<h4 class="username">{user.username}</h4>
+					<button type="button">
+						<img src="" alt="" />
+					</button>
+					<button type="button">
+						<img src="" alt="" />
+					</button>
+				</div>
 			{/each}
 			<!-- <div class="joinable">
 				<h3>Stream</h3>
@@ -75,14 +80,14 @@
 </div>
 
 <style>
-	.joinable{
+	.joinable {
 		display: flex;
 		height: 3rem;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
 	}
-	.joinable button{
+	.joinable button {
 		height: 1.5rem;
 		width: 2.5rem;
 		border: none;

@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let channels: { id: number; name: string }[];
 	export let users: { id: number; username: string }[];
+	export let avatarUrl: string;
 
 	let showChannels = false;
 	const toggleChannelList = () => {
@@ -42,7 +43,9 @@
 	<div class="section-title server-users-title">Server Users</div>
 	<ul>
 		{#each users as user}
-			<li>{user.username}</li>
+			<li>
+				<img src={avatarUrl} alt="pfp" height="45px" />{user.username}
+			</li>
 		{/each}
 	</ul>
 </main>
@@ -71,5 +74,9 @@
 	a {
 		text-decoration: none;
 		color: lightgray;
+	}
+	img {
+		border-radius: 50%;
+		height: 48px;
 	}
 </style>
