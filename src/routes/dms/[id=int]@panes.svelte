@@ -6,10 +6,10 @@
 		props: {
 			messages: await client(fetch).query('getDirectMessages', {
 				channelId: +params.id,
-				/*pageInfo: {
+				pageInfo: {
 					pageLength: 30,
 					pageNumber: 1,
-				},*/
+				},
 			}),
 			channelId: +params.id,
 		},
