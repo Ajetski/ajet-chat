@@ -1,11 +1,12 @@
 // $lib/trpcServer.ts
 import type { inferAsyncReturnType } from '@trpc/server';
 import * as trpc from '@trpc/server';
-import { messageRouter } from './message.router';
-import { userRouter } from './user.router';
 import trpcTransformer from 'trpc-transformer';
 import { channelRouter } from './channel.router';
 import { dmChannelRouter } from './dm-channel.router';
+import { dmRouter } from './dm.router';
+import { messageRouter } from './message.router';
+import { userRouter } from './user.router';
 
 // optional
 export const createContext = () => {
@@ -29,6 +30,7 @@ export const router = trpc
 	.merge(messageRouter)
 	.merge(userRouter)
 	.merge(channelRouter)
-	.merge(dmChannelRouter);
+	.merge(dmChannelRouter)
+	.merge(dmRouter);
 
 export type Router = typeof router;
