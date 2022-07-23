@@ -24,9 +24,11 @@
 	{#if showDms}
 		<ul>
 			{#each dmChannels as dmChannel}
-				<li>
-					{dmChannel.otherUser.username}
-				</li>
+				<a href={`/dms/${dmChannel.id}`}>
+					<li>
+						{dmChannel.otherUser.username}
+					</li>
+				</a>
 			{/each}
 		</ul>
 	{/if}
