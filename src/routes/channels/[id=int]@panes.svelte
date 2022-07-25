@@ -20,8 +20,6 @@
 	import { fade } from 'svelte/transition';
 	import Message from '$lib/components/Message.svelte';
 	import type { MessageType, Preview } from '$lib/client-types';
-	import { prevent_default } from 'svelte/internal';
-
 	export let messages: (MessageType | Preview)[];
 	export let channelId: number;
 
@@ -57,8 +55,8 @@
 			...messages,
 		];
 
-		const res = await client().mutation('createMessage', newMessage);
 		msgInput = '';
+		const res = await client().mutation('createMessage', newMessage);
 
 		messages = messages.map((el) => {
 			const p = el as Preview;
