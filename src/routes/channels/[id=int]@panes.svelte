@@ -20,13 +20,14 @@
 	import { fade } from 'svelte/transition';
 	import Message from '$lib/components/Message.svelte';
 	import type { MessageType, Preview } from '$lib/client-types';
+	import { prevent_default } from 'svelte/internal';
 
 	export let messages: (MessageType | Preview)[];
 	export let channelId: number;
 
 	let msgInput = '';
 
-	const handleSendMessage = async () => {
+	const sendMessage = async () => {
 		console.log('sending message:', msgInput);
 		const newMessage = {
 			msgInfo: {
@@ -67,6 +68,16 @@
 			return el;
 		});
 	};
+
+	const handleButtonPress = (e: KeyboardEvent) => {
+		if (e.code === 'Enter') {
+			if (msgInput.trim()) sendMessage();
+			else {
+				e.preventDefault();
+				msgInput = '';
+			}
+		}
+	};
 </script>
 
 <main in:fade>
@@ -88,9 +99,7 @@
 					rows={1}
 					placeholder="message"
 					bind:value={msgInput}
-					on:keypress={(e) => {
-						if (e.code === 'Enter') handleSendMessage();
-					}} />
+					on:keypress={handleButtonPress} />
 			</div>
 		</div>
 	</div>
