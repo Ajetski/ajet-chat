@@ -20,10 +20,19 @@
 	import { fade } from 'svelte/transition';
 	import Message from '$lib/components/Message.svelte';
 	import type { MessageType, Preview } from '$lib/client-types';
+	import { socket } from '$lib/stores/socket.store';
+	import { Event } from '$lib/event';
 	export let messages: (MessageType | Preview)[];
 	export let channelId: number;
 
 	let msgInput = '';
+
+	$socket.on(Event.Message, (msg: MessageType) => {
+		messages = [msg, ...messages].filter((el) => {
+			const p = el as Preview;
+			return !(p.preview && p.text === msg.text);
+		});
+	});
 
 	const sendMessage = async () => {
 		console.log('sending message:', msgInput);
@@ -56,15 +65,7 @@
 		];
 
 		msgInput = '';
-		const res = await client().mutation('createMessage', newMessage);
-
-		messages = messages.map((el) => {
-			const p = el as Preview;
-			if (p.preview) {
-				return res;
-			}
-			return el;
-		});
+		$socket.emit(Event.Message, newMessage.msgInfo);
 	};
 
 	const handleButtonPress = (e: KeyboardEvent) => {

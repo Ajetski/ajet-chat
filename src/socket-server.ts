@@ -4,6 +4,7 @@ import { Server as SocketServer } from 'socket.io';
 import { Event } from '$lib/event';
 import { Room } from '$lib/room';
 import { createMessage } from '$lib/services/message.service';
+import type { Prisma } from '@prisma/client';
 
 export const initSocketServer = (server: Server) => {
 	const io = new SocketServer(server, {
@@ -16,10 +17,11 @@ export const initSocketServer = (server: Server) => {
 
 	io.on('connection', async (socket) => {
 		await socket.join(Room.Messages);
-		socket.on(Event.Message, async (msgInfo: any) => {
-			await createMessage(msgInfo);
+		socket.on(Event.Message, async (msgInfo: Prisma.MessageCreateInput) => {
+			console.log(msgInfo);
+			const res = await createMessage(msgInfo);
 			const sockets = await io.in(Room.Messages).fetchSockets();
-			for (let s of sockets) s.emit(Event.Message, msgInfo);
+			for (let s of sockets) s.emit(Event.Message, res);
 		});
 		socket.on(
 			Event.JoinVoiceChat,
