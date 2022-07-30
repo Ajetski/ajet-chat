@@ -9,7 +9,12 @@ import type { Prisma } from '@prisma/client';
 export const initSocketServer = (server: Server) => {
 	const io = new SocketServer(server, {
 		cors: {
-			origin: 'http://localhost:3000',
+			origin: [
+				'https://studio.apollographql.com',
+				'https://ajet-chat-dev.herokuapp.com',
+				'http://localhost:8080',
+				'http://localhost:3000',
+			],
 			methods: ['GET', 'POST'],
 			credentials: true,
 		},
