@@ -20,41 +20,43 @@
 	import { fade } from 'svelte/transition';
 	import Message from '$lib/components/Message.svelte';
 	import type { MessageType, Preview } from '$lib/client-types';
+	import type { InferMutationOutput } from '$lib/trpc/client';
 	import { socket } from '$lib/stores/socket.store';
 	import { Event } from '$lib/event';
+	import type { Prisma } from '@prisma/client';
 	export let messages: (MessageType | Preview)[];
 	export let channelId: number;
 
 	let msgInput = '';
 
-	$socket.on(Event.Message, (msg: MessageType) => {
-		messages = [msg, ...messages].filter((el) => {
-			const p = el as Preview;
-			return !(p.preview && p.text === msg.text);
-		});
+	$socket.on(Event.Message, (msg: InferMutationOutput<'createMessage'>) => {
+		if (channelId === msg.channelMessage?.channelId) {
+			messages = [msg, ...messages].filter((el) => {
+				const p = el as Preview;
+				return !(p.preview && p.text === msg.text);
+			});
+		}
 	});
 
 	const sendMessage = async () => {
-		console.log('sending message:', msgInput);
-		const newMessage = {
-			msgInfo: {
-				author: {
-					connect: {
-						id: 1,
-					},
+		const msgInfo: Prisma.MessageCreateInput = {
+			author: {
+				connect: {
+					id: 1,
 				},
-				text: msgInput,
-				channelMessage: {
-					create: {
-						channel: {
-							connect: {
-								id: channelId,
-							},
+			},
+			text: msgInput,
+			channelMessage: {
+				create: {
+					channel: {
+						connect: {
+							id: channelId,
 						},
 					},
 				},
 			},
 		};
+
 		messages = [
 			{
 				preview: true,
@@ -65,7 +67,7 @@
 		];
 
 		msgInput = '';
-		$socket.emit(Event.Message, newMessage.msgInfo);
+		$socket.emit(Event.Message, msgInfo);
 	};
 
 	const handleButtonPress = (e: KeyboardEvent) => {

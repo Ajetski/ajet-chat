@@ -7,10 +7,13 @@ const prisma = new PrismaClient();
 		data: msgInfo,
 	});*/
 
-export const getDirectMessages = (dmChannelId: number, pageInfo: {
-	pageNumber: number,
-	pageLength: number
-}) =>
+export const getDirectMessages = (
+	dmChannelId: number,
+	pageInfo: {
+		pageNumber: number;
+		pageLength: number;
+	},
+) =>
 	prisma.directMessageChannel
 		.findFirst({
 			include: {
