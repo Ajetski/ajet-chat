@@ -24,6 +24,7 @@
 	import { socket } from '$lib/stores/socket.store';
 	import { Event } from '$lib/event';
 	import type { Prisma } from '@prisma/client';
+import { userStore } from '$lib/stores/user.store';
 	export let messages: (MessageType | Preview)[];
 	export let channelId: number;
 
@@ -42,7 +43,7 @@
 		const msgInfo: Prisma.MessageCreateInput = {
 			author: {
 				connect: {
-					id: 1,
+					id: $userStore.id,
 				},
 			},
 			text: msgInput,
@@ -60,7 +61,7 @@
 		messages = [
 			{
 				preview: true,
-				author: { id: 1, username: 'test user' },
+				author: $userStore,
 				text: msgInput,
 			},
 			...messages,

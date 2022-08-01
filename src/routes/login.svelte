@@ -1,14 +1,31 @@
-<script context="module" lang="ts">
-	import client from '$lib/trpc/client';
-</script>
-
 <script lang="ts">
+	import client from '$lib/trpc/client';
 	import { fade } from 'svelte/transition';
 	import TitleHeader from '$lib/components/TitleHeader.svelte';
+	import { userStore } from '$lib/stores/user.store';
+import { goto } from '$app/navigation';
 
-	const handleLogin = async (loginInfo: any) => {
-		// login logic
+	let username = '';
+	let password = '';
+
+	const handleLogin = async () => {
+		try {
+			userStore.set(await client().mutation('login', { username, password }));
+			goto('/channels/1');
+		} catch (e) {
+			console.error(e);
+		}
 	};
+
+	const handleRegister = async () => {
+		try {
+			userStore.set(await client().mutation('register', { username, password }));
+			goto('/channels/1');
+		} catch (e) {
+			console.error(e);
+		}
+		
+	}
 </script>
 
 <main in:fade>
@@ -17,15 +34,15 @@
 		<h2>Login</h2>
 		<div class="login-row">
 			<label for="username">Username: </label>
-			<input type="text" name="username" id="username" />
+			<input type="text" name="username" id="username" bind:value={username} />
 		</div>
 		<div class="login-row">
 			<label for="password">Password: </label>
-			<input type="password" name="password" id="password" />
+			<input type="password" name="password" id="password" bind:value={password} />
 		</div>
 		<div class="login-row">
-			<button type="button">Login</button>
-			<button type="button">Register</button>
+			<button type="button" on:click={handleLogin}>Login</button>
+			<button type="button" on:click={handleRegister}>Register</button>
 		</div>
 	</div>
 </main>

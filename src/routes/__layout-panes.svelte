@@ -5,7 +5,6 @@
 	export const load: Load = async ({ fetch }) => {
 		return {
 			props: {
-				username: 'nhavasi',
 				pfp: 'https://u.cubeupload.com/Moonlight0619/pfp.png',
 				users: await client(fetch).query('getUsers', {
 					pageInfo: {
@@ -32,8 +31,8 @@
 	import NavPanel from '$lib/components/NavPanel.svelte';
 	import type { InferQueryOutput } from '$lib/trpc/client';
 	import client from '$lib/trpc/client';
+import { userStore } from '$lib/stores/user.store';
 
-	export let username: string;
 	export let pfp: string;
 	export let channels: InferQueryOutput<'getChannels'>;
 	export let users: InferQueryOutput<'getUsers'>;
@@ -42,7 +41,7 @@
 
 <div class="grid-container">
 	<div class="grid-top">
-		<TitleHeader {username} {pfp} />
+		<TitleHeader username={$userStore.username} {pfp} />
 	</div>
 	<div class="grid-left">
 		<NavPanel

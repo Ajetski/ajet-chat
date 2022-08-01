@@ -23,11 +23,11 @@ export const userDataSchema = z.object({
 });
 export type UserData = z.infer<typeof userDataSchema>;
 
-export const register = async (userData: UserData): Promise<UserRes> => {
-	return createUser({username: userData.username, hash: await generateHash(userData.password)});
-};
+export const register = async (userData: UserData) =>
+	createUser({username: userData.username, hash: await generateHash(userData.password)});
 
-export const login = async (userData: UserData): Promise<UserRes | undefined> => {
+
+export const login = async (userData: UserData) => {
 	const user = await getUserByUsername(userData.username);
 	if (user && (await isPasswordValid(user.hash, userData.password))) {
 		return {

@@ -31,9 +31,13 @@ export const getUserByUsername = (username: string): Promise<User> =>
 		},
 	});
 */
-export const createUser = async (user: Prisma.UserCreateInput): Promise<User> =>
+export const createUser = async (user: Prisma.UserCreateInput) =>
 	prisma.user.create({
 		data: user,
+		select: {
+			id: true,
+			username: true
+		}
 	});
 
 export const getUsersByIds = async (ids: number[]): Promise<User[]> => {
@@ -59,7 +63,4 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
 	});
 };
 
-export type UserRes = {
-	id: number;
-	username: string;
-}
+export type UserRes = Awaited<ReturnType<typeof createUser>>;
