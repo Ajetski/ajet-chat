@@ -23,7 +23,7 @@ export const createMessage = async (msgInfo: Prisma.MessageCreateInput) => {
 					channel: true,
 				},
 			},
-		}
+		},
 	});
 	console.log('msg created response', msg);
 	return msg;

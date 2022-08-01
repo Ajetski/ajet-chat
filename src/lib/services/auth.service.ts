@@ -1,28 +1,39 @@
-import type { User } from '@prisma/client';
-//import type { DeepPartial } from 'utility-types';
-/*import { createUser, getUserByUsername } from './users.service';
+import { PrismaClient, User } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
+import { z } from 'zod';
+import { createUser, getUserByUsername, UserRes } from './users.service';
 
-export const login = async (
-	username: string,
-	password: string,
-): Promise<DeepPartial<Login>> => {
-	const user: User = await getUserByUsername(username).catch(() => null);
-	if (user?.password === password) {
-		return {
-			user,
-			token: user.id,
-		};
-	} else {
-		throw new Error('incorrect username or password');
-	}
+const prisma = new PrismaClient();
+
+const generateHash = async (password: string): Promise<string> => {
+	const salt = await bcrypt.genSalt(8);
+	return bcrypt.hash(password, salt);
 };
 
-export const register = async (
-	userData: UserInfo,
-): Promise<DeepPartial<Login>> => {
-	const user = await createUser(userData);
-	return {
-		user: user,
-		token: user.id,
-	};
-};*/
+const isPasswordValid = async (
+	hash: string,
+	password: string,
+): Promise<boolean> => {
+	return bcrypt.compare(password, hash);
+};
+
+export const userDataSchema = z.object({
+	username: z.string(),
+	password: z.string(),
+});
+export type UserData = z.infer<typeof userDataSchema>;
+
+export const register = async (userData: UserData): Promise<UserRes> => {
+	return createUser({username: userData.username, hash: await generateHash(userData.password)});
+};
+
+export const login = async (userData: UserData): Promise<UserRes | undefined> => {
+	const user = await getUserByUsername(userData.username);
+	if (user && (await isPasswordValid(user.hash, userData.password))) {
+		return {
+			id: user.id,
+			username: user.username
+		};
+	}
+	return undefined;
+};

@@ -5,6 +5,7 @@ import trpcTransformer from 'trpc-transformer';
 import { channelRouter } from './channel.router';
 import { dmChannelRouter } from './dm-channel.router';
 import { dmRouter } from './dm.router';
+import { authRouter } from './auth.router';
 import { messageRouter } from './message.router';
 import { userRouter } from './user.router';
 
@@ -31,6 +32,7 @@ export const router = trpc
 	.merge(userRouter)
 	.merge(channelRouter)
 	.merge(dmChannelRouter)
-	.merge(dmRouter);
+	.merge(dmRouter)
+	.merge(authRouter);
 
 export type Router = typeof router;

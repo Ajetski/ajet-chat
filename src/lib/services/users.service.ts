@@ -1,5 +1,5 @@
 import type { InferQueryInput } from '$lib/trpc/client';
-import { PrismaClient, User } from '@prisma/client';
+import { Prisma, PrismaClient, User } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -30,13 +30,12 @@ export const getUserByUsername = (username: string): Promise<User> =>
 			username,
 		},
 	});
-
-export const createUser = async (user: UserInfo): Promise<User> =>
+*/
+export const createUser = async (user: Prisma.UserCreateInput): Promise<User> =>
 	prisma.user.create({
 		data: user,
 	});
 
-*/
 export const getUsersByIds = async (ids: number[]): Promise<User[]> => {
 	let users = await prisma.user.findMany({
 		where: {
@@ -51,3 +50,16 @@ export const getUsersByIds = async (ids: number[]): Promise<User[]> => {
 		return users.find((user) => user.id === id)!;
 	});
 };
+
+export const getUserByUsername = async (username: string): Promise<User | null> => {
+	return prisma.user.findFirst({
+		where: {
+			username,
+		},
+	});
+};
+
+export type UserRes = {
+	id: number;
+	username: string;
+}
