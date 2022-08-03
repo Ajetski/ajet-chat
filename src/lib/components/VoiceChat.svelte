@@ -12,7 +12,7 @@ import type { InferQueryOutput } from '$lib/trpc/client';
 	let peerId: string;
 	let peer: any;
 	let localStream: MediaStream;
-	let remoteStreams: MediaStream[] = [];
+	let remoteStream: MediaStream = new MediaStream();
 	onMount(()=> (async () => {
 		if (typeof navigator !== 'undefined') {
 			localStream = await (await navigator.mediaDevices.getUserMedia({ audio: true }));
@@ -32,7 +32,7 @@ import type { InferQueryOutput } from '$lib/trpc/client';
 			peer.on('call', (call: any) => {
 				console.log('user called me', call.peer);
 				call.answer(localStream); // Answer the call with an A/V stream.
-				call.on('stream', (remoteStream: MediaStream) => remoteStreams.push(remoteStream))
+				call.on('stream', (callStream: MediaStream) => remoteStream.addTrack(callStream.getAudioTracks()[0]))
 			});
 		}
 	})());
@@ -49,7 +49,7 @@ import type { InferQueryOutput } from '$lib/trpc/client';
 	$socket.on(Event.JoinVoiceChat, async (channel: InferQueryOutput<'getChannelById'>, joinPeer: string) => {
 		console.log('user joined channel', channel, joinPeer, peerId);
 		if(peerId !== joinPeer){
-			remoteStreams.push(await makeCall(joinPeer));
+			await makeCall(joinPeer);
 		}
 		if($userStore.voiceChannel || peerId === joinPeer){
 			console.log('updating user store');
@@ -108,6 +108,7 @@ import type { InferQueryOutput } from '$lib/trpc/client';
 					<button type="button" class="join-btn" on:click={joinVoiceChat}>Join</button>
 				{:else}
 					<button type="button" class="leave-btn" on:click={leaveVoiceChat}>Leave</button>
+					<audio use:srcObject={remoteStream}></audio>
 				{/if}
 			</div>
 			{#each $voiceChannelStore?.chatters?? [] as user, userIdx}
@@ -123,9 +124,6 @@ import type { InferQueryOutput } from '$lib/trpc/client';
 					<button type="button">
 						<img src="" alt="" />
 					</button>
-					{#each remoteStreams as callStream}
-						<audio use:srcObject={callStream}></audio>
-					{/each}
 				</div>
 			{/each}
 			<!-- <div class="joinable">
