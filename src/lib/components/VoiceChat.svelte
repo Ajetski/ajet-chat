@@ -32,7 +32,11 @@ import type { InferQueryOutput } from '$lib/trpc/client';
 			peer.on('call', (call: any) => {
 				console.log('user called me', call.peer);
 				call.answer(localStream); // Answer the call with an A/V stream.
-				call.on('stream', (callStream: MediaStream) => remoteStream.addTrack(callStream.getAudioTracks()[0]))
+				call.on('stream', (callStream: MediaStream) => {
+					callStream.getAudioTracks().forEach((track: MediaStreamTrack) => {
+						remoteStream.addTrack(track);
+					})
+				});
 			});
 		}
 	})());
