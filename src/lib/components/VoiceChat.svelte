@@ -37,47 +37,45 @@ import type { InferQueryOutput } from '$lib/trpc/client';
 		}
 	})());
 
-	const makeCall = (peerId: string) =>
+	const makeCall = (callPeer: string) =>
 		new Promise<MediaStream>((resolve) => {
-			console.log('calling new user', peerId);
-			const call = peer?.call(peerId, localStream);
-			console.log(call);
+			const call = peer?.call(callPeer, localStream);
 			call.on('stream', (remoteStream: MediaStream) => {
 				resolve(remoteStream);
 			});
+			console.log('called new user', callPeer);
 		});
+
 	$socket.on(Event.JoinVoiceChat, async (channel: InferQueryOutput<'getChannelById'>, joinPeer: string) => {
-		console.log('user join channel', channel, joinPeer);
-		remoteStreams.push(await makeCall(joinPeer));
-		console.log(channel);
-		userStore.update(($user)=> ({
-			...$user,
-			voiceChannel: channel
-		})); 
+		console.log('user joined channel', channel, joinPeer, peerId);
+		if(peerId !== joinPeer){
+			remoteStreams.push(await makeCall(joinPeer));
+		}
+		if($userStore.voiceChannel || peerId === joinPeer){
+			console.log('updating user store');
+			userStore.update(($user)=> ({
+				...$user,
+				voiceChannel: channel
+			}));
+		}
+		textChannelStore.update(($channel)=> channel);
 	});
 
 	$socket.on(Event.LeaveVoiceChat, async (channel: InferQueryOutput<'getChannelById'>, leavePeer: string) => {
-		if ($userStore.voiceChannel) {
-			console.log('user left channel', channel, leavePeer);
-			if(peerId === leavePeer){
-				userStore.update(($user)=>({
-					...$user,
-					voiceChannel: null
-				}))
-			}
-			else{
-				const newChatters = $userStore.voiceChannel.chatters.filter(user => 
-					user.id !== $userStore.id
-				);
-				userStore.update(($user)=> ({
-					...$user,
-					voiceChannel: {
-						...channel,
-						chatters: newChatters
-					}
-				}))
-			}
+		console.log('user left channel', channel, leavePeer);
+		if(peerId === leavePeer || !$userStore.voiceChannel){
+			userStore.update(($user)=>({
+				...$user,
+				voiceChannel: null
+			}))
 		}
+		else{
+			userStore.update(($user)=> ({
+				...$user,
+				voiceChannel: channel
+			}))
+		}
+		textChannelStore.update(($channel)=> channel)
 	});
 
 	const srcObject = (node: HTMLAudioElement, stream: MediaStream) => {
@@ -92,14 +90,12 @@ import type { InferQueryOutput } from '$lib/trpc/client';
 		};
 	};
 
-	const joinVoiceChat = () => {
-		console.log('joining voice');
-		$socket.emit(Event.JoinVoiceChat, $textChannelStore.id, peerId);
-	}
-	const leaveVoiceChat = () => {
-		console.log('leaving voice');
-		$socket.emit(Event.LeaveVoiceChat, $textChannelStore.id, peerId);
-	};
+	const joinVoiceChat = () =>
+		$socket.emit(Event.JoinVoiceChat, $userStore.id, $textChannelStore.id, peerId);
+
+	const leaveVoiceChat = () => 
+		$socket.emit(Event.LeaveVoiceChat, $userStore.id, $textChannelStore.id, peerId);
+
 </script>
 
 <main>
@@ -127,8 +123,8 @@ import type { InferQueryOutput } from '$lib/trpc/client';
 					<button type="button">
 						<img src="" alt="" />
 					</button>
-					{#each remoteStreams as stream}
-						<audio use:srcObject={stream}></audio>
+					{#each remoteStreams as callStream}
+						<audio use:srcObject={callStream}></audio>
 					{/each}
 				</div>
 			{/each}

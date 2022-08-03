@@ -1,3 +1,4 @@
+import { joinVoice, leaveVoice } from './lib/services/users.service';
 import { getChannelById } from './lib/services/channel.service';
 import type { Server } from 'http';
 import { Server as SocketServer } from 'socket.io';
@@ -33,31 +34,27 @@ export const initSocketServer = (server: Server) => {
 		});
 		socket.on(
 			Event.JoinVoiceChat,
-			async (channelId: number, peerId: string) => {
+			async (userId: number, channelId: number, peerId: string) => {
 				const voiceChannelId = channelId.toString();
-				await socket.join(voiceChannelId);
-				const sockets = await io.in(voiceChannelId).fetchSockets();
+				const sockets = await io.fetchSockets();
+				await joinVoice(userId, channelId);
 				const channel = await getChannelById(channelId);
-				console.log('joining channel__: ',channel);
 				sockets.forEach(async (s) => 
 					s.emit(Event.JoinVoiceChat, channel, peerId)
 				);
-				socket.emit(Event.JoinVoiceChat, channel, peerId);
 			},
-		);
-		socket.on(
-			Event.LeaveVoiceChat,
-			async (channelId: number, peerId: string) => {
-				const voiceChannelId = channelId.toString();
-				await socket.join(voiceChannelId);
-				const sockets = await io.in(voiceChannelId).fetchSockets();
-				const channel = await getChannelById(channelId);
-				console.log('leaving channel__: ',channel);
-				sockets.forEach(async (s) => 
-					s.emit(Event.LeaveVoiceChat, channel, peerId)
-				);
-				socket.emit(Event.LeaveVoiceChat, channel, peerId);
-			},
+			);
+			socket.on(
+				Event.LeaveVoiceChat,
+				async (userId: number, channelId: number, peerId: string) => {
+					const voiceChannelId = channelId.toString();
+					const sockets = await io.fetchSockets();
+					await leaveVoice(userId);
+					const channel = await getChannelById(channelId);
+					sockets.forEach(async (s) => 
+						s.emit(Event.LeaveVoiceChat, channel, peerId)
+					);
+				},
 		);
 	});
 

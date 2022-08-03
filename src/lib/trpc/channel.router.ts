@@ -12,11 +12,10 @@ export const channelRouter = trpc.router()
 	})
 	.query('getChannelById', {
 		input: z.object({
-			pageInfo: PageInfo,
 			channelId: z.number()
 		}),
 		resolve: async (req) => {
-			const channel = await getChannelById(req.input.pageInfo, req.input.channelId);
+			const channel = await getChannelById(req.input.channelId);
 			if(!channel){
 				throw new trpc.TRPCError({
 					code: 'NOT_FOUND',

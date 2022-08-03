@@ -94,7 +94,7 @@ export const joinVoice = async (userId: number, channelId: number) => {
 	})
 }
 
-export const leaveVoice = async (userId: number, channelId: number) => {
+export const leaveVoice = async (userId: number) => {
 	return await prisma.user.update({
 		where: {
 			id: userId
