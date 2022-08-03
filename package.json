@@ -5,6 +5,7 @@
 		"heroku-prebuild": "yarn install && yarn build && yarn build:server && yarn generate",
 		"start": "yarn preview --port $PORT --host",
 		"start:server": "node --experimental-specifier-resolution=node dist/index.js",
+		"dev:server": "nodemon --experimental-specifier-resolution=node dist/index.js",
 		"dev": "concurrently \"vite dev\" \"tsc -w\" \"tsc-alias -w\"",
 		"build": "vite build",
 		"build:server": "tsc && tsc-alias",
