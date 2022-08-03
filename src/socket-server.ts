@@ -1,3 +1,4 @@
+import { getChannelById } from './lib/services/channel.service';
 import type { Server } from 'http';
 import { Server as SocketServer } from 'socket.io';
 
@@ -21,7 +22,9 @@ export const initSocketServer = (server: Server) => {
 	});
 
 	io.on('connection', async (socket) => {
+		console.log('connecting...');
 		await socket.join(Room.Messages);
+		console.log('connected!');
 		socket.on(Event.Message, async (msgInfo: Prisma.MessageCreateInput) => {
 			console.log(msgInfo);
 			const res = await createMessage(msgInfo);
@@ -34,9 +37,12 @@ export const initSocketServer = (server: Server) => {
 				const voiceChannelId = channelId.toString();
 				await socket.join(voiceChannelId);
 				const sockets = await io.in(voiceChannelId).fetchSockets();
-				sockets
-					.filter((s) => s.id != socket.id)
-					.forEach((s) => s.emit(Event.JoinVoiceChat, channelId, peerId));
+				const channel = await getChannelById(channelId);
+				console.log('joining channel__: ',channel);
+				sockets.forEach(async (s) => 
+					s.emit(Event.JoinVoiceChat, channel, peerId)
+				);
+				socket.emit(Event.JoinVoiceChat, channel, peerId);
 			},
 		);
 		socket.on(
@@ -45,9 +51,12 @@ export const initSocketServer = (server: Server) => {
 				const voiceChannelId = channelId.toString();
 				await socket.join(voiceChannelId);
 				const sockets = await io.in(voiceChannelId).fetchSockets();
-				sockets
-					.filter((s) => s.id != socket.id)
-					.forEach((s) => s.emit(Event.LeaveVoiceChat, channelId, peerId));
+				const channel = await getChannelById(channelId);
+				console.log('leaving channel__: ',channel);
+				sockets.forEach(async (s) => 
+					s.emit(Event.LeaveVoiceChat, channel, peerId)
+				);
+				socket.emit(Event.LeaveVoiceChat, channel, peerId);
 			},
 		);
 	});

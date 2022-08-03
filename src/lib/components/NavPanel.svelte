@@ -1,9 +1,13 @@
 <script lang="ts">
+	import { textChannelStore, voiceChannelStore } from '$lib/stores/channel.store';
+	import { userStore } from '$lib/stores/user.store';
 	import type { InferQueryOutput } from '$lib/trpc/client';
+	import { socket } from '$lib/stores/socket.store';
+	import { Event } from '$lib/event'
 
-	export let channels: { id: number; name: string }[];
+	export let channels: InferQueryOutput<'getChannels'>;
 	export let dmChannels: InferQueryOutput<'getDmChannels'>;
-	export let users: { id: number; username: string }[];
+	export let users: InferQueryOutput<'getUsers'>;
 	export let avatarUrl: string;
 
 	let showChannels = false;
@@ -13,6 +17,15 @@
 	let showDms = false;
 	const toggleDirectMessage = () => {
 		showDms = !showDms;
+	};
+
+	const joinTextChat = (channel: InferQueryOutput<'getChannelById'>) => textChannelStore.set(channel);
+	const joinVoiceChat = (channel: InferQueryOutput<'getChannelById'>) => {
+		$socket.emit(Event.JoinVoiceChat, $textChannelStore.id, $userStore.id);
+		userStore.update(($user)=> ({
+			...$user,
+			voiceChannel: channel
+		}))
 	};
 </script>
 
@@ -40,7 +53,7 @@
 	{#if showChannels}
 		<ul>
 			{#each channels as channel}
-				<a href="/channels/{channel.id}">
+				<a href="/channels/{channel.id}" on:click={()=>joinTextChat(channel)}>
 					<li>{channel.name}</li>
 				</a>
 			{/each}
@@ -50,8 +63,9 @@
 	<div class="section-title server-users-title">Server Users</div>
 	<ul>
 		{#each users as user}
-			<li class="server-user-list">
-				<img src={avatarUrl} alt="pfp" height="45px" />{user.username}
+			<li class="server-user">
+				<img src={avatarUrl} alt="pfp" height="45px" />
+				{user.username}
 			</li>
 		{/each}
 	</ul>
@@ -63,8 +77,7 @@
 	}
 	.clickable,
 	.server-users-title {
-		margin-top: 5px;
-		margin-bottom: 5px;
+		margin: .5rem;
 	}
 	.divider {
 		border-bottom: 1px solid grey;
@@ -86,7 +99,14 @@
 		border-radius: 50%;
 		height: 48px;
 	}
-	.server-user-list {
+	.server-user {
 		list-style-type: none;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding: 0 0 1rem 0;
+	}
+	.server-user img {
+		padding: 0 .5rem;
 	}
 </style>

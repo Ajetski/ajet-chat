@@ -62,6 +62,8 @@ import { goto } from '$app/navigation';
 	h2 {
 		width: calc(100% - 2rem);
 		padding: 0.5rem 2rem;
+		display: flex;
+		justify-content: center;
 	}
 	.login-row label {
 		width: 6rem;
@@ -69,9 +71,13 @@ import { goto } from '$app/navigation';
 	.login-row button {
 		padding: 0.5rem 1rem;
 		background-color: var(--primary-100);
+		cursor: pointer;
 		color: var(--light-gray);
 		border: none;
 		border-radius: 1rem;
 		margin-right: 1rem;
+	}
+	.login-row button:hover {
+		background-color: var(--primary-200);
 	}
 </style>

@@ -29,9 +29,11 @@
 <script lang="ts">
 	import TitleHeader from '$lib/components/TitleHeader.svelte';
 	import NavPanel from '$lib/components/NavPanel.svelte';
+	import VoiceChat from '$lib/components/VoiceChat.svelte';
 	import type { InferQueryOutput } from '$lib/trpc/client';
 	import client from '$lib/trpc/client';
-import { userStore } from '$lib/stores/user.store';
+	import { userStore } from '$lib/stores/user.store';
+	import { voiceChannelStore, textChannelStore } from '$lib/stores/channel.store';
 
 	export let pfp: string;
 	export let channels: InferQueryOutput<'getChannels'>;
@@ -54,68 +56,11 @@ import { userStore } from '$lib/stores/user.store';
 		<slot />
 	</div>
 	<div class="grid-right">
-		<h2 style="margin: 0;">Text-Channel-Name</h2>
-		<div style="padding: 0 0 0 1rem;">
-			<div class="joinable">
-				<h3>Voice</h3>
-				<button type="button">Join</button>
-			</div>
-			{#each users as user}
-				<div class="vc-user">
-					<img
-						class="profile-pic"
-						src="https://u.cubeupload.com/Moonlight0619/pfp.png"
-						alt="profile pic" />
-					<h4 class="username">{user.username}</h4>
-					<button type="button">
-						<img src="" alt="" />
-					</button>
-					<button type="button">
-						<img src="" alt="" />
-					</button>
-				</div>
-			{/each}
-			<!-- <div class="joinable">
-				<h3>Stream</h3>
-				<button type="button">Join</button>
-			</div> -->
-		</div>
+		<VoiceChat channelId={$voiceChannelStore?.id}></VoiceChat>
 	</div>
 </div>
 
 <style>
-	.joinable {
-		display: flex;
-		height: 3rem;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-	}
-	.joinable button {
-		height: 1.5rem;
-		width: 2.5rem;
-		border: none;
-		border-radius: 1rem;
-		background-color: var(--green-activity);
-		color: white;
-	}
-	.vc-user {
-		height: 2.5rem;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0 25% 0 0;
-	}
-	.profile-pic {
-		width: 2rem;
-		height: 2rem;
-		border-radius: 1rem;
-	}
-	.username {
-		width: 6rem;
-		overflow-x: hidden;
-	}
 	.grid-top {
 		grid-area: top;
 		border-bottom: 2px solid grey;

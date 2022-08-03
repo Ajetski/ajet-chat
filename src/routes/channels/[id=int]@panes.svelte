@@ -4,29 +4,27 @@
 	import { userStore } from '$lib/stores/user.store';
 
 	export const load: Load = ({ params, fetch }) => {
-		return new Promise((resolve, reject)=>{
-			userStore.subscribe(async (user)=> {
-				if(!user){
-					resolve({
-						status: 302,
-						redirect: '/login'
-					})
-				}
-				else{
-					resolve({
-					props: {
-						messages: await client(fetch).query('getMessages', {
-							channelId: +params.id,
-							pageInfo: {
-								pageLength: 30,
-								pageNumber: 1,
-							},
-						}),
-						channelId: +params.id,
-					},
+		return promisifyStore(userStore).then(async (user)=> {
+			if(!user){
+				return ({
+					status: 302,
+					redirect: '/login'
 				})
-				}
-			})
+			}
+			else{
+				return {
+				props: {
+					messages: await client(fetch).query('getMessages', {
+						channelId: +params.id,
+						pageInfo: {
+							pageLength: 30,
+							pageNumber: 1,
+						},
+					}),
+					channelId: +params.id,
+				},
+			}
+			}
 		})
 	};
 </script>
@@ -39,6 +37,7 @@
 	import { socket } from '$lib/stores/socket.store';
 	import { Event } from '$lib/event';
 	import type { Prisma } from '@prisma/client';
+	import { promisifyStore } from '$lib/util';
 	export let messages: (MessageType | Preview)[];
 	export let channelId: number;
 

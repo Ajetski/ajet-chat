@@ -1,4 +1,5 @@
-import { PrismaClient, User } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+import type { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { z } from 'zod';
 import { createUser, getUserByUsername, UserRes } from './users.service';

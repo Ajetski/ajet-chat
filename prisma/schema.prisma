@@ -11,6 +11,7 @@ model Channel {
   id                 Int                     @id @default(autoincrement())
   name               String
   messageChannelMaps MessageChannelMapping[]
+  chatters           User[]
 }
 
 model File {
@@ -64,6 +65,8 @@ model User {
   username       String                 @unique()
   hash           String
   messages       Message[]
+  voiceChannelId Int?                    
+  voiceChannel   Channel?                @relation(fields: [voiceChannelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   dmChannelLeft  DirectMessageChannel[] @relation("dm_user1")
   dmChannelRight DirectMessageChannel[] @relation("dm_user2")
 }

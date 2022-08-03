@@ -1,5 +1,5 @@
-import type { InferQueryInput } from '$lib/trpc/client';
-import { Prisma, PrismaClient, User } from '@prisma/client';
+import { Prisma, PrismaClient} from '@prisma/client';
+import type {User} from '@prisma/client'
 
 const prisma = new PrismaClient();
 
@@ -36,8 +36,21 @@ export const createUser = async (user: Prisma.UserCreateInput) =>
 		data: user,
 		select: {
 			id: true,
-			username: true
-		}
+			username: true,
+			voiceChannel: {
+				include: { 
+					chatters: {
+						select: {
+							username: true,
+							id: true,
+							voiceChannel: true,
+							voiceChannelId: true
+						}
+					}
+				}
+			},
+			voiceChannelId: true
+		},
 	});
 
 export const getUsersByIds = async (ids: number[]): Promise<User[]> => {
@@ -62,5 +75,41 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
 		},
 	});
 };
+
+export const joinVoice = async (userId: number, channelId: number) => {
+	return await prisma.user.update({
+		where: {
+			id: userId
+		},
+		data: {
+			voiceChannelId: channelId,
+		},
+		include: {
+			voiceChannel: {
+				include: {
+					chatters: true
+				}
+			}
+		}
+	})
+}
+
+export const leaveVoice = async (userId: number, channelId: number) => {
+	return await prisma.user.update({
+		where: {
+			id: userId
+		},
+		data: {
+			voiceChannelId: null
+		},
+		include: {
+			voiceChannel: {
+				include: {
+					chatters: true
+				}
+			},
+		}
+	})
+}
 
 export type UserRes = Awaited<ReturnType<typeof createUser>>;
