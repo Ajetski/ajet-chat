@@ -1843,7 +1843,7 @@ peerjs-js-binarypack@1.0.1:
 
 peerjs@^1.4.6:
   version "1.4.6"
-  resolved "https://registry.npmjs.org/peerjs/-/peerjs-1.4.6.tgz"
+  resolved "https://registry.yarnpkg.com/peerjs/-/peerjs-1.4.6.tgz#781f335f4043fcd686dc19acd3341db0570f7e72"
   integrity sha512-0XA105/9yBFGxfpyCjlI1bcBiyPmXHs8+UDvO2j1WGnY+FXilMn35+P/3t8HzKnUnR1SX0PRkDSk8kM17ciNxA==
   dependencies:
     "@swc/helpers" "^0.3.13"
