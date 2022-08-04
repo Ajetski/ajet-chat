@@ -33,12 +33,18 @@
 	import type { InferQueryOutput } from '$lib/trpc/client';
 	import client from '$lib/trpc/client';
 	import { userStore } from '$lib/stores/user.store';
-	import { voiceChannelStore, textChannelStore } from '$lib/stores/channel.store';
+	import { voiceChannelStore } from '$lib/stores/channel.store';
+	import {goto} from '$app/navigation';
 
 	export let pfp: string;
 	export let channels: InferQueryOutput<'getChannels'>;
 	export let users: InferQueryOutput<'getUsers'>;
 	export let dmChannels: InferQueryOutput<'getDmChannels'>;
+
+	// @TODO: get authenticated cookie and check if expirationDate < now
+	if (!$userStore.id) {
+		goto('/login');
+	}
 </script>
 
 <div class="grid-container">

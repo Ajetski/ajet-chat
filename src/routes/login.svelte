@@ -3,7 +3,7 @@
 	import { fade } from 'svelte/transition';
 	import TitleHeader from '$lib/components/TitleHeader.svelte';
 	import { userStore } from '$lib/stores/user.store';
-import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	let username = '';
 	let password = '';
@@ -20,6 +20,7 @@ import { goto } from '$app/navigation';
 	const handleRegister = async () => {
 		try {
 			userStore.set(await client().mutation('register', { username, password }));
+			// @TODO: set a cookie that contains a token and an expiration date of now + 30 days
 			goto('/channels/1');
 		} catch (e) {
 			console.error(e);
