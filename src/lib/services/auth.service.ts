@@ -36,6 +36,8 @@ export const login = async (userData: UserData) => {
 		return {
 			id: user.id,
 			username: user.username,
+			voiceChannel: user.voiceChannel,
+			voiceChannelId: user.voiceChannelId
 		};
 	}
 	return undefined;

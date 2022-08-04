@@ -68,12 +68,24 @@ export const getUsersByIds = async (ids: number[]): Promise<User[]> => {
 	});
 };
 
-export const getUserByUsername = async (
-	username: string,
-): Promise<User | null> => {
+export const getUserByUsername = async (username: string) => {
 	return prisma.user.findFirst({
 		where: {
 			username,
+		},
+		include: {
+			voiceChannel: {
+				include: {
+					chatters: {
+						select: {
+							username: true,
+							id: true,
+							voiceChannel: true,
+							voiceChannelId: true,
+						},
+					},
+				},
+			},
 		},
 	});
 };
