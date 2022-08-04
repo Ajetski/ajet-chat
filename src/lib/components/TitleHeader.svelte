@@ -30,7 +30,7 @@
 							{username}
 						</button>
 						<div class="dropdown-menu" class:show={isDropdownOpen}>
-							<a class="dropdown-item" href="#">User Settings</a>
+							<a class="dropdown-item" href="https://google./com">User Settings</a>
 						</div>
 					</div>
 				</div>

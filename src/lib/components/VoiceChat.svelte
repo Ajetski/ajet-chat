@@ -6,49 +6,39 @@
 	import { userStore } from '$lib/stores/user.store';
 	import { socket } from '$lib/stores/socket.store';
 	import { Event } from '$lib/event';
-	import type { Channel } from '@prisma/client';
 	import { onMount } from 'svelte';
 	import type { InferQueryOutput } from '$lib/trpc/client';
-
-	export let channelId: number;
 
 	let peerId: string;
 	let peer: any;
 	let localStream: MediaStream;
 	let remoteStream: MediaStream = new MediaStream();
-	onMount(() =>
-		(async () => {
-			if (typeof navigator !== 'undefined') {
-				localStream = await await navigator.mediaDevices.getUserMedia({
-					audio: true,
+	onMount(async () => {
+		localStream = await navigator.mediaDevices
+			.getUserMedia({
+				audio: true,
+			});
+	});
+	onMount(async () => {
+		const Peer = (await import('peerjs')).default;
+		peer = new Peer(undefined as unknown as string, {
+			host: import.meta.env.VITE_P2P_HOST,
+			path: '/myapp',
+			secure: true,
+		});
+		peer.on('open', () => {
+			peerId = peer?.id;
+		});
+		peer.on('call', (call: any) => {
+			console.log('user called me', call.peer);
+			call.answer(localStream); // Answer the call with an A/V stream.
+			call.on('stream', (callStream: MediaStream) => {
+				callStream.getAudioTracks().forEach((track: MediaStreamTrack) => {
+					remoteStream.addTrack(track);
 				});
-			}
-		})(),
-	);
-	onMount(() =>
-		(async () => {
-			if (typeof navigator !== 'undefined') {
-				const Peer = (await import('peerjs')).default;
-				peer = new Peer(undefined as unknown as string, {
-					host: import.meta.env.VITE_P2P_HOST,
-					path: '/myapp',
-					secure: true,
-				});
-				peer.on('open', () => {
-					peerId = peer?.id;
-				});
-				peer.on('call', (call: any) => {
-					console.log('user called me', call.peer);
-					call.answer(localStream); // Answer the call with an A/V stream.
-					call.on('stream', (callStream: MediaStream) => {
-						callStream.getAudioTracks().forEach((track: MediaStreamTrack) => {
-							remoteStream.addTrack(track);
-						});
-					});
-				});
-			}
-		})(),
-	);
+			});
+		});
+	});
 
 	const makeCall = (callPeer: string) =>
 		new Promise<MediaStream>((resolve) => {
