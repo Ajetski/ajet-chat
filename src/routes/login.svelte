@@ -19,14 +19,15 @@
 
 	const handleRegister = async () => {
 		try {
-			userStore.set(await client().mutation('register', { username, password }));
+			userStore.set(
+				await client().mutation('register', { username, password }),
+			);
 			// @TODO: set a cookie that contains a token and an expiration date of now + 30 days
 			goto('/channels/1');
 		} catch (e) {
 			console.error(e);
 		}
-		
-	}
+	};
 </script>
 
 <main in:fade>
@@ -39,7 +40,11 @@
 		</div>
 		<div class="login-row">
 			<label for="password">Password: </label>
-			<input type="password" name="password" id="password" bind:value={password} />
+			<input
+				type="password"
+				name="password"
+				id="password"
+				bind:value={password} />
 		</div>
 		<div class="login-row">
 			<button type="button" on:click={handleLogin}>Login</button>

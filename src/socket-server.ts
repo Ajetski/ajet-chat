@@ -39,22 +39,22 @@ export const initSocketServer = (server: Server) => {
 				const sockets = await io.fetchSockets();
 				await joinVoice(userId, channelId);
 				const channel = await getChannelById(channelId);
-				sockets.forEach(async (s) => 
-					s.emit(Event.JoinVoiceChat, channel, peerId)
+				sockets.forEach(async (s) =>
+					s.emit(Event.JoinVoiceChat, channel, peerId),
 				);
 			},
-			);
-			socket.on(
-				Event.LeaveVoiceChat,
-				async (userId: number, channelId: number, peerId: string) => {
-					const voiceChannelId = channelId.toString();
-					const sockets = await io.fetchSockets();
-					await leaveVoice(userId);
-					const channel = await getChannelById(channelId);
-					sockets.forEach(async (s) => 
-						s.emit(Event.LeaveVoiceChat, channel, peerId)
-					);
-				},
+		);
+		socket.on(
+			Event.LeaveVoiceChat,
+			async (userId: number, channelId: number, peerId: string) => {
+				const voiceChannelId = channelId.toString();
+				const sockets = await io.fetchSockets();
+				await leaveVoice(userId);
+				const channel = await getChannelById(channelId);
+				sockets.forEach(async (s) =>
+					s.emit(Event.LeaveVoiceChat, channel, peerId),
+				);
+			},
 		);
 	});
 

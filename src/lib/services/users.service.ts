@@ -1,5 +1,5 @@
-import { Prisma, PrismaClient} from '@prisma/client';
-import type {User} from '@prisma/client'
+import { Prisma, PrismaClient } from '@prisma/client';
+import type { User } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -38,18 +38,18 @@ export const createUser = async (user: Prisma.UserCreateInput) =>
 			id: true,
 			username: true,
 			voiceChannel: {
-				include: { 
+				include: {
 					chatters: {
 						select: {
 							username: true,
 							id: true,
 							voiceChannel: true,
-							voiceChannelId: true
-						}
-					}
-				}
+							voiceChannelId: true,
+						},
+					},
+				},
 			},
-			voiceChannelId: true
+			voiceChannelId: true,
 		},
 	});
 
@@ -68,7 +68,9 @@ export const getUsersByIds = async (ids: number[]): Promise<User[]> => {
 	});
 };
 
-export const getUserByUsername = async (username: string): Promise<User | null> => {
+export const getUserByUsername = async (
+	username: string,
+): Promise<User | null> => {
 	return prisma.user.findFirst({
 		where: {
 			username,
@@ -79,7 +81,7 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
 export const joinVoice = async (userId: number, channelId: number) => {
 	return await prisma.user.update({
 		where: {
-			id: userId
+			id: userId,
 		},
 		data: {
 			voiceChannelId: channelId,
@@ -87,29 +89,29 @@ export const joinVoice = async (userId: number, channelId: number) => {
 		include: {
 			voiceChannel: {
 				include: {
-					chatters: true
-				}
-			}
-		}
-	})
-}
+					chatters: true,
+				},
+			},
+		},
+	});
+};
 
 export const leaveVoice = async (userId: number) => {
 	return await prisma.user.update({
 		where: {
-			id: userId
+			id: userId,
 		},
 		data: {
-			voiceChannelId: null
+			voiceChannelId: null,
 		},
 		include: {
 			voiceChannel: {
 				include: {
-					chatters: true
-				}
+					chatters: true,
+				},
 			},
-		}
-	})
-}
+		},
+	});
+};
 
 export type UserRes = Awaited<ReturnType<typeof createUser>>;

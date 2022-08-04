@@ -4,28 +4,27 @@
 	import { userStore } from '$lib/stores/user.store';
 
 	export const load: Load = ({ params, fetch }) => {
-		return promisifyStore(userStore).then(async (user)=> {
-			if(!user){
-				return ({
-					status: 302,
-					redirect: '/login'
-				})
-			}
-			else{
+		return promisifyStore(userStore).then(async (user) => {
+			if (!user) {
 				return {
-				props: {
-					messages: await client(fetch).query('getMessages', {
+					status: 302,
+					redirect: '/login',
+				};
+			} else {
+				return {
+					props: {
+						messages: await client(fetch).query('getMessages', {
+							channelId: +params.id,
+							pageInfo: {
+								pageLength: 30,
+								pageNumber: 1,
+							},
+						}),
 						channelId: +params.id,
-						pageInfo: {
-							pageLength: 30,
-							pageNumber: 1,
-						},
-					}),
-					channelId: +params.id,
-				},
+					},
+				};
 			}
-			}
-		})
+		});
 	};
 </script>
 

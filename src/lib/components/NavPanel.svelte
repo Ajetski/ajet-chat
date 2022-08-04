@@ -1,9 +1,12 @@
 <script lang="ts">
-	import { textChannelStore, voiceChannelStore } from '$lib/stores/channel.store';
+	import {
+		textChannelStore,
+		voiceChannelStore,
+	} from '$lib/stores/channel.store';
 	import { userStore } from '$lib/stores/user.store';
 	import type { InferQueryOutput } from '$lib/trpc/client';
 	import { socket } from '$lib/stores/socket.store';
-	import { Event } from '$lib/event'
+	import { Event } from '$lib/event';
 
 	export let channels: InferQueryOutput<'getChannels'>;
 	export let dmChannels: InferQueryOutput<'getDmChannels'>;
@@ -19,13 +22,14 @@
 		showDms = !showDms;
 	};
 
-	const joinTextChat = (channel: InferQueryOutput<'getChannelById'>) => textChannelStore.set(channel);
+	const joinTextChat = (channel: InferQueryOutput<'getChannelById'>) =>
+		textChannelStore.set(channel);
 	const joinVoiceChat = (channel: InferQueryOutput<'getChannelById'>) => {
 		$socket.emit(Event.JoinVoiceChat, $textChannelStore.id, $userStore.id);
-		userStore.update(($user)=> ({
+		userStore.update(($user) => ({
 			...$user,
-			voiceChannel: channel
-		}))
+			voiceChannel: channel,
+		}));
 	};
 </script>
 
@@ -53,7 +57,7 @@
 	{#if showChannels}
 		<ul>
 			{#each channels as channel}
-				<a href="/channels/{channel.id}" on:click={()=>joinTextChat(channel)}>
+				<a href="/channels/{channel.id}" on:click={() => joinTextChat(channel)}>
 					<li>{channel.name}</li>
 				</a>
 			{/each}
@@ -77,7 +81,7 @@
 	}
 	.clickable,
 	.server-users-title {
-		margin: .5rem;
+		margin: 0.5rem;
 	}
 	.divider {
 		border-bottom: 1px solid grey;
@@ -107,6 +111,6 @@
 		padding: 0 0 1rem 0;
 	}
 	.server-user img {
-		padding: 0 .5rem;
+		padding: 0 0.5rem;
 	}
 </style>

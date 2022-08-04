@@ -34,7 +34,7 @@
 	import client from '$lib/trpc/client';
 	import { userStore } from '$lib/stores/user.store';
 	import { voiceChannelStore } from '$lib/stores/channel.store';
-	import {goto} from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	export let pfp: string;
 	export let channels: InferQueryOutput<'getChannels'>;
@@ -62,7 +62,7 @@
 		<slot />
 	</div>
 	<div class="grid-right">
-		<VoiceChat channelId={$voiceChannelStore?.id}></VoiceChat>
+		<VoiceChat channelId={$voiceChannelStore?.id} />
 	</div>
 </div>
 

@@ -17,16 +17,16 @@ export const getChannels = (pageInfo: any) =>
 					id: true,
 					username: true,
 					voiceChannel: true,
-					voiceChannelId: true
-				}
-			}
-		} 
+					voiceChannelId: true,
+				},
+			},
+		},
 	});
 
-export const getChannelById = async(channelId: number) =>
+export const getChannelById = async (channelId: number) =>
 	prisma.channel.findUnique({
 		where: {
-			id: channelId
+			id: channelId,
 		},
 		include: {
 			chatters: {
@@ -34,9 +34,8 @@ export const getChannelById = async(channelId: number) =>
 					id: true,
 					username: true,
 					voiceChannel: true,
-					voiceChannelId: true
-				}
-			}
-		} 
+					voiceChannelId: true,
+				},
+			},
+		},
 	});
-
