@@ -75,6 +75,8 @@
 		grid-area: left;
 		background-color: var(--primary-100);
 		padding: 0 1rem 1rem;
+		max-height: calc(100vh - 4.75rem);
+		overflow-y: scroll;
 	}
 	.grid-center {
 		grid-area: center;

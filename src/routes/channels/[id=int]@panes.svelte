@@ -140,7 +140,7 @@
 		grid-template-areas: 'messages' 'sender';
 		grid-template-rows: auto 50px;
 		height: 100%;
-		max-height: calc(100vh - 60px);
+		max-height: calc(100vh - 3.75rem);
 		overflow-y: scroll;
 		overflow-anchor: none;
 	}
